@@ -59,11 +59,10 @@ handleAdd() {
   this.selectedImage = null;
   this.showModal = true;
 
-  // Affiche la grille dans le parent modal
-  this.showGridOnlyInModal = true;
+  // ✅ La grille ne s'affiche PAS immédiatement dans le modal
+  this.showGridOnlyInModal = false;
   this.addModeChanged.emit(true);
 }
-
 
 closeModal() {
   this.showModal = false;

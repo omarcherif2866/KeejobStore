@@ -446,45 +446,46 @@ export class FormationKeejobComponent implements OnInit {
 
   // ==================== MODALS LOGICIELS ====================
   
-  openLogicielsModal(sf: any) {
-    console.log('🔍 Ouverture modal logiciels pour:', sf);
-    this.currentSousFormation = sf;
-    const sfId = sf.id;
-      this.showLogicielGridInModal = true; // par défaut on affiche la grille
+openLogicielsModal(sf: any) {
+  console.log('🔍 Ouverture modal logiciels pour:', sf);
+  console.log('🔑 ID de la sous-formation:', sf.id); // ✅ Vérifier cette ligne
+  
+  this.currentSousFormation = sf;
+  const sfId = sf.id;
+  this.showLogicielGridInModal = true;
 
-    if (!sfId) {
-      console.error('❌ ID manquant');
+  if (!sfId) {
+    console.error('❌ ID manquant');
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: 'ID de sous-formation manquant',
+      timer: 2000
+    });
+    return;
+  }
+
+  this.loading = true;
+
+  this.logicielService.getLogicielBySousFormationKeejob(sfId).subscribe(
+    (logiciels) => {
+      console.log('✅ Logiciels chargés:', logiciels);
+      this.logicielMap[sfId] = logiciels;
+      this.showLogicielModal = true;
+      this.loading = false;
+    },
+    (error) => {
+      console.error('❌ Erreur chargement logiciels:', error);
+      this.loading = false;
       Swal.fire({
         icon: 'error',
         title: 'Erreur',
-        text: 'ID de sous-formation manquant',
+        text: 'Impossible de charger les logiciels',
         timer: 2000
       });
-      return;
     }
-
-    this.loading = true;
-
-    this.logicielService.getLogicielBySousFormationKeejob(sfId).subscribe(
-      (logiciels) => {
-        console.log('✅ Logiciels chargés:', logiciels);
-        this.logicielMap[sfId] = logiciels;
-        this.showLogicielModal = true;
-        this.loading = false;
-      },
-      (error) => {
-        console.error('❌ Erreur chargement logiciels:', error);
-        this.loading = false;
-        Swal.fire({
-          icon: 'error',
-          title: 'Erreur',
-          text: 'Impossible de charger les logiciels',
-          timer: 2000
-        });
-      }
-    );
-  }
-
+  );
+}
   closeLogicielModal() {
     this.showLogicielModal = false;
     this.currentSousFormation = null;

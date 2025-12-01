@@ -250,10 +250,11 @@
       <button class="close-btn" (click)="closeLogicielModal()">×</button>
     </div>
 
-<app-logiciel 
-  [sousFormationId]="currentSousFormation?.Id"
-  (addModeChanged)="showLogicielGridInModal = !$event">
-</app-logiciel>
+    <app-logiciel 
+      [sousFormationId]="currentSousFormation?.id"
+      [showAllLogiciels]="false"
+      (addModeChanged)="showLogicielGridInModal = !$event">
+    </app-logiciel>
     <div class="modal-body scrollable" *ngIf="showLogicielGridInModal" >
       <table class="logiciel-table">
         <thead>
