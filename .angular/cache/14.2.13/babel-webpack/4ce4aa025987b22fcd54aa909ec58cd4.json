@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.normalizePathSep = normalizePathSep;\n\nfunction normalizePathSep(path) {\n  return path.replace(/\\\\/g, '/');\n} //# sourceMappingURL=normalize-path-sep.js.map","map":null,"metadata":{},"sourceType":"script"}

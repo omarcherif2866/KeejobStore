@@ -1,0 +1,152 @@
+<body>
+    <div class="container reveal-section"> 
+        <div class="reveal-text">
+        <span class="regular">Nous proposons</span>
+        <span class="bold"> des formations sur mesure </span>
+        <span class="regular">dans plusieurs</span>
+        <span class="bold"> domaines.</span>
+        </div>
+
+        <div class="sous-titre">
+            Notre expertise de conseil à travers des formations concrètes et pragmatiques, 
+            revisitées en fonction de vos enjeux
+        </div>
+     </div>
+
+<section id="platforms" class="platforms-section">
+  <div class="container">
+    <div class="platforms-wrapper">
+      <div class="platforms-bg-wave">
+        <!--merged image-->
+        <div style="position: relative; width: 100%; height: 100%;">
+          <img src="../../assets/I87_881_0_1266.svg" alt="background wave" style="position: absolute; top: 0; left: 0;">
+          <img src="../../assets/I87_881_0_1252.svg" alt="background wave" style="position: absolute; top: 46.93px; left: 46.4px;">
+          <img src="../../assets/I87_881_0_1269.svg" alt="background wave" style="position: absolute; top: 93.87px; left: 92.81px;">
+          <img src="../../assets/I87_881_0_1255.svg" alt="background wave" style="position: absolute; top: 140.81px; left: 139.21px;">
+          <img src="../../assets/I87_881_0_1272.svg" alt="background wave" style="position: absolute; top: 187.74px; left: 191.41px;">
+          <img src="../../assets/I87_881_0_1259.svg" alt="background wave" style="position: absolute; top: 234.68px; left: 243.62px;">
+          <img src="../../assets/I87_881_0_1262.svg" alt="background wave" style="position: absolute; top: 281.62px; left: 289.02px;">
+          <img src="../../assets/I87_881_0_1263.svg" alt="background wave" style="position: absolute; top: 328.58px; left: 336.43px;">
+        </div>
+      </div>
+      <div class="platforms-content">
+        <h2 class="platforms-title">
+          <span class="font-bold">Je me renseigne </span>
+          <span class="font-regular"> pour trouver la bonne </span>formation<span class="font-regular"> en fonction de mon projet (04)</span> 
+        </h2>
+        <div class="carousel-container">
+
+          <button class="carousel-btn prev" (click)="scrollLeft()">
+            ‹
+          </button>
+
+          <div class="carousel" #carouselContainer>
+            
+            <div *ngFor="let ev of visibleFormations" class="platform-card">
+              
+              <div class="platform-header">
+                <div class="platform-logo-wrapper" style="background-color: #e0e7ff;">
+                  <img [src]="sanitizeImage(ev.image)" alt="logo" class="platform-logo">
+                </div>
+                <h3 class="platform-name">{{ ev.title }}</h3>
+              </div>
+
+              <p class="platform-description">
+                {{ ev.description }}
+              </p>
+
+              <div class="platform-rating">
+                <img src="../../assets/87_913.svg" alt="rating" />
+                <span class="rating-score">4.7</span>
+                <span class="rating-reviews">Basé sur 17 avis</span>
+              </div>
+
+              <a [routerLink]="['/formation', ev.id]" class="btn btn-primary">
+                En savoir plus
+              </a>
+
+            </div>
+
+          </div>
+
+          <button class="carousel-btn next" (click)="scrollRight()">
+            ›
+          </button>
+
+        </div>
+
+        <div class="play-btn2" routerLink="/allFormation">
+          <div class="play-icon2">▶</div>
+          <span class="play-icon-text2">Voir plus</span>
+        </div>
+
+      </div>
+      <div class="floating-info-box">
+        <div class="info-icon"><img src="../../assets/I87_902_0_1117.svg" alt="Star icon"></div>
+        <div class="info-text">
+          <span class="info-number">1000+</span>
+          <!-- <span class="info-label">Lorem ipsum dolor</span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <section class="stats-section">
+    <div class="container">
+      <span class="badge">Chiffre clés</span>
+        <h2>
+          Nous sommes là pour<br>
+          <span class="smaller-text">vous aider à réussir votre avenir</span>
+        </h2>
+        <p>
+          Keejob Store est une filiale du groupe Keejob proposant des solutions innovantes à distance pour l’apprentissage des langues, de l’informatique et des outils numériques. Elle propose aussi des solutions d’évaluations de 3éme génération.
+        </p>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <img src="../../assets/frame7199-vgdp.svg"
+              alt="Frame7199"
+              class="home-page-frame3"
+            />
+          </div>
+          <div class="stat-number">750</div>
+          <div class="stat-label">Stages en cours</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <img src="../../assets/frame7196-wxq.svg"
+              alt="Frame7196"
+              class="home-page-frame1"
+            />
+          </div>
+          <div class="stat-number">200</div>
+          <div class="stat-label">Emplois affichés</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <img src="../../assets/frame2.svg"
+              alt="Frame7196"
+              class="home-page-frame1"
+            />
+          </div>
+          <div class="stat-number">200</div>
+          <div class="stat-label">Professions spécialisées</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon">
+            <img src="../../assets/frame4.svg"
+              alt="Frame7196"
+              class="home-page-frame1"
+            />
+          </div>
+          <div class="stat-number">12K</div>
+          <div class="stat-label">Ressources disponibles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</body>

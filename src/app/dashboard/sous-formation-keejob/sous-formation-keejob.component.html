@@ -1,0 +1,223 @@
+<!-- SousFormationKeejobComponent -->
+<!-- SousFormationKeejobComponent -->
+<div>
+  <div class="header-actions">
+    <button (click)="handleAdd()" class="btn btn-blue">
+      <span>Ajouter une Sous-Formation</span>
+    </button>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader">
+    <div class="spinner"></div>
+    <p>Chargement des sous-formations...</p>
+  </div>
+
+  <!-- Empty State -->
+  <!-- <div *ngIf="!loading && sousFormationKeejob.length === 0" class="empty-state">
+    <p>Aucune sous-formation disponible pour cette formation</p>
+    <p style="font-size: 14px; color: #666;">Cliquez sur "Ajouter une Sous-Formation" pour commencer</p>
+  </div> -->
+
+  <!-- Table -->
+  <!-- <div *ngIf="!loading && sousFormationKeejob.length > 0" class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Image</th>
+          <th>Titre</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sousFormation of currentItems">
+          <td>{{sousFormation.Id}}</td>
+          <td>
+            <img [src]="sanitizeImage(sousFormation.Image)" 
+                 [alt]="sousFormation.Title" 
+                 class="ev-image" />
+          </td>
+          <td>{{sousFormation.Title}}</td>
+          <td>{{sousFormation.Description}}</td>
+          <td class="actions">
+            <button (click)="handleEdit(sousFormation)" 
+                    class="action-btn edit-btn" 
+                    title="Modifier la sous-formation">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+              </svg>
+            </button>
+
+            <button (click)="handleDelete(sousFormation.Id)" 
+                    class="action-btn delete-btn" 
+                    title="Supprimer la sous-formation">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+  <!-- Pagination -->
+  <!-- <div *ngIf="!loading && sousFormationKeejob.length > 0" class="pagination">
+    <button (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">◀</button>
+    <button *ngFor="let page of pagesArray" 
+            (click)="handlePageChange(page)" 
+            [class.active]="currentPage === page">
+      {{page}}
+    </button>
+    <button (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === totalPages">▶</button>
+  </div> -->
+</div>
+
+<!-- <div *ngIf="showModal" class="modal">
+  <div class="modal-content-rectangle">
+    <h3>{{ modalMode === 'add' ? 'Ajouter' : 'Modifier' }} une Sous-Formation</h3>
+
+    <div class="modal-body scrollable">
+      <label>Titre *</label>
+      <input type="text" 
+             [(ngModel)]="formData.title" 
+             placeholder="Entrez le titre"
+             class="form-input">
+
+      <label>Description *</label>
+      <textarea [(ngModel)]="formData.description" 
+                rows="4" 
+                placeholder="Entrez la description"
+                class="form-input"></textarea>
+
+      <label>Image *</label>
+      <input type="file" 
+             accept="image/*" 
+             (change)="onImageSelected($event)"
+             class="form-input">
+      <div *ngIf="selectedImage" class="selected-file">
+        <p>✓ Image sélectionnée : {{ selectedImage.name }}</p>
+      </div>
+
+      <label>Partenaires</label>
+      <div class="partenaire-grid">
+        <div 
+          *ngFor="let p of partenaires"
+          class="partenaire-item"
+          [class.selected]="isSelected(p)"
+          (click)="togglePartenaire(p)"
+        >
+          <img [src]="sanitizeImage(p.Image)" [alt]="p.Title">
+          <p>{{ p.Title }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="handleSubmit()" class="btn btn-blue">
+        {{ modalMode === 'add' ? 'Ajouter' : 'Modifier' }}
+      </button>
+      <button (click)="closeModal()" class="btn btn-gray">Annuler</button>
+    </div>
+  </div>
+</div> -->
+
+
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content-rectangle">
+    <h3>{{ modalMode === 'add' ? 'Ajouter' : 'Modifier' }} une Sous-Formation</h3>
+
+    <div class="modal-body scrollable">
+      <label>Titre *</label>
+      <input type="text" 
+             [(ngModel)]="formData.title" 
+             placeholder="Entrez le titre"
+             class="form-input">
+
+      <label>Description *</label>
+      <textarea [(ngModel)]="formData.description" 
+                rows="4" 
+                placeholder="Entrez la description"
+                class="form-input"></textarea>
+
+      <!-- ✅ Ajout du champ titleLogiciel -->
+      <label>Titre Logiciel</label>
+      <input type="text" 
+             [(ngModel)]="formData.titleLogiciel" 
+             placeholder="Entrez le titre du logiciel"
+             class="form-input">
+
+      <label>Image *</label>
+      <input type="file" 
+             accept="image/*" 
+             (change)="onImageSelected($event)"
+             class="form-input">
+      <div *ngIf="selectedImage" class="selected-file">
+        <p>✓ Image sélectionnée : {{ selectedImage.name }}</p>
+      </div>
+
+      <label>Partenaires</label>
+      <div class="partenaire-grid">
+        <div 
+          *ngFor="let p of partenaires"
+          class="partenaire-item"
+          [class.selected]="isSelected(p)"
+          (click)="togglePartenaire(p)"
+        >
+          <img [src]="sanitizeImage(p.Image)" [alt]="p.Title">
+          <p>{{ p.Title }}</p>
+        </div>
+      </div>
+
+      <!-- Section pour gérer les détails -->
+      <label>Détails</label>
+      <div class="details-section">
+
+        <div *ngFor="let detail of formData.details; let i = index" class="detail-item">
+
+          <div class="detail-inputs">
+            <input 
+              type="text" 
+              [(ngModel)]="detail.titre" 
+              placeholder="Titre du détail"
+              class="form-input">
+
+            <textarea 
+              [(ngModel)]="detail.description" 
+              rows="2" 
+              placeholder="Description du détail"
+              class="form-input"></textarea>
+
+            <!-- ⬇️ Upload icône -->
+            <label>Icône</label>
+            <input type="file" accept="image/*" (change)="onIconSelected($event, i)" class="form-input">
+
+            <div *ngIf="formData.details[i].iconPreview" class="preview-icon">
+              <p>✓ Icône sélectionnée</p>
+              <img [src]="formData.details[i].iconPreview" width="50">
+            </div>
+
+            <button (click)="removeDetail(i)" class="btn btn-red-small">
+              Supprimer
+            </button>
+          </div>
+        </div>
+
+        <button (click)="addDetail()" class="btn btn-green">
+          + Ajouter un détail
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="handleSubmit()" class="btn btn-blue">
+        {{ modalMode === 'add' ? 'Ajouter' : 'Modifier' }}
+      </button>
+      <button (click)="closeModal()" class="btn btn-gray">Annuler</button>
+    </div>
+  </div>
+</div>

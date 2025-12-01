@@ -1,0 +1,748 @@
+/* ========================================
+   1. APP LAYOUT & STRUCTURE
+   ======================================== */
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  background-color: #f3f4f6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  width: 40px;
+}
+
+/* ========================================
+   2. SIDEBAR
+   ======================================== */
+
+.sidebar {
+  width: 0;
+  background-color: #111827;
+  color: #fff;
+  overflow: hidden;
+  transition: width 0.3s;
+}
+
+.sidebar.open {
+  width: 250px;
+}
+
+.sidebar-content {
+  padding: 24px;
+}
+
+.sidebar h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 2.5rem;
+}
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #d1d5db;
+  transition: background 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.sidebar nav a:hover {
+  background-color: #1f2937;
+  color: #fff;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+/* ========================================
+   3. HEADER
+   ======================================== */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header .sidebar-toggle {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+/* ========================================
+   4. CONTENT BOX
+   ======================================== */
+
+.content-box {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  padding: 32px;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header-actions h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* ========================================
+   5. BUTTONS
+   ======================================== */
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-blue {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+.btn-blue:hover {
+  background-color: #1e40af;
+}
+
+.btn-gray {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-gray:hover {
+  background: #5a6268;
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+.btn-icon {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Action Buttons */
+.action-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.action-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.edit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+.view-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+}
+
+/* ========================================
+   6. LOADER & EMPTY STATE
+   ======================================== */
+
+.loader {
+  text-align: center;
+  padding: 48px 0;
+}
+
+.spinner {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #2563eb;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.empty-state,
+.no-data {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 1.1rem;
+  padding: 40px;
+  font-style: italic;
+}
+
+/* ========================================
+   7. TABLES
+   ======================================== */
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #f9fafb;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+  background-color: #f3f4f6;
+}
+
+td.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Tables in Modals */
+.sous-formation-table,
+.logiciel-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sous-formation-table thead,
+.logiciel-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.sous-formation-table th,
+.logiciel-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.sous-formation-table td,
+.logiciel-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+
+.sous-formation-table tbody tr:hover,
+.logiciel-table tbody tr:hover {
+  background-color: #f8f9ff;
+  transition: background-color 0.2s ease;
+}
+
+.sous-formation-table tbody tr:last-child td,
+.logiciel-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Images */
+.ev-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  transition: transform 0.2s ease;
+  display: block;
+}
+
+.ev-image:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* ========================================
+   8. PAGINATION
+   ======================================== */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  margin-left: 4px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   9. MODALS
+   ======================================== */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Modal Content - Large (for tables) */
+.modal-content-large {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 1200px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease;
+}
+
+/* Modal Content - Rectangle (for forms) */
+.modal-content-rectangle {
+  width: 80vw;
+  max-width: 1000px;
+  height: 75vh;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 25px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-body.scrollable {
+  max-height: calc(85vh - 180px);
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Modal Inputs */
+.modal-content-rectangle input,
+.modal-content-rectangle textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  margin-bottom: 16px;
+}
+
+.modal-content-rectangle input:focus,
+.modal-content-rectangle textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
+/* Modal Footer */
+.modal-actions {
+  padding: 20px 25px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background: #f9fafb;
+  border-radius: 0 0 12px 12px;
+}
+
+/* ========================================
+   10. PARTENAIRES GRID
+   ======================================== */
+
+.partenaire-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.partenaire-item {
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.partenaire-item img {
+  width: 100%;
+  height: 80px;
+  object-fit: contain;
+}
+
+.partenaire-item.selected {
+  border-color: #007bff;
+  background: #e5f1ff;
+}
+
+/* ========================================
+   11. STEPPER
+   ======================================== */
+
+.stepper-wrapper {
+  padding: 20px 0;
+}
+
+.stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+.step-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  border: 3px solid #e0e0e0;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.step-item.active .step-circle {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.step-item.completed .step-circle {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.step-label {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  text-align: center;
+  max-width: 120px;
+}
+
+.step-item.active .step-label {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.step-item.completed .step-label {
+  color: #28a745;
+}
+
+.step-connector {
+  flex: 1;
+  height: 3px;
+  background-color: #e0e0e0;
+  margin: 0 -10px;
+  margin-bottom: 35px;
+  transition: background-color 0.3s ease;
+}
+
+.step-connector.active {
+  background-color: #28a745;
+}
+
+.step-content {
+  animation: fadeInContent 0.5s ease;
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   12. UTILITIES
+   ======================================== */
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container-formulaire {
+  max-height: 90vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.card {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 8px;
+}
+
+.card-header {
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.alert {
+  border-radius: 8px;
+}
+
+.table-responsive {
+  margin-top: 15px;
+}
+
+.table img {
+  border-radius: 5px;
+}
+
+/* ========================================
+   13. RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+  /* Modal */
+  .modal-content-large {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Tables */
+  .sous-formation-table th,
+  .logiciel-table th,
+  .sous-formation-table td,
+  .logiciel-table td {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .ev-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  td.actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Stepper */
+  .stepper-container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .step-label {
+    font-size: 12px;
+    max-width: 100px;
+  }
+  
+  .step-connector {
+    margin: 0 -5px;
+  }
+}

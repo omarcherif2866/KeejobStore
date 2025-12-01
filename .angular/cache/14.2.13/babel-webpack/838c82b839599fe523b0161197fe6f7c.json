@@ -1,0 +1,1 @@
+{"ast":null,"code":"var t = {};\n\nfunction s(n = \"pui_id_\") {\n  return Object.hasOwn(t, n) || (t[n] = 0), t[n]++, `${n}${t[n]}`;\n}\n\nexport { s as uuid }; //# sourceMappingURL=index.mjs.map","map":null,"metadata":{},"sourceType":"module"}

@@ -1,0 +1,74 @@
+<!-- ======================== BOUTON AJOUT ======================== -->
+<div class="header-actions">
+  <button (click)="handleAdd()" class="btn btn-blue">
+    <span>Ajouter un logiciel</span>
+  </button>
+</div>
+
+<!-- ======================== STEP 3 : affichage DANS STEP 3 UNIQUEMENT ======================== -->
+<div *ngIf="!loading && logiciels?.length && !showModal" class="existing-logiciels step3">
+  <h4>Logiciels de cette sous-formation (Step 3)</h4>
+  <div class="logiciel-grid">
+    <div *ngFor="let log of logiciels" class="logiciel-item" 
+         [class.selected]="isSelected(log)" 
+         (click)="toggleLogiciel(log)">
+      <img [src]="log.image || 'assets/default-software.png'" [alt]="log.name">
+      <p>{{ log.name }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== MODAL AJOUT / MODIFICATION ======================== -->
+<div *ngIf="showModal" class="modal" (click)="closeModal()">
+  <div class="modal-content-rectangle" (click)="$event.stopPropagation()">
+    
+    <!-- Header -->
+    <div class="modal-header">
+      <h3>{{ modalMode === 'add' ? 'Ajouter' : 'Modifier' }} un logiciel</h3>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+
+    <!-- Corps du formulaire -->
+    <div class="modal-body scrollable">
+      <!-- Formulaire -->
+      <div class="add-logiciel" style="margin-bottom: 20px;">
+        <label>Nom du logiciel *</label>
+        <input type="text" placeholder="Nom du logiciel" [(ngModel)]="newLogicielName" class="form-input" />
+
+        <label>Image</label>
+        <input type="file" (change)="onFileSelected($event)" class="form-input" />
+
+        <div *ngIf="selectedImage" class="selected-file">
+          <p>✓ Image sélectionnée : {{ selectedImage.name }}</p>
+        </div>
+      </div>
+
+      <!-- Grille DANS LE MODAL UNIQUEMENT -->
+      <div class="existing-logiciels modal-grid" *ngIf="logiciels?.length">
+        <h4>Logiciels de cette sous-formation (Modal)</h4>
+        <div class="logiciel-grid">
+          <div *ngFor="let log of logiciels" class="logiciel-item" 
+               [class.selected]="isSelected(log)" 
+               (click)="toggleLogiciel(log)">
+            <img [src]="log.image || 'assets/default-software.png'" [alt]="log.name">
+            <p>{{ log.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="modal-actions">
+      <button (click)="addLogiciel()" class="btn btn-blue">
+        {{ modalMode === 'add' ? 'Ajouter' : 'Modifier' }}
+      </button>
+      <button (click)="closeModal()" class="btn btn-gray">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== LOADER ======================== -->
+<div *ngIf="loading" class="loader">
+  <div class="spinner"></div>
+  <p>Chargement des logiciels...</p>
+</div>

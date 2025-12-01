@@ -1,0 +1,144 @@
+.existing-logiciels {
+    margin-top: 4px;
+}
+
+
+.logiciel-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.logiciel-item {
+  width: 120px;
+  text-align: center;
+  padding: 10px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-color: #f9f9f9;
+}
+
+.logiciel-item img {
+  width: 100%;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.logiciel-item.selected {
+  border-color: #4caf50;
+  background-color: #e8f5e9;
+}
+
+.logiciel-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.btn-blue {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+.btn-blue:hover {
+  background-color: #1e40af;
+}
+
+.btn-gray {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-gray:hover {
+  background: #5a6268;
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.loader {
+  text-align: center;
+  padding: 48px 0;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  margin: 20px 0; /* optionnel, pour l'espace autour */
+}
+
+
+.header-actions button {
+  margin-top: 10px; /* Petit espace sous le titre */
+}
+
+.header-actions h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modal-content-rectangle {
+  width: 80vw;
+  max-width: 1000px;
+  max-height: 75vh; /* pas obligatoire mais utile */
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: auto; /* ✅ Corrige l’espace vide */
+}
+
+.modal-body.scrollable {
+  overflow-y: auto; /* SCROLL ACTIVÉ */
+  padding-right: 10px;
+  max-height: 60vh;
+}
+
+.modal-content-rectangle input,
+.modal-content-rectangle textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  margin-bottom: 16px;
+}
+
+.modal-content-rectangle input:focus,
+.modal-content-rectangle textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.3);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

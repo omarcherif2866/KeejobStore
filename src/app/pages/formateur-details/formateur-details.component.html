@@ -1,0 +1,148 @@
+<body>
+    <section id="profile" class="profile-section" *ngIf="formateur">
+    <div class="container profile-container">
+        <div class="profile-image-wrapper"> 
+        <img [src]="sanitizeImage(formateur.Image)" 
+            [alt]="formateur.FirstName + ' ' + formateur.LastName" 
+            class="profile-image">
+        </div>
+        <div class="profile-content">
+            <h1 class="profile-name">{{ formateur.FirstName }} {{ formateur.LastName }}</h1>
+            <p class="profile-title">{{ formateur.Poste }}</p>
+            <div class="profile-badge">
+                <img src="../../assets/390_4396.svg" alt="Feedback icon">
+                <span>92% Rétroaction positive</span>
+            </div>
+            <div class="profile-socials">
+                <a href="#"><i class="fa-solid fa-phone"></i></a>
+                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                <a href="#"><i class="fa-solid fa-video"></i></a>
+            </div>
+            <p class="profile-description">
+                {{ formateur.Description }}
+        </div>
+        <aside class="info-card">
+            <h3 class="info-card-title">INFORMATIONS</h3>
+            <ul>
+                <li><img src="../../assets/390_4400.svg" alt="Experience icon"> {{ formateur.Experience }}</li>
+                <li><img src="../../assets/390_4407.svg" alt="University icon"> {{ formateur.University }}</li>
+                <li><img src="../../assets/390_4418.svg" alt="Training center icon"> Centre de formation Tuilab</li>
+                <li><img src="../../assets/390_4392.svg" alt="Location icon"> {{ formateur.Address }}</li>
+            </ul>
+        </aside>
+    </div>
+</section>
+
+<section id="services" class="services-section" *ngIf="formateur">
+    <div class="container services-container">
+        <div class="services-list">
+            <h2 class="services-title">SERVICES PROPOSÉES</h2>
+            <article class="service-item" *ngFor="let service of formateur.ServicesFormateurs">
+                <div class="service-icon-wrapper">
+                <!-- Tu peux mettre une image générique ou un champ image si tu en as un -->
+                <img src="../../assets/a6c6a2f913a3b580cc2c70513052dd11ae93d842.png" [alt]="service.title">
+                </div>
+                <div class="service-text">
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.description }}</p>
+                </div>
+            </article>
+        </div>
+        <div class="why-us-card">
+            <h3>Pourquoi choisir mes services</h3>
+            <div class="why-us-item" *ngFor="let titleWhyList of formateur.TitleWhyList">
+                <div class="why-us-icon-wrapper"><img src="../../assets/e8fdcadb5229342d1108280de18f7c693acffc00.png" alt=""></div>
+                <div>
+                    <h3>{{ titleWhyList.title }}</h3>
+                    <p>{{ titleWhyList.description }}</p>
+                </div>
+            </div>
+            <!-- <div class="why-us-item">
+                <div class="why-us-icon-wrapper"><img src="../../assets/01cf6e36a293b31136db8a4dcc7987a0d793a55e.png" alt=""></div>
+                <div>
+                    <h4>Approche pratique</h4>
+                    <p>Mes formations sont axées sur l'action et sont conçues pour vous aider à obtenir des résultats tangibles dès que possible.</p>
+                </div>
+            </div>
+            <div class="why-us-item">
+                <div class="why-us-icon-wrapper"><img src="../../assets/7519a8c71f68d14264fbad14667bc1e04c44d3e9.png" alt=""></div>
+                <div>
+                    <h4>Support continu</h4>
+                </div>
+            </div> -->
+            <p class="why-us-conclusion">Si vous êtes prêt à faire passer votre marketing digital au niveau supérieur, n'hésitez pas à me contacter. Je serais ravi de discuter de vos besoins spécifiques et de voir comment je peux vous aider à atteindre vos objectifs.</p>
+        </div>
+    </div>
+</section>
+
+<section id="trainings" class="trainings-section">
+    <div class="container">
+        <div class="trainings-header">
+            <h2>Mes Formations</h2>
+            <p>Se former tout au long de la vie, c’est essentiel. Tout pour se former à un métier. Acquérir de nouvelles compétences, transformer vos expériences en un diplôme (VAE)</p>
+        </div>
+        <div class="trainings-grid">
+        <article 
+            class="training-card"
+            *ngFor="let f of formations; let i = index"
+            [ngClass]="getCardClass(i)">
+            
+            <div class="card-title">
+            <h4>formation en</h4>
+            <h5>{{ f.title }}</h5>
+            </div>
+
+            <ul>
+            <li *ngFor="let desc of f.description">
+                <img src="../../assets/390_4509.svg" alt="check">
+                {{ desc }}
+            </li>
+            </ul>
+
+            <a href="#contact" class="btn btn-primary">Prendre Rendez-vous</a>
+        </article>
+        </div>
+
+    </div>
+</section>
+
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="contact-header">
+            <p class="sub-heading">Prêt à passer à l’action</p>
+            <h2>Contactez-nous pour planifier votre formation</h2>
+        </div>
+        <form class="contact-form">
+            <div class="form-grid">
+                <div class="form-group"><label for="nom">NOM</label><input type="text" id="nom"></div>
+                <div class="form-group"><label for="prenom">PRÉNOM</label><input type="text" id="prenom"></div>
+                <div class="form-group"><label for="organisation">ORGANISATION</label><input type="text" id="organisation"></div>
+                <div class="form-group"><label for="poste">TITRE / POSTE</label><input type="text" id="poste"></div>
+                <div class="form-group phone-group">
+                    <label for="telephone">TÉLÉPHONE</label>
+                    <div class="phone-input-wrapper">
+                        <img src="../../assets/390_4477.svg" alt="France flag">
+                        <input type="tel" id="telephone" placeholder="06 12 34 56 78">
+                    </div>
+                </div>
+                <div class="form-group"><label for="email">EMAIL</label><input type="email" id="email"></div>
+                <div class="form-group"><label for="adresse-courriel">ADRESSE COURRIEL</label><input type="email" id="adresse-courriel"></div>
+                <div class="form-group">
+                    <label for="formation-vise">TITRE DE FORMATION VISÉ</label>
+                    <div class="select-wrapper">
+                        <select id="formation-vise"><option value="">-</option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label for="commentaires">INFORMATIONS / COMMENTAIRES</label>
+                <textarea id="commentaires" rows="6"></textarea>
+            </div>
+            <p class="form-notice">* champs obligatoires<br>Vos données personnelles sont précieuses. Chez KeeJob Store, nous les respectons scrupuleusement. Elles ne sont utilisées que dans le but de vous contacter directement, jamais partagées avec des tiers. Votre confidentialité est notre priorité absolue.</p>
+            <button type="submit" class="btn btn-primary submit-btn">Envoyer</button>
+        </form>
+    </div>
+</section>
+
+</body>
+

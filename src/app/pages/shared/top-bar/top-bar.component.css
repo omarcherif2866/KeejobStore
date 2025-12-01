@@ -1,0 +1,245 @@
+   * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafb;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+  
+.button-group {
+  display: flex;
+  gap: 10px;
+
+}
+ 
+ .top-bar {
+      background-color: #5958A0;
+      color: white;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+
+    .top-bar .container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* aligne les items à gauche */
+  gap: 25px; /* réduit l’espace entre chaque info-item */
+      transform: translateX(-100px); /* décale de 20px à gauche */
+
+}
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .social-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateX(350px); /* décale de 20px à gauche */
+
+    i {
+      color: #5958A0; /* icône violette */
+      &:hover {
+        background-color: #5958A0;
+        color: #7C7BC6;
+        transform: scale(1.1);
+      }
+    }
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #7C7BC6; /* cercle doré */
+      color: #5958A0; /* icône violette */
+      font-size: 14px;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background-color: #5958A0;
+        color: #5958A0;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+
+      .navbar {
+      padding: 16px 0;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+        .logo {
+      width: 90px;
+      height: 58px;
+    }
+
+    
+    .logoK {
+      width: 144px;
+      height: 58px;
+      transform: translateX(-100px); /* décale de 20px à gauche */
+
+    }
+
+    .nav-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  align-self: flex-end; /* Décale uniquement le menu vers le bas */
+  margin-bottom: -30px; /* Ajustez l'espacement si nécessaire */
+    transform: translateX(-60px); /* décale de 20px à gauche */
+
+}
+
+    .nav-links a {
+      width: 282px;
+      height: 21px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 21px;
+      letter-spacing: 0.005em;
+
+      color: #919191;
+      
+  white-space: nowrap; /* Empêche le retour à la ligne */
+
+      flex: none;
+      order: 4;
+      flex-grow: 0;
+
+    }
+
+    .nav-links a:hover {
+      color: #5958A0;
+      font-weight: bold;
+    }
+
+        .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    transform: translateX(-210px); /* décale de 20px à gauche */
+
+    }
+
+        .search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  padding: 6px 10px;
+  transition: all 0.4s ease;
+  width: 40px; /* largeur initiale (juste la loupe) */
+  overflow: hidden;
+    margin-left: -180px; /* ajuste la valeur selon ton besoin */
+
+}
+
+/* Quand la recherche est active */
+.search-box.active {
+  width: 180px; /* largeur étendue */
+}
+
+/* Champ input */
+.search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  padding-left: 10px;
+  width: 100%;
+  font-size: 13px;
+  color: #333;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Affiche le champ seulement quand actif */
+.search-box.active input {
+  opacity: 1;
+}
+
+/* Icône loupe à gauche */
+.search-box i {
+  color: #5958A0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.search-box i:hover {
+  transform: scale(1.2);
+}
+
+    .btn-primary {
+      background-color: #72B756;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      width: 151px;
+      height: 38px ;
+      font-size: 13px;
+      i{
+      width: 18px;
+      height: 18.21px ;
+      }
+    }
+    .btn-primary:hover {
+      background-color: #22c55e;
+    }
+
+.btn-cancel {
+      background-color: var(--color-red);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      width: 151px;
+      height: 38px ;
+      font-size: 13px;
+}
+
+.btn-cancel:hover {
+  opacity: 0.9;
+}
+
+
+
+
+
+
+
+

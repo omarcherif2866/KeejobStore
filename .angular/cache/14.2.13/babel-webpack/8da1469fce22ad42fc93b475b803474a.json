@@ -1,0 +1,1 @@
+{"ast":null,"code":"\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.removeTrailingSlash = removeTrailingSlash;\n\nfunction removeTrailingSlash(route) {\n  return route.replace(/\\/$/, '') || '/';\n} //# sourceMappingURL=remove-trailing-slash.js.map","map":null,"metadata":{},"sourceType":"script"}

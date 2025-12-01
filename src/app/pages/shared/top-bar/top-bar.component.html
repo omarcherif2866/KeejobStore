@@ -1,0 +1,84 @@
+  <div class="top-bar">
+    <div class="container">
+      
+      <div class="info-item">
+        <i class="fas  fa-phone"></i>
+        <span>+216 98 989 898</span>
+      </div>
+
+      <div class="info-item">
+        <i class="fas  fa-envelope"></i>
+        <span>contact@storekeejob.com</span>
+      </div>  
+
+      <div class="info-item">
+        <i class="far fa-clock	"></i>
+        <span>Lun - Ven 8:00 - 17:00</span>
+      </div>
+
+      <div class="info-item">
+        <i class="fas  fa-map-marker-alt"></i>
+        <span>Franklin St, Greenpoint Ave</span>
+      </div>
+
+    <div class="social-icons">
+      <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" target="_blank" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+    </div>
+
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+          <a href="#">
+            <img src="../../../assets/img_image_306.png" alt="" class="logoK">
+          </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="evaluation">Evaluation</a></li>
+        <li><a href="formation">Formations</a></li>
+        <li><a href="certifications">Certifications</a></li>
+        <li><a href="coaching_emploi">Coaching  Emploi</a></li>
+        <li><a href="cv_et_lettre_de_mottivation">Correction de cv et lettre de motivation </a></li>
+        <li><a href="partenaires">Partenaires</a></li>
+        <li><a href="international">International </a></li>
+
+      </ul>
+      <div class="nav-actions">
+        <div class="search-box" [class.active]="searchActive">
+          <i class="fas fa-search" (click)="toggleSearch()"></i>
+          <input type="text" placeholder="Rechercher..." />
+        </div>
+
+        <div class="user-menu">
+          <!-- Si connecté -->
+          <div *ngIf="isLoggedIn; else loggedOut" class="button-group">
+            <button class="btn btn-primary" (click)="toggleDropdown()">
+              <i class="fas fa-user-alt"></i> {{ username }}
+              <i class="fas fa-caret-down"></i>
+            </button>
+            <button class="btn btn-cancel" (click)="logout()">se deconnecter</button>
+
+          </div>
+
+          <!-- Si déconnecté -->
+        <ng-template #loggedOut>
+          <div class="button-group">
+            <button class="btn btn-primary" routerLink="/login">Se connecter</button>
+            <button class="btn btn-primary" routerLink="/register">S'inscrire</button>
+          </div>
+        </ng-template>
+
+        </div>
+
+
+      </div>
+    </div>
+  </nav>
+
+
+

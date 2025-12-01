@@ -1,0 +1,214 @@
+<body>
+   <section id="hero" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Prendre la Décision Cruciale<br>
+                    <span>Étudier à l'Étranger ou Immigrer ?</span>
+                </h1>
+                <p class="hero-description">
+                    Lors d'une période charnière de votre vie, vous vous retrouvez à la croisée des chemins, avec un horizon d'opportunités devant vous, mais des décisions à prendre qui semblent monumentales.
+                    <br><br>
+                    Choisir entre étudier à l'étranger et immigrer dans un nouveau pays figure parmi ces décisions cruciales. Heureusement, notre service est là pour vous accompagner tout au long de ce processus de prise de décision complexe.
+                </p>
+            </div>
+            <div class="hero-form-wrapper">
+                <form class="hero-form">
+                    <div class="form-group">
+                        <label for="prenom">prénom</label>
+                        <input type="text" id="prenom">
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">NOM</label>
+                        <input type="text" id="nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">VOTRE EMAIL</label>
+                        <input type="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone</label>
+                        <input type="tel" id="telephone">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<section id="recruitment-cta" class="recruitment-cta-section">
+  <div class="container recruitment-cta-container">
+    <div class="recruitment-cta-content">
+      <p class="recruitment-cta-subtitle">Recrutement</p>
+      <h2 class="recruitment-cta-title">Votre avenir est notre présent</h2>
+      <a href="#" class="recruitment-recruitment-cta-button">Envoyer votre CV</a>
+    </div>
+    <div class="recruitment-cta-image">
+      <img src="../../assets/12bdd962f1117847f0c2183a848d621442e364c8.png" alt="Decorative image">
+    </div>
+  </div>
+</section>
+
+<section id="process" class="process-section">
+  <div class="container process-container">
+    <h2 class="process-title">
+      Un processus structuré et unique <br>
+      <span>qui assure la qualité de votre projet <br> de recrutement.</span>
+    </h2>
+    <p class="process-description">
+      Faites-nous confiance pour votre projet d'immigration professionnelle à l'étranger. Chez [Votre entreprise], nous sommes là pour vous accompagner à chaque étape, vous offrant le soutien nécessaire pour réussir dans votre nouvelle aventure professionnelle.
+    </p>
+    <div class="process-flags">
+      <img src="../../assets/8adc48b8121f40db72e653dff8e0d976e850f9fd.png" alt="Flag of France">
+      <img src="../../assets/c02f18cfa55dd48c0c142debd3bf1a074ee2e24c.png" alt="Flag of Canada">
+    </div>
+  </div>
+</section>
+
+<section id="news" class="news-section">
+<div class="container">
+  <h2 class="news-main-title">Actualités et Astuces</h2>
+
+  <div class="news-grid">
+    <article class="news-article" *ngFor="let a of actualites">
+      <div class="article-content">
+
+        <!-- DATE + HEURE -->
+        <div class="article-meta">
+          <span>
+            <img src="../../assets/405_2369.svg" alt="Calendar icon">
+            {{ a.date | date:'dd MMMM yyyy' }}
+          </span>
+
+          <span>
+            <img src="../../assets/405_2386.svg" alt="Clock icon">
+            {{ a.heure }}
+          </span>
+        </div>
+
+        <!-- TITRE -->
+        <h3 class="article-title">
+          {{ a.title }}
+        </h3>
+
+        <!-- DESCRIPTION -->
+        <p class="article-excerpt">
+          {{ a.description }}
+        </p>
+      </div>
+
+      <!-- IMAGE -->
+      <div class="article-image">
+        <img [src]="sanitizeImage(a.image)" alt="Article image">
+      </div>
+    </article>
+  </div>
+</div>
+
+    <div class="news-load-more">
+      <a href="#" class="load-more-btn">Charger plus</a>
+    </div>
+</section>
+
+<section id="features" class="features-section">
+  <div class="container features-container">
+    <h2 class="features-title">
+      Exploration Personnalisée
+      <span>Études ou Immigration</span>
+    </h2>
+    <p class="features-description">
+      Notre service offre une approche personnalisée pour vous guider dans votre projet d'études à l'étranger ou d'immigration, vous aidant à explorer de nouveaux horizons et à construire une vie prometteuse dans un environnement adapté à vos besoins et aspirations uniques
+    </p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <!--merged image-->
+          <img src="../../assets/405_2310.svg" alt="icon background">
+          <img src="../../assets/horizons.svg"  class="svg-white" alt="Explorer de Nouveaux Horizons icon">
+        </div>
+        <h3 class="feature-card-title">Explorer de Nouveaux Horizons</h3>
+        <p class="feature-card-text">Étudier à l'étranger offre une expérience enrichissante sur le plan personnel et académique. C'est une occasion unique de s'immerger dans une nouvelle culture, d'apprendre une nouvelle langue et de découvrir des perspectives différentes. Notre service vous aide à naviguer à travers les programmes d'études, les universités et les destinations qui correspondent le mieux à vos objectifs académiques et à vos intérêts personnels.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <!--merged image-->
+          <img src="../../assets/405_2310.svg" alt="icon background">
+          <img src="../../assets/smile.svg"  class="svg-white" alt="Une Vie Nouvelle & Prometteuse icon">
+        </div>
+        <h3 class="feature-card-title">Une Vie Nouvelle & Prometteuse</h3>
+        <p class="feature-card-text">D'un autre côté, immigrer dans un nouveau pays ouvre la porte à un avenir plein de possibilités. Que ce soit pour des raisons professionnelles, familiales ou personnelles, l'immigration peut offrir une meilleure qualité de vie, des opportunités de carrière et une communauté accueillante. Notre service vous accompagne dans chaque étape du processus d'immigration, depuis la recherche de visas appropriés jusqu'à l'intégration dans votre nouvelle patrie.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <!--merged image-->
+          <img src="../../assets/405_2310.svg" alt="icon background">
+          <img src="../../assets/approche.svg"  class="svg-white" alt="Notre Approche Personnalisée icon">
+        </div>
+        <h3 class="feature-card-title">Notre Approche Personnalisée</h3>
+        <p class="feature-card-text">Ce qui distingue notre service, c'est notre approche personnalisée. Nous comprenons que chaque individu a des besoins uniques, des préférences et des aspirations différentes. C'est pourquoi nous travaillons en étroite collaboration avec vous pour comprendre vos objectifs, vos défis et vos préoccupations. Grâce à notre expertise et à nos ressources, nous élaborons un plan sur mesure qui maximise vos chances de succès, que vous choisissiez d'étudier à l'étranger ou d'immigrer dans un nouveau pays.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <!--merged image-->
+          <img src="../../assets/405_2310.svg" alt="icon background">
+          <img src="../../assets/pas.svg"  class="svg-white" alt="Faire le Premier Pas icon">
+        </div>
+        <h3 class="feature-card-title">Faire le Premier Pas</h3>
+        <p class="feature-card-text">La décision entre étudier à l'étranger et immigrer dans un nouveau pays peut sembler écrasante, mais elle représente également une opportunité extraordinaire de croissance personnelle et professionnelle. Avec notre service à vos côtés, vous pouvez aborder cette décision avec confiance et tranquillité d'esprit. Faites le premier pas vers un avenir brillant en nous contactant dès aujourd'hui pour une consultation personnalisée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="consultation-cta" class="cta-section yellow-cta">
+  <div class="container cta-container">
+    <div class="cta-content">
+      <h2 class="cta-title">Réservez Votre Consultation <strong>Aujourd'hui</strong> !</h2>
+      <p class="cta-description">Vous souhaitez étudier à l'étranger ou envisagez sérieusement de démarrer une nouvelle vie dans un autre pays ? Réservez dès maintenant votre consultation avec notre équipe d'experts. Nous sommes là pour vous guider à chaque étape du processus.</p>
+      <a href="#" class="recruitment-recruitment-cta-button">Contactez-nous</a>
+    </div>
+    <div class="cta-image-wrapper">
+      <img src="../../assets/12bdd962f1117847f0c2183a848d621442e364c8.png" alt="Decorative image">
+    </div>
+  </div>
+</section>
+
+<section id="expertise" class="expertise-section">
+  <div class="container expertise-container">
+    <h2 class="expertise-title">
+      Immigration Réussie
+      <span>Expertise, Personnalisation, Réseau</span>
+    </h2>
+    <p class="expertise-description">
+      Notre équipe offre une expertise pointue en immigration professionnelle avec un accompagnement sur mesure et un réseau mondial pour garantir votre succès à l'étranger
+    </p>
+    <div class="expertise-grid">
+      <div class="expertise-item">
+        <h3>1. Expertise spécialisée</h3>
+        <p>Notre équipe possède une expertise approfondie dans le domaine de l'immigration professionnelle, vous garantissant des conseils avisés et des solutions adaptées à vos besoins spécifiques.</p>
+        <h3>2. Accompagnement personnalisé</h3>
+        <p>Nous comprenons que chaque projet d'immigration est unique. C'est pourquoi nous offrons un accompagnement personnalisé à chaque client, en tenant compte de leurs objectifs professionnels et de leur situation individuelle.</p>
+      </div>
+      <div class="expertise-item">
+        <h3>3. Réseau international</h3>
+        <p>Grâce à notre vaste réseau international de partenaires et de contacts, nous sommes en mesure de faciliter votre transition professionnelle à l'étranger, que ce soit en termes de recherche d'emploi, de formation linguistique ou de conseils pratiques sur la vie dans votre nouveau pays d'accueil.</p>
+        <h3>4. Accompagnement personnalisé</h3>
+        <p>Engagement envers votre succès : Votre succès est notre priorité absolue. Nous nous engageons à vous fournir le soutien nécessaire pour que votre projet d'immigration soit une réussite, que ce soit sur le plan professionnel ou personnel</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dreams-cta" class="cta-section green-cta">
+  <div class="container cta-container">
+    <div class="cta-content">
+      <h2 class="cta-title">Concrétisez <strong>vos Rêves</strong> à l'Étranger!</h2>
+      <p class="cta-description">Vous rêvez de partir étudier ou vivre à l'étranger ? Nos experts sont là pour vous aider à concrétiser votre projet. Prenez rendez-vous dès maintenant pour discuter de vos aspirations et obtenir des conseils personnalisés.</p>
+      <a href="#" class="recruitment-cta-button">Prendre rendez-vous</a>
+    </div>
+    <div class="cta-image-wrapper">
+      <img src="../../assets/12bdd962f1117847f0c2183a848d621442e364c8.png" alt="Decorative image">
+    </div>
+  </div>
+</section>
+
+</body>

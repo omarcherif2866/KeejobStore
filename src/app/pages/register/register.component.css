@@ -1,0 +1,107 @@
+            * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9fafb;
+        color: #333;
+      }
+
+      /* Conteneur principal */
+      .container {
+        max-width: 1200px;
+        margin: 100px auto 0 auto; /* ⇦ décale le contenu sous la navbar */
+        padding: 0 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+      }
+       
+       
+       .hero-form-wrapper {
+            flex: 1;
+            order: 2; /* Le formulaire en deuxième (à droite) */
+            background-color: var(--color-primary);
+            border-radius: 27px;
+            padding: 48px;
+            max-width: 606px;
+        }
+
+        .hero-form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            
+        }
+
+        .form-group label {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-white);
+            text-transform: uppercase;
+            text-align: left;
+
+        }
+
+        .form-group input {
+            background-color: #7c7bc6;
+            border: none;
+            border-radius: 5px;
+            height: 45px;
+            padding: 0 15px;
+            color: var(--color-text-light);
+            font-size: 16px;
+        }
+
+        .form-group input::placeholder {
+            color: rgb(255, 255, 255);
+        }
+
+.btn-primary {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 20px 60px;
+    border-radius: 100px;
+    text-align: center;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-cancel {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 20px 60px;
+    border-radius: 100px;
+    text-align: center;
+  background-color: var(--color-red);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  opacity: 0.9;
+}
+
+a {
+  color: var(--color-white);
+}
+
+a:hover {
+  opacity: 0.9;
+}

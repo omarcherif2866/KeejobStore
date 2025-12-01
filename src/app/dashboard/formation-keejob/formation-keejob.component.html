@@ -1,0 +1,441 @@
+<!-- formationKeejobComponent -->
+<div class="app-container">
+  <!-- Sidebar -->
+  <div [class]="sidebarOpen ? 'sidebar open' : 'sidebar'">
+    <div class="sidebar-content">
+      <h2>Admin Panel</h2>
+      <nav>
+        <a href="#">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="actualites">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+          </svg>
+          <span>Actualités</span>
+        </a>
+        <a href="formateurs">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Formateurs</span>
+        </a>
+        <a href="evaluations">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Evaluations</span>
+        </a>     
+        <a href="formationFormateur">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Mes formations</span>
+        </a>       
+        <a href="serviceFormateur">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Mes services</span>
+        </a>       
+        <a href="partenaire">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Partenaires</span>
+        </a> 
+        <a href="formationKeejob">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Formations Keejob</span>
+        </a>         
+        <a (click)="logout(); $event.preventDefault()">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span>Se déconnecter</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-area">
+    <header>
+      <button (click)="toggleSidebar()" class="sidebar-toggle">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <h1>Gestion des Formations Keejob</h1>
+      <div class="spacer"></div>
+    </header>
+
+    <main>
+      <!-- STEP 1 : Liste et gestion des formations (par défaut) -->
+      <div *ngIf="currentStep === 1" class="content-box">
+        <div class="header-actions">
+          <h2>Liste des Formations Keejob</h2>
+          <button (click)="handleAdd()" class="btn btn-blue">
+            <span>Ajouter une Formation</span>
+          </button>
+        </div>
+
+        <!-- Loader -->
+        <div *ngIf="loading" class="loader">
+          <div class="spinner"></div>
+          <p>Chargement des formations...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!loading && formationsKeejob.length === 0" class="empty-state">
+          Aucune formation disponible
+        </div>
+
+        <!-- Table -->
+<!-- Table principale des formations (simplifiée) -->
+<div *ngIf="!loading && formationsKeejob.length > 0" class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let formation of currentItems">
+        <td>{{formation.Id}}</td>
+        <td>
+          <img [src]="sanitizeImage(formation.Image)" 
+               [alt]="formation.Title" 
+               class="ev-image" />
+        </td>
+        <td>{{formation.Title}}</td>
+        <td>{{formation.Description}}</td>
+        <td class="actions">
+          <!-- Modifier formation -->
+          <button (click)="handleEdit(formation)" 
+                  class="action-btn edit-btn" 
+                  title="Modifier la formation">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+          </button>
+
+          <!-- Supprimer formation -->
+          <button (click)="handleDelete(formation.Id)" 
+                  class="action-btn delete-btn" 
+                  title="Supprimer la formation">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+          </button>
+
+          <!-- Voir les sous-formations (ouvre modal) -->
+          <button (click)="openSousFormationsModal(formation)" 
+                  class="action-btn view-btn" 
+                  title="Voir les sous-formations">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-right: 5px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Voir les sous-formations
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ========== MODAL SOUS-FORMATIONS ========== -->
+<div *ngIf="showSousFormationModal" class="modal" (click)="closeSousFormationModal()">
+  <div class="modal-content-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Sous-formations de : {{ currentFormation?.Title }}</h3>
+      <button class="close-btn" (click)="closeSousFormationModal()">×</button>
+    </div>
+
+    <app-sous-formation-keejob 
+        [formationId]="currentFormation?.Id">
+    </app-sous-formation-keejob>
+
+    <div class="modal-body scrollable">
+      <table class="sous-formation-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Titre logiciels</th>
+            <th>Details</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sf of sousFormationsMap[currentFormation?.Id]">
+            <td>{{ sf.id }}</td>
+            <td>
+              <img [src]="sanitizeImage(sf.image)" 
+                   [alt]="sf.title" 
+                   class="ev-image" />
+            </td>
+            <td>{{ sf.title }}</td>
+            <td>{{ sf.description }}</td>
+            <td>{{ sf.titleLogiciel }}</td>
+            <td>
+              <div *ngFor="let d of sf.details; let i = index">
+                <strong>{{ i + 1 }}.</strong> {{ d.titre }} : {{ d.description }}
+              </div>              
+            </td>
+
+            <td class="actions">
+              <!-- Modifier sous-formation -->
+              <button (click)="openSousFormationModal(sf)" 
+                      class="action-btn edit-btn" 
+                      title="Modifier la sous formation">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+              </button>
+
+              <!-- Supprimer sous-formation -->
+              <button (click)="handleDeleteSF(sf.id)" 
+                      class="action-btn delete-btn" 
+                      title="Supprimer la sous formation">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+              </button>
+
+              <!-- Voir les logiciels -->
+              <button (click)="openLogicielsModal(sf)" 
+                      class="action-btn view-btn" 
+                      title="Voir les logiciels associés">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                Voir logiciels
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="!sousFormationsMap[currentFormation?.Id]?.length" class="no-data">
+        Aucune sous-formation disponible
+      </p>
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="closeSousFormationModal()" class="btn btn-gray">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== MODAL LOGICIELS ========== -->
+<div *ngIf="showLogicielModal" class="modal" (click)="closeLogicielModal()">
+  <div class="modal-content-large" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Logiciels de : {{ currentSousFormation?.title }}</h3>
+      <button class="close-btn" (click)="closeLogicielModal()">×</button>
+    </div>
+
+<app-logiciel 
+  [sousFormationId]="currentSousFormation?.Id"
+  (addModeChanged)="showLogicielGridInModal = !$event">
+</app-logiciel>
+    <div class="modal-body scrollable" *ngIf="showLogicielGridInModal" >
+      <table class="logiciel-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Nom</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let logiciel of logicielMap[currentSousFormation?.id]">
+            <td>{{ logiciel.id }}</td>
+            <td>
+              <img [src]="sanitizeImage(logiciel.image)" 
+                   [alt]="logiciel.name" 
+                   class="ev-image" />
+            </td>
+            <td>{{ logiciel.name }}</td>
+            <td class="actions">
+              <!-- Modifier logiciel -->
+              <button (click)="openlogicielModal(logiciel)" 
+                      class="action-btn edit-btn" 
+                      title="Modifier le logiciel">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+              </button>
+
+              <!-- Supprimer logiciel -->
+              <button (click)="deleteLogiciel(logiciel.id)" 
+                      class="action-btn delete-btn" 
+                      title="Supprimer le logiciel">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p *ngIf="!logicielMap[currentSousFormation?.id]?.length" class="no-data">
+        Aucun logiciel disponible
+      </p>
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="closeLogicielModal()" class="btn btn-gray">Fermer</button>
+    </div>
+  </div>
+</div>
+
+        <!-- Pagination -->
+        <div *ngIf="!loading && formationsKeejob.length > 0" class="pagination">
+          <button (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">◀</button>
+          <button *ngFor="let page of pagesArray" 
+                  (click)="handlePageChange(page)" 
+                  [class.active]="currentPage === page">
+            {{page}}
+          </button>
+          <button (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === totalPages">▶</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 : Ajouter des sous-formations -->
+      <div *ngIf="currentStep === 2" class="content-box">
+        <div class="header-actions">
+          <h2>Étape 2 : Ajouter des Sous-Formations</h2>
+          <div>
+            <button (click)="goToStep3()" class="btn btn-blue" style="margin-right: 10px;">
+              <span>Suivant : Logiciels →</span>
+            </button>
+            <button (click)="backToStep1()" class="btn btn-gray">
+              <span>← Retour à la liste</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="info-box" style="background: #e3f2fd; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
+          <p style="margin: 0; color: #1976d2;">
+            <strong>Formation principale :</strong> {{ createdFormation?.Title }}
+          </p>
+        </div>
+
+        <app-sous-formation-keejob 
+          *ngIf="createdFormation" 
+          [formationId]="createdFormation?.Id"
+          (sousFormationSelected)="onSousFormationSelected($event)">
+        </app-sous-formation-keejob>
+      </div>
+
+      <!-- STEP 3 : Logiciels -->
+<div *ngIf="currentStep === 3" class="content-box">
+  <div class="header-actions">
+    <h2>Étape 3 : Gérer les Logiciels</h2>
+    <div>
+      <button (click)="finishProcess()" class="btn btn-success" style="margin-right: 10px;">
+        ✓ Terminer
+      </button>
+      <button (click)="backToStep2()" class="btn btn-gray">
+        ← Retour aux sous-formations
+      </button>
+    </div>
+  </div>
+
+  <div class="info-box" style="background: #e8f5e9; padding: 15px; margin-bottom: 20px; border-radius: 8px;">
+    <p><strong>Formation :</strong> {{ createdFormation?.Title }}</p>
+    <p *ngIf="selectedSousFormation">
+      <strong>Sous-Formation :</strong> {{ selectedSousFormation?.title }}
+    </p>
+  </div>
+
+  <!-- ✅ Afficher TOUS les logiciels (showAllLogiciels = true) -->
+  <app-logiciel 
+    [showAllLogiciels]="true"
+    (logicielSelected)="onLogicielSelected($event)">
+  </app-logiciel>
+</div>
+
+
+    </main>
+  </div>
+</div>
+
+<!-- Modal pour Ajouter/Modifier une Formation -->
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content-rectangle">
+    <h3>{{ modalMode === 'add' ? 'Ajouter' : 'Modifier' }} une Formation Keejob</h3>
+
+    <div class="modal-body scrollable">
+      <label>Titre *</label>
+      <input type="text" 
+             [(ngModel)]="formData.title" 
+             placeholder="Entrez le titre"
+             class="form-input">
+
+      <label>Description *</label>
+      <textarea [(ngModel)]="formData.description" 
+                rows="4" 
+                placeholder="Entrez la description"
+                class="form-input"></textarea>
+
+      <label>Image *</label>
+      <input type="file" 
+             accept="image/*" 
+             (change)="onImageSelected($event)"
+             class="form-input">
+      <div *ngIf="selectedImage" class="selected-file">
+        <p>✓ Image sélectionnée : {{ selectedImage.name }}</p>
+      </div>
+
+      <label>Partenaires</label>
+      <div class="partenaire-grid">
+        <div 
+          *ngFor="let p of partenaires"
+          class="partenaire-item"
+          [class.selected]="isSelected(p)"
+          (click)="togglePartenaire(p)"
+        >
+          <img [src]="sanitizeImage(p.Image)" [alt]="p.Name">
+          <p>{{ p.Name }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="handleSubmit()" class="btn btn-blue">
+        {{ modalMode === 'add' ? 'Créer et Continuer' : 'Modifier' }}
+      </button>
+      <button (click)="closeModal()" class="btn btn-gray">Annuler</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

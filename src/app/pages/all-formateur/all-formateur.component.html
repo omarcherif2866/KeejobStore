@@ -1,0 +1,41 @@
+  <section class="experts-section">
+    <div class="container">
+      <span class="badge">Nos formateurs</span>
+      <h2>Rencontrez <br><span class="highlight-career">nos experts formateurs</span></h2>
+              <p>
+Découvrez notre équipe de formateurs dévoués et expérimentés, passionnés par l'enseignement et engagés à vous fournir une expérience d'apprentissage enrichissante. Chacun de nos formateurs est soigneusement sélectionné pour son expertise dans son domaine et sa capacité à inspirer et à guider les apprenants vers la réussite        </p>
+      <div class="experts-grid">
+<!-- experts.component.html -->
+        <div class="experts-container">
+            <div 
+              class="expert-card" 
+              *ngFor="let expert of formateurs"
+              [ngStyle]="{'background-color': '#F5F5F5'}"
+              [routerLink]="['/formateur', expert.id]"
+              style="cursor: pointer;"
+            >
+
+            <div class="expert-avatar" [ngStyle]="{'background-color': expert.avatarColor}">
+              <img [src]="sanitizeImage(expert.image)" alt="Formateur image">
+            </div>
+            <h3>{{ expert.firstName }} {{ expert.lastName }}</h3>
+            <br>
+            <div class="expert-role">
+              <div class="home-page-group1000001522">
+                <img src="../../assets/clock-purple.svg" alt="Clock" class="home-page-vector48" />
+              </div>
+              <span class="home-page-text219">24+ h taught</span>
+              <div class="home-page-group1000001522">
+                <img src="../../assets/video-purple.svg" alt="Video" class="home-page-vector48" />
+              </div>
+              <span class="home-page-text219">video chat</span>
+            </div>
+            <br>
+            <span class="home-page-text219">{{ expert.poste }}</span>
+          </div>
+        </div>
+
+      </div> 
+      <button class="btn-primary Partner">Devenir partenaire</button>
+    </div>
+  </section>
