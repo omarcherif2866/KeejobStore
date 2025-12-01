@@ -1,12 +1,57 @@
-<!-- ======================== BOUTON AJOUT ======================== -->
-<div class="header-actions">
-  <button (click)="handleAdd()" class="btn btn-blue">
-    <span>Ajouter un logiciel</span>
-  </button>
+<!-- ======================== MODE INLINE (dans le modal parent) ======================== -->
+<div *ngIf="displayMode === 'inline'">
+  <!-- Formulaire TOUJOURS VISIBLE en mode inline -->
+  <div class="modal-content-rectangle" style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+    <h4 style="margin-bottom: 15px;">{{ modalMode === 'add' ? 'Ajouter un logiciel' : 'Modifier le logiciel' }}</h4>
+    
+    <label>Nom du logiciel *</label>
+    <input type="text" 
+           placeholder="Entrez le nom du logiciel" 
+           [(ngModel)]="newLogicielName" 
+           class="form-input" />
+
+    <label>Image</label>
+    <input type="file" 
+           (change)="onFileSelected($event)" 
+           class="form-input" />
+
+    <div *ngIf="selectedImage" class="selected-file">
+      <p>✓ Image sélectionnée : {{ selectedImage.name }}</p>
+    </div>
+
+    <button (click)="addLogiciel()" class="btn btn-blue" style="margin-top: 10px;">
+      {{ modalMode === 'add' ? '+ Ajouter le logiciel' : '✓ Modifier' }}
+    </button>
+  </div>
+
+  <!-- Grille des logiciels existants -->
+  <!-- <div class="existing-logiciels" *ngIf="!loading && logiciels?.length" style="margin-top: 20px;">
+    <h4>Logiciels de cette sous-formation ({{ logiciels.length }})</h4>
+    <div class="logiciel-grid">
+      <div *ngFor="let log of logiciels" 
+           class="logiciel-item" 
+           [class.selected]="isSelected(log)">
+        <img [src]="log.image || 'assets/default-software.png'" 
+             [alt]="log.name">
+        <p>{{ log.name }}</p>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- Message si aucun logiciel -->
+  <div *ngIf="!loading && (!logiciels || logiciels.length === 0)" class="no-data" style="margin-top: 20px;">
+    <p>Aucun logiciel pour cette sous-formation. Ajoutez-en un ci-dessus !</p>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader">
+    <div class="spinner"></div>
+    <p>Chargement des logiciels...</p>
+  </div>
 </div>
 
 <!-- ======================== STEP 3 : affichage DANS STEP 3 UNIQUEMENT ======================== -->
-<div *ngIf="!loading && logiciels?.length && !showModal" class="existing-logiciels step3">
+<div *ngIf="displayMode === 'modal' && !loading && logiciels?.length && !showModal" class="existing-logiciels step3">
   <h4>Logiciels de cette sous-formation (Step 3)</h4>
   <div class="logiciel-grid">
     <div *ngFor="let log of logiciels" class="logiciel-item" 
@@ -18,8 +63,8 @@
   </div>
 </div>
 
-<!-- ======================== MODAL AJOUT / MODIFICATION ======================== -->
-<div *ngIf="showModal" class="modal" (click)="closeModal()">
+<!-- ======================== MODAL AJOUT / MODIFICATION (mode modal uniquement) ======================== -->
+<div *ngIf="displayMode === 'modal' && !loading && logiciels?.length && !showModal" class="modal" (click)="closeModal()">
   <div class="modal-content-rectangle" (click)="$event.stopPropagation()">
     
     <!-- Header -->
@@ -30,34 +75,41 @@
 
     <!-- Corps du formulaire -->
     <div class="modal-body scrollable">
-      <!-- Formulaire -->
+      <!-- Formulaire d'ajout/modification -->
       <div class="add-logiciel" style="margin-bottom: 20px;">
         <label>Nom du logiciel *</label>
-        <input type="text" placeholder="Nom du logiciel" [(ngModel)]="newLogicielName" class="form-input" />
+        <input type="text" 
+               placeholder="Nom du logiciel" 
+               [(ngModel)]="newLogicielName" 
+               class="form-input" />
 
         <label>Image</label>
-        <input type="file" (change)="onFileSelected($event)" class="form-input" />
+        <input type="file" 
+               (change)="onFileSelected($event)" 
+               class="form-input" />
 
         <div *ngIf="selectedImage" class="selected-file">
           <p>✓ Image sélectionnée : {{ selectedImage.name }}</p>
         </div>
       </div>
 
-      <!-- Grille DANS LE MODAL UNIQUEMENT -->
+      <!-- Grille des logiciels existants DANS LE MODAL -->
       <div class="existing-logiciels modal-grid" *ngIf="logiciels?.length">
-        <h4>Logiciels de cette sous-formation (Modal)</h4>
+        <h4>Logiciels existants</h4>
         <div class="logiciel-grid">
-          <div *ngFor="let log of logiciels" class="logiciel-item" 
+          <div *ngFor="let log of logiciels" 
+               class="logiciel-item" 
                [class.selected]="isSelected(log)" 
                (click)="toggleLogiciel(log)">
-            <img [src]="log.image || 'assets/default-software.png'" [alt]="log.name">
+            <img [src]="log.image || 'assets/default-software.png'" 
+                 [alt]="log.name">
             <p>{{ log.name }}</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Actions -->
+    <!-- Actions du modal -->
     <div class="modal-actions">
       <button (click)="addLogiciel()" class="btn btn-blue">
         {{ modalMode === 'add' ? 'Ajouter' : 'Modifier' }}
@@ -67,8 +119,8 @@
   </div>
 </div>
 
-<!-- ======================== LOADER ======================== -->
-<div *ngIf="loading" class="loader">
+<!-- ======================== LOADER (mode modal) ======================== -->
+<div *ngIf="displayMode === 'modal' && loading" class="loader">
   <div class="spinner"></div>
   <p>Chargement des logiciels...</p>
 </div>

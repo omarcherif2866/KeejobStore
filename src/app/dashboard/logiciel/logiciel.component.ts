@@ -13,7 +13,8 @@ export class LogicielComponent implements OnInit, OnChanges {
   @Input() showAllLogiciels: boolean = true; // ✅ true = tous les logiciels, false = filtrés
   @Output() logicielSelected = new EventEmitter<any[]>();
   @Output() addModeChanged = new EventEmitter<boolean>();
-  
+  @Input() displayMode: 'modal' | 'inline' = 'modal'; // ✅ Nouveau mode
+
   loading = false;
   logiciels: any[] = [];
   selectedLogiciels: any[] = [];
@@ -32,12 +33,20 @@ showGridOnlyInModal: boolean = false; // ✅ par défaut, la grille n'apparaît 
 
   constructor(private logicielService: LogicielService) {}
 
-  ngOnInit() {
-    console.log('🚀 LogicielComponent ngOnInit');
-    console.log('   - sousFormationId:', this.sousFormationId);
-    console.log('   - showAllLogiciels:', this.showAllLogiciels);
-    this.loadLogiciels();
+ngOnInit() {
+  console.log('🚀 LogicielComponent ngOnInit');
+  console.log('   - sousFormationId:', this.sousFormationId);
+  console.log('   - showAllLogiciels:', this.showAllLogiciels);
+  console.log('   - displayMode:', this.displayMode); // ✅ Vérifier le mode
+  
+  this.loadLogiciels();
+  
+  // ✅ En mode inline, initialiser le formulaire en mode "add"
+  if (this.displayMode === 'inline') {
+    this.modalMode = 'add';
+    this.formData = { id: null, name: '', image: '' };
   }
+}
 
   ngOnChanges(changes: SimpleChanges) {
     // Recharger si showAllLogiciels change
@@ -57,18 +66,22 @@ handleAdd() {
   this.modalMode = 'add';
   this.formData = { id: null, name: '', image: '' };
   this.selectedImage = null;
-  this.showModal = true;
-
-  // ✅ La grille ne s'affiche PAS immédiatement dans le modal
-  this.showGridOnlyInModal = false;
-  this.addModeChanged.emit(true);
+  
+  // ✅ Si mode inline, ne pas ouvrir le modal
+  if (this.displayMode === 'inline') {
+    this.showGridOnlyInModal = true;
+    this.addModeChanged.emit(true);
+  } else {
+    this.showModal = true;
+    this.showGridOnlyInModal = false;
+    this.addModeChanged.emit(true);
+  }
 }
 
 closeModal() {
-  this.showModal = false;
+  this.showModal = true;
   this.formData = { id: null, name: '', image: '' };
   this.selectedImage = null;
-
   this.showGridOnlyInModal = false;
   this.addModeChanged.emit(false);
 }
@@ -217,7 +230,7 @@ closeModal() {
         // Réinitialiser le formulaire
         this.newLogicielName = '';
         this.selectedImage = null;
-        this.closeModal();
+        // this.closeModal();
         
         Swal.fire({
           icon: 'success',

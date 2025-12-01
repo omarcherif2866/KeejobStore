@@ -37,7 +37,8 @@ export class FormationKeejobComponent implements OnInit {
   showModal = false;
   showSousFormationModal = false;
   showLogicielModal = false;
-  
+  selectedLogicielsInModal: any[] = [];
+
   modalMode: 'add' | 'edit' = 'add';
 
   formData = {
@@ -446,6 +447,7 @@ export class FormationKeejobComponent implements OnInit {
 
   // ==================== MODALS LOGICIELS ====================
   
+  
 openLogicielsModal(sf: any) {
   console.log('🔍 Ouverture modal logiciels pour:', sf);
   console.log('🔑 ID de la sous-formation:', sf.id); // ✅ Vérifier cette ligne
@@ -649,10 +651,23 @@ openLogicielsModal(sf: any) {
     });
   }
 
-  goToStep3() {
-    this.loadAvailableSousFormations();
-    this.currentStep = 3;
+goToStep3() {
+  // Vérifier qu'une sous-formation est bien sélectionnée
+  if (!this.selectedSousFormation) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Attention',
+      text: 'Veuillez créer ou sélectionner une sous-formation avant de continuer',
+      timer: 2000
+    });
+    return;
   }
+  
+  console.log('🚀 Passage au Step 3 avec sous-formation:', this.selectedSousFormation);
+  console.log('🔑 ID qui sera passé au composant logiciel:', this.selectedSousFormation.id);
+  
+  this.currentStep = 3;
+}
 
   backToStep2() {
     this.currentStep = 2;
@@ -676,38 +691,74 @@ openLogicielsModal(sf: any) {
       });
   }
 
-  onSousFormationSelected(sousFormation: any) {
-    console.log('SousFormation reçue dans step3:', sousFormation);
-    this.selectedSousFormation = sousFormation;
-    this.currentStep = 3;
-  }
+onSousFormationSelected(sousFormation: any) {
+  console.log('📥 SousFormation reçue dans parent:', sousFormation);
+  console.log('🔑 ID de la sous-formation:', sousFormation?.id);
+  
+  this.selectedSousFormation = sousFormation;
+  
+  // Ne PAS passer automatiquement au step 3
+  // Laisser l'utilisateur cliquer sur "Suivant : Logiciels"
+  console.log('✅ Sous-formation stockée:', this.selectedSousFormation);
+      this.currentStep = 3;
+ 
+}
 
   onSousFormationChange() {
     console.log('Sous-formation sélectionnée:', this.selectedSousFormation);
   }
 
-  finishProcess() {
-    if (!this.selectedSousFormation || this.selectedLogiciels.length === 0) {
-      alert("Veuillez sélectionner au moins un logiciel.");
-      return;
-    }
-
-    const payload = {
-      sousFormationId: this.selectedSousFormation.id,
-      logiciels: this.selectedLogiciels.map(l => l.id)
-    };
-
-    this.sousFormationService.assignLogicielsToSousFormation(payload)
-      .subscribe({
-        next: () => {
-          alert("Logiciels assignés avec succès !");
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      });
-    this.backToStep1();
+finishProcess() {
+  if (!this.selectedSousFormation) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Attention',
+      text: 'Aucune sous-formation sélectionnée',
+      timer: 2000
+    });
+    return;
   }
+
+  if (this.selectedLogiciels.length === 0) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Attention',
+      text: 'Veuillez sélectionner au moins un logiciel',
+      timer: 2000
+    });
+    return;
+  }
+
+  const payload = {
+    sousFormationId: this.selectedSousFormation.id,
+    logiciels: this.selectedLogiciels.map(l => l.id)
+  };
+
+  console.log('📤 Payload envoyé:', payload);
+
+  this.sousFormationService.assignLogicielsToSousFormation(payload)
+    .subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Logiciels assignés avec succès!',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        this.backToStep1();
+      },
+      error: (err) => {
+        console.error('❌ Erreur assignation logiciels:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Impossible d\'assigner les logiciels',
+          timer: 2000
+        });
+      }
+    });
+}
+
 
   onLogicielSelected(list: any[]) {
     this.selectedLogiciels = list;

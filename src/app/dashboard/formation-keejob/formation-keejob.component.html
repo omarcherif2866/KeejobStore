@@ -250,11 +250,14 @@
       <button class="close-btn" (click)="closeLogicielModal()">×</button>
     </div>
 
-    <app-logiciel 
-      [sousFormationId]="currentSousFormation?.id"
-      [showAllLogiciels]="false"
-      (addModeChanged)="showLogicielGridInModal = !$event">
-    </app-logiciel>
+    <div class="modal-body scrollable">
+      <!-- ✅ Composant logiciel en mode INLINE -->
+      <app-logiciel 
+        [sousFormationId]="currentSousFormation?.id"
+        [showAllLogiciels]="false"
+        [displayMode]="'inline'">
+      </app-logiciel>
+    </div>
     <div class="modal-body scrollable" *ngIf="showLogicielGridInModal" >
       <table class="logiciel-table">
         <thead>
@@ -371,6 +374,8 @@
   <!-- ✅ Afficher TOUS les logiciels (showAllLogiciels = true) -->
   <app-logiciel 
     [showAllLogiciels]="true"
+        *ngIf="selectedSousFormation"
+    [sousFormationId]="selectedSousFormation?.id"
     (logicielSelected)="onLogicielSelected($event)">
   </app-logiciel>
 </div>
