@@ -168,6 +168,8 @@
   margin: auto;
   overflow: hidden; /* CACHE la 4ème */
   position: relative;
+    margin-bottom: 40px; /* espace sous le carousel */
+
 }
 
 

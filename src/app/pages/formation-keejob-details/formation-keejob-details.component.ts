@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormationKeejob } from 'src/app/models/formation-keejob';
 import { SousFormationKeejob } from 'src/app/models/sous-formation-keejob';
 import { FormationKeejobService } from 'src/app/services/formation-keejob.service';
@@ -22,7 +22,8 @@ export class FormationKeejobDetailsComponent implements OnInit {
 currentIndexSous = 0;  // index de la première sous-formation affichée
   currentIndexPartners = 0;
 
-  constructor(private formationService : FormationKeejobService, private route: ActivatedRoute, private sousFormationService: SousFormationKeejobService) { }
+  constructor(private formationService : FormationKeejobService, private route: ActivatedRoute, 
+    private sousFormationService: SousFormationKeejobService, private router: Router) { }
 
   ngOnInit(): void {
     const formationId = this.route.snapshot.params['id'];
@@ -116,6 +117,15 @@ getCardClass(index: number): string {
       (this.currentIndexPartners - 1 + this.allPartners.length) % this.allPartners.length;
     this.updateVisiblePartners();
   }
+
+goToSousFormations() {
+  const formationId = this.route.snapshot.params['id'];
+  console.log("ID envoyé =", formationId); // 🔥 TEST
+
+  this.router.navigate(['/sousFormationKeejob'], {
+    queryParams: { formationId }
+  });
+}
 
 
 }

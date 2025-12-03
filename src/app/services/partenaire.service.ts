@@ -86,6 +86,10 @@ addPartenaire(data: FormData): Observable<Partenaire> {
     return this.http.get<Partenaire[]>(`${this.apiUrl}/formation/${FormationId}`);
   }
 
+  getPartenaireByEvaluation(evaluationId: number): Observable<Partenaire[]> {
+    return this.http.get<Partenaire[]>(`${this.apiUrl}/evaluation/${evaluationId}`);
+  }
+
 }
 
 

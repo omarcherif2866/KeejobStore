@@ -4,14 +4,12 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { Evaluation } from '../models/evaluation';
 import { catchError, map, tap } from 'rxjs/operators';
-import { EvaluationDescription } from '../models/evaluation-description';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EvaluationService {
   private apiUrl = "http://localhost:9090/evaluation";
-  private apiUrll = "http://localhost:9090/evaluationDescription";
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -80,8 +78,14 @@ addEvaluation(data: FormData): Observable<Evaluation> {
 
   }
 
-  getEvaluationDescriptionByEvaluation(evaluationId: any): Observable<EvaluationDescription[]> {
-    return this.http.get<EvaluationDescription[]>(`${this.apiUrll}/byEvaluation/${evaluationId}`);
+
+  getAllCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/categories`);
+  }
+
+  // Optionnel : récupérer les détails groupés par catégorie
+  getDetailsByCategory(): Observable<Record<string, any[]>> {
+    return this.http.get<Record<string, any[]>>(`${this.apiUrl}/by-category`);
   }
 
 }

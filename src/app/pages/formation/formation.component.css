@@ -193,13 +193,20 @@
     font-weight: 400;
     margin: 0 0 15px;
   }
-  .platform-description {
-    font-size: 14px;
-    line-height: 22px;
-    color: #919ca2;
-    margin: 0 0 20px;
-    flex-grow: 1;
-  }
+.platform-description {
+  font-size: 14px;
+  line-height: 22px;
+  color: #919ca2;
+  margin: 0 0 20px;
+  flex-grow: 1;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4;   /* 👉 limite à 4 lignes */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
   .platform-description .font-semibold { font-weight: 600; }
   .platform-rating {
     display: flex;
@@ -275,7 +282,16 @@
   
 .btn-primary {
   background-color: var(--color-secondary);
-  color: var(--color-white);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      width: 151px;
+      height: 38px ;
+      font-size: 13px;
+
 }
 
 .btn-primary:hover {

@@ -1,1 +1,349 @@
-<p>evaluation-details works!</p>
+<!-- evaluation details -->
+<body>
+
+<div *ngIf="loading" class="loading-container">
+  <div class="spinner"></div>
+  <p>Chargement des évaluations...</p>
+</div>
+
+<div *ngIf="!loading && evaluations.length === 0" class="no-data">
+  <p>Aucune évaluation disponible</p>
+</div>
+<div *ngFor="let evaluation of evaluations; let i = index">
+    <section id="section-hero" class="hero-section">
+        <div class="container hero-container">
+            <div class="hero-left">
+        <div class="e-testing-badge">
+          <div class="e-testing-icon-wrapper">
+            <img [src]="sanitizeImage(evaluation.image)" [alt]="evaluation.name + ' icon'">
+          </div>
+           <h2 class="brand-name">{{ evaluation.name }}</h2>
+        </div>
+                <div class="hero-rating">
+                    <img src="../../assets/89_2735.svg" alt="4.7 stars rating">
+                    <span class="rating-score">4.7</span>
+                    <p class="rating-reviews">Basé sur 17 avis</p>
+                </div>
+                <p class="hero-description">{{ evaluation.description }}</p>
+                <div class="hero-image-wrapper">
+                    <img [src]="sanitizeImage(evaluation.image)" [alt]="evaluation.name + ' illustration'">
+                </div>
+            </div>
+            <div class="hero-right">
+                <h1 class="hero-title">{{ evaluation.sections[0]?.headline }}</h1>
+                <p class="hero-subtitle">{{ evaluation.sections[0]?.subtitle}}</p>
+                <div class="heroo-list">
+                    <div *ngFor="let detail of evaluation.sections[0]?.details; let first = first" 
+                        class="heroo-item" 
+                        [class.heroo-item-shadow]="first">
+                        <div class="heroo-icon-wrapper">
+                        <div class="heroo-icon">
+                            <span *ngIf="detail.icon" style="font-size: 24px;">{{ detail.icon }}</span>
+                        </div>
+                        </div>
+                        <div class="heroo-text">
+                        <h3>{{ detail.titre }}</h3>
+                        <p>{{ detail.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>  
+
+<section id="features" class="features-section">
+  <!-- <img src="../../assets/106_5161.svg" class="bg-blob" style="top: 0; left: -10%; width: 596px; height: 596px;" alt="">
+  <img src="../../assets/106_5162.svg" class="bg-blob" style="bottom: 0; right: -10%; width: 596px; height: 596px;" alt=""> -->
+  <div class="container">
+    <h2 class="section-title">
+      <span class="font-light"></span> {{ evaluation.sections[1]?.headline }}
+    </h2>
+    <p class="section-subtitle">{{ evaluation.sections[1]?.subtitle }}</p>
+    <div class="features-grid" >
+        <div *ngFor="let detail of evaluation.sections[1]?.details" class="feature-item">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+            <span style="font-size: 43px; line-height: 1;">{{ detail.icon }}</span>
+            <h3>{{ detail.titre }}</h3>
+          </div>
+          <p>{{ detail.description }}</p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section id="professionals" class="professionals-section">
+  <div class="container">
+    <h2 class="section-title">
+       <span class="font-light"></span> {{ evaluation.sections[2]?.headline }}
+    </h2>
+    <p class="section-subtitle">{{ evaluation.sections[2]?.subtitle }}</p>
+    <div class="professionals-grid">
+      <div class="professional-card" *ngFor="let detail of evaluation.sections[2]?.details">
+        <div class="heroo-icon-test">
+            <span style="font-size: 24px; line-height: 1;">{{ detail.icon }}</span>
+        </div>
+        <h4>{{ detail.titre }}</h4>
+        <p>{{ detail.description }}</p>
+        <a href="#" class="btn-learn-more">En savoir plus</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tests" class="tests-section">
+  <div class="container">
+    <h2 class="section-title" style="text-align: left;">{{ evaluation.sections[3]?.headline }}</h2>
+    <p class="section-subtitle" style="text-align: left; max-width: 1100px; margin-left: 0;">{{ evaluation.sections[3]?.subtitle }}</p>
+    
+    <div class="test-category" *ngFor="let category of getCategoriesWithDetails()">
+      <div class="test-category-title">
+        <svg width="55" height="55" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="11" fill="#72B656"/>
+        <path d="M7 12.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>{{ category }}</h3>
+      </div>
+      <div class="language-tests-grid">
+        <div class="language-card" *ngFor="let detail of groupedDetails[category]">
+          <span class="icon">{{ detail.icon }}</span>
+          <p>{{ detail.titre }}</p>
+          <p *ngIf="detail.description">{{ detail.description }}</p>
+          <a href="#" class="btn-start">Commencer</a>
+        </div>
+        <!-- <div class="language-card">
+          <img src="../../assets/GB.svg" alt="France flag">
+          <p>Anglais (UK)</p>
+          <a href="#" class="btn-start">Commencer</a>
+        </div>
+        <div class="language-card">
+          <img src="../../assets/99_1210.svg" alt="Italy flag">
+          <p>Italien (ITA)</p>
+          <a href="#" class="btn-start">Commencer</a>
+        </div>
+        <div class="language-card">
+          <img src="../../assets/99_1036.svg" alt="Germany flag">
+          <p>Allemand (GER)</p>
+          <a href="#" class="btn-start">Commencer</a>
+        </div>
+        <div class="language-card">
+          <img src="../../assets/spain.svg" alt="France flag">
+          <p>Espagnol (ESP)</p>
+          <a href="#" class="btn-start">Commencer</a>
+        </div>
+        <div class="language-card">
+          <img src="../../assets/99_1556.svg" alt="Netherlands flag">
+          <p>néerlandaise (HOLL)</p>
+          <a href="#" class="btn-start">Commencer</a>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- <div class="test-category">
+      <div class="test-category-title">
+        <svg width="55" height="55" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="11" fill="#72B656"/>
+        <path d="M7 12.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Test bureautique</h3>
+      </div>
+      <div class="office-tests-grid">
+        <a href="#" class="office-btn word">
+          <div class="office-icon-wrapper">
+            <div class="merged-image-container" style="position: relative; width: 64px; height: 58px;">
+              <img src="../../assets/I106_5098_2_534.svg" style="position: absolute; top: 3.2px; left: 2.14px; opacity: 0.2;">
+              <img src="../../assets/I106_5098_2_537.svg" style="position: absolute; top: 2.41px; left: 1.11px; opacity: 0.12;">
+              <img src="../../assets/I106_5098_2_538.svg" style="position: absolute; top: 41.39px; left: 2.15px;">
+              <img src="../../assets/I106_5098_2_539.svg" style="position: absolute; top: 3.2px; left: 2.15px;">
+              <img src="../../assets/I106_5098_2_540.svg" style="position: absolute; top: 28.66px; left: 2.14px;">
+              <img src="../../assets/I106_5098_2_541.svg" style="position: absolute; top: 15.93px; left: 2.14px;">
+              <img src="../../assets/I106_5098_2_546.svg" style="position: absolute; top: 14.34px; left: 5.67px; opacity: 0.48;">
+              <img src="../../assets/I106_5098_2_549.svg" style="position: absolute; top: 13.86px; left: 4.69px; opacity: 0.24;">
+              <img src="../../assets/I106_5098_2_550.svg" style="position: absolute; top: 14.34px; left: 5.67px;">
+              <img src="../../assets/I106_5098_2_551.svg" style="position: absolute; top: 14.34px; left: 5.67px; opacity: 0.5;">
+              <img src="../../assets/I106_5098_2_553.svg" style="position: absolute; top: 20.83px; left: 10.08px;">
+              <img src="../../assets/I106_5098_2_554.svg" style="position: absolute; top: 0px; left: 5.67px;">
+            </div>
+          </div>
+          <span>Microsoft Word</span>
+        </a>
+        <a href="#" class="office-btn excel">
+          <div class="office-icon-wrapper">
+            <div class="merged-image-container" style="position: relative; width: 64px; height: 58px;">
+              <img src="../../assets/I106_5095_2_286.svg" style="position: absolute; top: 3.2px; left: 2.14px; opacity: 0.2;">
+              <img src="../../assets/I106_5095_2_289.svg" style="position: absolute; top: 2.41px; left: 1.11px; opacity: 0.12;">
+              <img src="../../assets/I106_5095_2_290.svg" style="position: absolute; top: 3.2px; left: 2.15px;">
+              <img src="../../assets/I106_5095_2_291.svg" style="position: absolute; top: 3.2px; left: 24.41px;">
+              <img src="../../assets/I106_5095_2_292.svg" style="position: absolute; top: 28.66px; left: 24.41px;">
+              <img src="../../assets/I106_5095_2_293.svg" style="position: absolute; top: 28.66px; left: 2.15px;">
+              <img src="../../assets/I106_5095_2_294.svg" style="position: absolute; top: 15.93px; left: 2.14px;">
+              <img src="../../assets/I106_5095_2_295.svg" style="position: absolute; top: 15.93px; left: 24.41px;">
+              <img src="../../assets/I106_5095_2_300.svg" style="position: absolute; top: 14.34px; left: 5.67px; opacity: 0.48;">
+              <img src="../../assets/I106_5095_2_303.svg" style="position: absolute; top: 13.86px; left: 4.69px; opacity: 0.24;">
+              <img src="../../assets/I106_5095_2_304.svg" style="position: absolute; top: 14.34px; left: 5.67px;">
+              <img src="../../assets/I106_5095_2_305.svg" style="position: absolute; top: 0px; left: 5.67px;">
+              <img src="../../assets/I106_5095_2_306.svg" style="position: absolute; top: 20.9px; left: 13.14px;">
+              <img src="../../assets/I106_5095_2_307.svg" style="position: absolute; top: 14.34px; left: 5.67px; opacity: 0.5;">
+            </div>
+          </div>
+          <span>Microsoft Excel</span>
+        </a>
+        <a href="#" class="office-btn outlook">
+          <div class="office-icon-wrapper">
+            <div class="merged-image-container" style="position: relative; width: 77px; height: 69px;">
+              <img src="../../assets/I106_5096_2_403.svg" style="position: absolute; top: 3.18px; left: 3.04px; opacity: 0.2;">
+              <img src="../../assets/I106_5096_2_406.svg" style="position: absolute; top: 2.49px; left: 1.68px; opacity: 0.12;">
+              <img src="../../assets/I106_5096_2_407.svg" style="position: absolute; top: 16px; left: 4.61px;">
+              <img src="../../assets/I106_5096_2_408.svg" style="position: absolute; top: 22.26px; left: 6.2px;">
+              <img src="../../assets/I106_5096_2_409.svg" style="position: absolute; top: 3.18px; left: 6.25px;">
+              <img src="../../assets/I106_5096_2_410.svg" style="position: absolute; top: 11.12px; left: 6.2px;">
+              <img src="../../assets/I106_5096_2_411.svg" style="position: absolute; top: 11.12px; left: 18.93px;">
+              <img src="../../assets/I106_5096_2_412.svg" style="position: absolute; top: 11.12px; left: 31.66px;">
+              <img src="../../assets/I106_5096_2_413.svg" style="position: absolute; top: 22.26px; left: 31.66px;">
+              <img src="../../assets/I106_5096_2_414.svg" style="position: absolute; top: 22.26px; left: 18.93px;">
+              <img src="../../assets/I106_5096_2_415.svg" style="position: absolute; top: 33.94px; left: 18.93px;">
+              <img src="../../assets/I106_5096_2_416.svg" style="position: absolute; top: 33.94px; left: 6.2px;">
+              <img src="../../assets/I106_5096_2_417.svg" style="position: absolute; top: 33.94px; left: 31.66px;">
+              <img src="../../assets/I106_5096_2_422.svg" style="position: absolute; top: 28.64px; left: 3.04px; opacity: 0.35;">
+              <img src="../../assets/I106_5096_2_426.svg" style="position: absolute; top: 27.07px; left: 1.68px; opacity: 0.06;">
+              <img src="../../assets/I106_5096_2_427.svg" style="position: absolute; top: 28.64px; left: 3.04px;">
+              <img src="../../assets/I106_5096_2_428.svg" style="position: absolute; top: 28.64px; left: 3.04px;">
+              <img src="../../assets/I106_5096_2_433.svg" style="position: absolute; top: 14.32px; left: 5.67px; opacity: 0.48;">
+              <img src="../../assets/I106_5096_2_436.svg" style="position: absolute; top: 13.84px; left: 4.69px; opacity: 0.24;">
+              <img src="../../assets/I106_5096_2_437.svg" style="position: absolute; top: 0px; left: 5.69px;">
+              <img src="../../assets/I106_5096_2_438.svg" style="position: absolute; top: 3.18px; left: 3.04px; opacity: 0.75;">
+              <img src="../../assets/I106_5096_2_439.svg" style="position: absolute; top: 14.32px; left: 5.67px;">
+              <img src="../../assets/I106_5096_2_440.svg" style="position: absolute; top: 14.32px; left: 5.67px; opacity: 0.5;">
+              <img src="../../assets/I106_5096_2_442.svg" style="position: absolute; top: 20.88px; left: 12.62px;">
+            </div>
+          </div>
+          <span>Microsoft Outlook</span>
+        </a>
+        <a href="#" class="office-btn powerpoint">
+          <div class="office-icon-wrapper">
+            <div class="merged-image-container" style="position: relative; width: 64px; height: 58px;">
+              <img src="../../assets/I106_5097_2_452.svg" style="position: absolute; top: 3.2px; left: 2.24px; opacity: 0.2;">
+              <img src="../../assets/I106_5097_2_456.svg" style="position: absolute; top: 3.2px; left: 2.24px;">
+              <img src="../../assets/I106_5097_2_457.svg" style="position: absolute; top: 3.2px; left: 2.24px;">
+              <img src="../../assets/I106_5097_2_458.svg" style="position: absolute; top: 3.2px; left: 27.7px;">
+              <img src="../../assets/I106_5097_2_463.svg" style="position: absolute; top: 14.34px; left: 5.67px; opacity: 0.48;">
+              <img src="../../assets/I106_5097_2_466.svg" style="position: absolute; top: 13.86px; left: 4.69px; opacity: 0.24;">
+              <img src="../../assets/I106_5097_2_467.svg" style="position: absolute; top: 0px; left: 5.67px; opacity: 0.75;">
+              <img src="../../assets/I106_5097_2_468.svg" style="position: absolute; top: 3.2px; left: 2.24px; opacity: 0.5;">
+              <img src="../../assets/I106_5097_2_469.svg" style="position: absolute; top: 14.34px; left: 5.67px;">
+              <img src="../../assets/I106_5097_2_470.svg" style="position: absolute; top: 14.34px; left: 5.67px; opacity: 0.5;">
+              <img src="../../assets/I106_5097_2_472.svg" style="position: absolute; top: 20.89px; left: 14.05px;">
+              <img src="../../assets/I106_5097_2_473.svg" style="position: absolute; top: 0px; left: 5.67px;">
+            </div>
+          </div>
+          <span>Microsoft PowerPoint</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="test-category">
+      <div class="test-category-title">
+        <svg width="55" height="55" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="11" fill="#72B656"/>
+        <path d="M7 12.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Test d'aptitude</h3>
+      </div>
+      <div class="aptitude-test-content">
+        <p>Le test se présente sous la forme d’un questionnaire à choix multiples, à remplir en un temps limité. Les différentes questions sont réparties en 6 catégories : le raisonnement numérique, le raisonnement verbal, le raisonnement non verbal, le raisonnement spatial, le raisonnement technique et enfin le raisonnement abstrait. Ces exercices vous permettront d’améliorer sensiblement vos capacités de raisonnement et de mémorisation.</p>
+        <div class="aptitude-icons">
+          <div class="aptitude-icon-item">
+            <div class="aptitude-icon-bg purple">
+              <img src="../../assets/brain.svg" alt="Raisonnement icon">
+            </div>
+            <span>Raisonnement</span>
+          </div>
+          <div class="aptitude-icon-item">
+            <div class="aptitude-icon-bg blue">
+              <img src="../../assets/106_5107.svg" alt="Mémorisation icon">
+            </div>
+            <span>mémorisation</span>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<section id="catalog" class="catalog-section">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="font-light">Un</span> catalogue <span class="font-light">de</span> plus de 600 tests
+    </h2>
+    <p class="section-subtitle">+ de 600 tests techniques/métiers permettant d’évaluer les Hard <br> skills dans différents domaines !</p>
+    <div class="catalog-grid">
+      <div class="catalog-card" *ngFor="let catalogue of evaluation.evaluationCatalogues">
+            <img [src]="sanitizeImage(catalogue.image)" alt="Photo evaluation" class="ev-image" />
+        <div class="card-label">{{catalogue.title}}</div>
+      </div>
+      <!-- <div class="catalog-card">
+        <img src="../../assets/e0730275c3085e2749616d1f614e2200ee8b218f.png" alt="Informatique" class="card-bg-img">
+        <div class="card-label">Informatique</div>
+      </div>
+      <div class="catalog-card">
+        <img src="../../assets/cc4b504d4317b7b856a5dcf45b629888de8e12c7.png" alt="Industrie" class="card-bg-img">
+        <div class="card-label">Industrie</div>
+      </div>
+      <div class="catalog-card">
+        <img src="../../assets/5b7cdbfc82737149bec9dc45f6e1a47635edee58.png" alt="Langue" class="card-bg-img">
+        <div class="card-label">Langue</div>
+      </div>
+      <div class="catalog-card">
+        <img src="../../assets/8ef51ced89b6cdd3a5b74b72dfa9425274b8018e.png" alt="Finance" class="card-bg-img">
+        <div class="card-label">Finance</div>
+      </div>
+      <div class="catalog-card">
+        <img src="../../assets/055357864b4c5ebe18183cd75f1522b7303c4bf7.png" alt="Services" class="card-bg-img">
+        <div class="card-label">Services</div>
+      </div>
+      <div class="catalog-card">
+        <img src="../../assets/217156df74fa3a2f6a2e443211672ab2ce171a7c.png" alt="Bureautique" class="card-bg-img">
+        <div class="card-label">Bureautique</div>
+      </div>
+      <div class="catalog-card">
+        <img src="../../assets/95a997da0f975e0ced4585f9f75a0de9ad65616d.png" alt="Aptitude" class="card-bg-img">
+        <div class="card-label">Aptitude</div>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<section id="section-partners" class="partners-section">
+    <div class="container">
+        <h2 class="partners-title">Ils nous font confiance</h2>
+        <p class="partners-subtitle">
+            Il serait long et fastidieux de présenter la liste exhaustive de nos clients. Mais voici quelques exemples de collaborations qui illustrent une partie de notre savoir-faire. <strong>Alors pourquoi pas vous !</strong>
+        </p>
+        <div class="carousel-container">
+            <button class="carousel-btn prev" (click)="scrollLeftPartners()">‹</button>
+                <div class="carousel" #partnersCarousel>
+                    <div class="partner-logo-card" *ngFor="let p of visiblePartners">
+                        <img [src]="sanitizeImage(p.image)" alt="Photo evaluation" class="ev-image" />
+                    </div>
+                </div>
+
+            <button class="carousel-btn next" (click)="scrollRightPartners()">›</button>
+        </div>        
+        <img src="../../assets/89_2666.svg" class="bg-ellipse ellipse3" alt="">
+        
+        <div class="testimonial-card">
+            <h2 class="testimonial-heading">Ce que nos client disent de nous</h2>
+            <div class="testimonial-content">
+                <div class="testimonial-image-container">
+                    <img src="../../assets/6a2ece96f84ed87bce0c2acb704722d0cec2f699.png" alt="Olivier Kunz's company logo">
+                </div>
+                <div class="testimonial-text">
+                    <blockquote>"Les outils de Central Test nous aident non seulement à la prise de décision, mais aussi pour affiner le plan d'onboarding des candidats recrutés, et ainsi maximiser les chances de succès à la fois du collaborateur et de l'entreprise."</blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+
+
+</body>

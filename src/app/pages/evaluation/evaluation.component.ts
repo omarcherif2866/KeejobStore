@@ -13,42 +13,41 @@ export class EvaluationComponent implements OnInit {
   evaluations: Evaluation[] = [];
   loading = false;
   constructor(private evaluationservice: EvaluationService,private router:Router) {}
+  currentIndex = 0; // index de départ
+  visibleEvaluations: Evaluation[] = [];
 
   ngOnInit(): void {
-    this.fetchevaluations()
+    this.fetchEvaluations()
   }
 
-  fetchevaluations() {
-    this.loading = true;
-    this.evaluationservice.getEvaluation().subscribe(
-      (response: any[]) => {
-        // Transformer chaque JSON en instance de Evaluation
-        this.evaluations = response.map(f => new Evaluation(
-          f.id,
-          f.name,
-          f.description,
-          f.title,
-          f.subTitle,
-          f.image,
-          f.evaluationDescriptions || [],
+fetchEvaluations() {
+  this.loading = true;
+  this.evaluationservice.getEvaluation().subscribe({
+    next: (response: any[]) => {
+      this.evaluations = response.map(data => new Evaluation(data));
+      this.loading = false;
 
-        ));
-        this.evaluations = this.evaluations; // si pagination ou filtrage
-        this.loading = false;
-        console.log('Données reçuess: ', this.evaluations);
-      },
-      (error) => {
-        console.error('Erreur lors du chargement des evaluations:', error);
-        this.loading = false;
-        Swal.fire({
-          icon: 'error',
-          title: 'Erreur lors du chargement des données',
-          showConfirmButton: false,
-          timer: 1500
-        });
+      console.log('Données reçues: ', this.evaluations);
+
+      // 👉 AJOUT ICI
+      if (this.evaluations.length > 0) {
+        this.currentIndex = 0;
+        this.updateVisibleEvaluations();
       }
-    );
-  }
+    },
+    error: (error) => {
+      console.error('Erreur lors du chargement des évaluations:', error);
+      this.loading = false;
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur lors du chargement des données',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  });
+}
+
 
 sanitizeImage(url: string): string {
   if (!url) return '';
@@ -62,5 +61,27 @@ sanitizeImage(url: string): string {
   return url;
 }
 
+
+updateVisibleEvaluations() {
+    this.visibleEvaluations = [];
+
+    for (let i = 0; i < 3; i++) {
+      const index = (this.currentIndex + i) % this.evaluations.length;
+      this.visibleEvaluations.push(this.evaluations[index]);
+    }
+  }
+
+  scrollRight() {
+    this.currentIndex = (this.currentIndex + 1) % this.evaluations.length;
+    this.updateVisibleEvaluations();
+  }
+
+  scrollLeft() {
+    this.currentIndex =
+      (this.currentIndex - 1 + this.evaluations.length) %
+      this.evaluations.length;
+
+    this.updateVisibleEvaluations();
+  }
 
 }

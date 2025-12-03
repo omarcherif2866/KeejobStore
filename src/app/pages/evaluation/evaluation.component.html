@@ -125,7 +125,7 @@
           <span class="font-regular">sur les plateformes pour gérer le processus d'évaluation (28)</span>
         </h2>
         <div class="platforms-cards-container" >
-          <div class="platform-card">
+          <!-- <div class="platform-card">
               <div class="platform-header">
                 <div class="platform-logo-wrapper" style="background-color: #e0e7ff;">
                   <img src="../../assets/166a6a727760b4c58226c919284b0068796cc4af.png" alt="CentralTest Logo" class="platform-logo">
@@ -157,29 +157,38 @@
               <span class="rating-reviews">Basé sur 17 avis</span>
             </div>
             <a [routerLink]="['/e-learning']" class="btn btn-primary">En savoir plus</a>
-          </div>
-          <div *ngFor="let ev of evaluations" class="platform-card">
-              <div class="platform-header">
-                <div class="platform-logo-wrapper" style="background-color: #e0e7ff;">
-                  <img [src]="sanitizeImage(ev.image)" alt="logo" class="platform-logo">
-                </div>
-                <h3 class="platform-name">{{ ev.name }}</h3>
-              </div>
+          </div> -->
+          
+          
+          <div class="carousel-container">
+              <button class="carousel-btn prev" (click)="scrollLeft()">‹</button>  
+                  <div class="carousel" #carouselContainer>    
+                    <div *ngFor="let ev of visibleEvaluations" class="platform-card">
+                        <div class="platform-header">
+                          <div class="platform-logo-wrapper" style="background-color: #e0e7ff;">
+                            <img [src]="sanitizeImage(ev.image)" alt="logo" class="platform-logo">
+                          </div>
+                          <h3 class="platform-name">{{ ev.name }}</h3>
+                        </div>
 
-              <p class="platform-description">
-                {{ ev.description }}
-              </p>
+                        <p class="platform-description">
+                          {{ ev.description }}
+                        </p>
 
-              <div class="platform-rating">
-                <img src="../../assets/87_913.svg" alt="rating" />
-                <span class="rating-score">4.7</span>
-                <span class="rating-reviews">Basé sur 17 avis</span>
-              </div>
+                        <div class="platform-rating">
+                          <img src="../../assets/87_913.svg" alt="rating" />
+                          <span class="rating-score">4.7</span>
+                          <span class="rating-reviews">Basé sur 17 avis</span>
+                        </div>
 
-              <a [routerLink]="['/evaluation', ev.id]" class="btn btn-primary">
-                En savoir plus
-              </a>
+                        <a [routerLink]="['/evaluation', ev.id]" class="btn btn-primary">
+                          En savoir plus
+                        </a>
 
+                    </div>                   
+                  </div>    
+
+              <button class="carousel-btn next" (click)="scrollRight()">›</button>
           </div>
         </div>
           <div class="play-btn2">
