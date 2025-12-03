@@ -1,0 +1,653 @@
+<div class="app-container">
+  <!-- Sidebar -->
+  <div [class]="sidebarOpen ? 'sidebar open' : 'sidebar'">
+    <div class="sidebar-content">
+      <h2>Admin Panel</h2>
+      <nav>
+        <a href="#">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="actualites">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+          </svg>
+          <span>Actualités</span>
+        </a>
+        <a href="formateurs">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Formateurs</span>
+        </a>
+        <a href="cvs">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>cvs</span>
+        </a>     
+        <a href="formationFormateur">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Mes formations</span>
+        </a>       
+        <a href="serviceFormateur">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Mes services</span>
+        </a>       
+        <a href="partenaire">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Partenaires</span>
+        </a> 
+        <a href="formationKeejob">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>Formations Keejob</span>
+        </a>
+        <a href="cv">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+          <span>CV et Lettre de motivations</span>
+        </a>          
+        <a (click)="logout(); $event.preventDefault()">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span>Se déconnecter</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-area">
+    <header>
+      <button (click)="toggleSidebar()" class="sidebar-toggle">
+        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+      <h1>Gestion des cvs</h1>
+      <div class="spacer"></div>
+    </header>
+
+    <main>
+      <div class="content-box">
+        <div class="header-actions">
+          <h2>Liste des cvs</h2>
+          <button (click)="handleAdd()" class="btn btn-blue">
+            <span>Ajouter</span>
+          </button>
+        </div>
+
+        <!-- Loader -->
+        <div *ngIf="loading" class="loader">
+          <div class="spinner"></div>
+          <p>Chargement des cvs...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!loading && cvs.length === 0" class="empty-state">
+          Aucun ev disponible
+        </div>
+
+        <!-- Table -->
+<div *ngIf="!loading && cvs.length > 0" class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Sections</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let evaluation of currentItems">
+        <td>{{evaluation.Id}}</td>
+        <td>
+          <img [src]="sanitizeImage(evaluation.Image)" alt="Photo evaluation" class="ev-image" />
+        </td>
+        <td>{{evaluation.Name}}</td>
+        <td>{{evaluation.Description}}</td>
+        <td>
+          <span class="badge">{{ evaluation.Sections?.length || 0 }} section(s)</span>
+        </td>
+        <td class="actions">
+          <button (click)="handleEdit(evaluation)" class="action-btn edit-btn" title="Modifier l'évaluation">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+          </button>
+
+          <button (click)="handleDelete(evaluation.Id)" class="action-btn delete-btn" title="Supprimer l'évaluation">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+        <!-- Pagination -->
+        <div *ngIf="!loading && cvs.length > 0" class="pagination">
+          <button (click)="handlePageChange(currentPage - 1)" [disabled]="currentPage === 1">◀</button>
+          <button *ngFor="let page of pagesArray" (click)="handlePageChange(page)" 
+                  [class.active]="currentPage === page">{{page}}</button>
+          <button (click)="handlePageChange(currentPage + 1)" [disabled]="currentPage === totalPages">▶</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="showModal" class="modal">
+
+  <div class="modal-content-large">
+    <h3>{{modalMode === 'add' ? 'Ajouter une évaluation' : 'Modifier l\'évaluation'}}</h3>
+
+    <!-- Stepper Header -->
+<!-- Modal -->
+<!-- Modal -->
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content-large">
+    <h3>{{modalMode === 'add' ? 'Ajouter un CV' : 'Modifier le CV'}}</h3>
+
+    <!-- Stepper Header -->
+    <div class="stepper-header">
+      <!-- Step 1: Informations -->
+      <div class="step" [class.active]="currentModalStep === 1" [class.completed]="currentModalStep > 1">
+        <div class="step-circle" (click)="goToModalStep(1)">
+          <span *ngIf="currentModalStep > 1">✓</span>
+          <span *ngIf="currentModalStep <= 1">1</span>
+        </div>
+        <div class="step-label">Informations</div>
+      </div>
+
+      <div class="step-line" [class.completed]="currentModalStep > 1"></div>
+
+      <!-- Step 2: Section 1 -->
+      <div class="step" [class.active]="currentModalStep === 2" [class.completed]="currentModalStep > 2">
+        <div class="step-circle" (click)="goToModalStep(2)">
+          <span *ngIf="currentModalStep > 2">✓</span>
+          <span *ngIf="currentModalStep <= 2">2</span>
+        </div>
+        <div class="step-label">Section 1</div>
+      </div>
+
+      <div class="step-line" [class.completed]="currentModalStep > 2"></div>
+
+      <!-- Step 3: Section 2 -->
+      <div class="step" [class.active]="currentModalStep === 3" [class.completed]="currentModalStep > 3">
+        <div class="step-circle" (click)="goToModalStep(3)">
+          <span *ngIf="currentModalStep > 3">✓</span>
+          <span *ngIf="currentModalStep <= 3">3</span>
+        </div>
+        <div class="step-label">Section 2</div>
+      </div>
+
+      <div class="step-line" [class.completed]="currentModalStep > 3"></div>
+
+      <!-- Step 4: Section 3 -->
+      <div class="step" [class.active]="currentModalStep === 4" [class.completed]="currentModalStep > 4">
+        <div class="step-circle" (click)="goToModalStep(4)">
+          <span *ngIf="currentModalStep > 4">✓</span>
+          <span *ngIf="currentModalStep <= 4">4</span>
+        </div>
+        <div class="step-label">Section 3</div>
+      </div>
+
+      <div class="step-line" [class.completed]="currentModalStep > 4"></div>
+
+      <!-- Step 5: Section 4 -->
+      <div class="step" [class.active]="currentModalStep === 5" [class.completed]="currentModalStep > 5">
+        <div class="step-circle" (click)="goToModalStep(5)">
+          <span *ngIf="currentModalStep > 5">✓</span>
+          <span *ngIf="currentModalStep <= 5">5</span>
+        </div>
+        <div class="step-label">Section 4</div>
+      </div>
+
+      <div class="step-line" [class.completed]="currentModalStep > 5"></div>
+
+      <!-- Step 6: Packs & Prix -->
+      <div class="step" [class.active]="currentModalStep === 6" [class.completed]="currentModalStep > 6">
+        <div class="step-circle" (click)="goToModalStep(6)">
+          <span *ngIf="currentModalStep > 6">✓</span>
+          <span *ngIf="currentModalStep <= 6">6</span>
+        </div>
+        <div class="step-label">Packs & Prix</div>
+      </div>
+
+      <div class="step-line" [class.completed]="currentModalStep > 6"></div>
+
+      <!-- Step 7: Partenaires -->
+      <div class="step" [class.active]="currentModalStep === 7">
+        <div class="step-circle" (click)="goToModalStep(7)">
+          <span>7</span>
+        </div>
+        <div class="step-label">Partenaires</div>
+      </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+      <div class="progress-text">Étape {{ currentModalStep }} sur 7</div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="(currentModalStep / 7) * 100"></div>
+      </div>
+    </div>
+
+    <!-- Stepper Content -->
+    <div class="modal-body scrollable">
+      
+      <!-- STEP 1: Informations générales -->
+      <div *ngIf="currentModalStep === 1" class="step-content">
+        <h4>📋 Informations de base</h4>
+
+        <label>Nom *</label>
+        <input type="text" 
+               [(ngModel)]="formData.name" 
+               placeholder="Entrez le nom du CV"
+               class="form-input">
+
+        <label>Description</label>
+        <textarea [(ngModel)]="formData.description" 
+                  rows="4" 
+                  placeholder="Décrivez l'objectif de ce CV"
+                  class="form-input"></textarea>
+
+        <label>Image *</label>
+        <input 
+          type="file" 
+          id="image" 
+          class="form-input"
+          accept="image/*"
+          (change)="onImageSelected($event)">
+        <small class="form-text">Formats acceptés: JPG, PNG, GIF (Max 5MB)</small>
+        
+        <div *ngIf="selectedImage" class="selected-file">
+          <p>✓ Image sélectionnée: {{ selectedImage.name }}</p>
+        </div>
+
+        <div *ngIf="modalMode === 'edit' && formData.image && !selectedImage" class="current-image">
+          <p>Image actuelle:</p>
+          <img [src]="sanitizeImage(formData.image)" alt="Image actuelle" style="max-width: 200px; border-radius: 8px;">
+        </div>
+      </div>
+
+      <!-- STEP 2-5: Sections 1-4 (Template répété) -->
+      <div *ngFor="let section of sections; let sectionIndex = index" 
+           [hidden]="currentModalStep !== sectionIndex + 2">
+        <div *ngIf="currentModalStep === sectionIndex + 2" class="step-content">
+          <h4>📊 Section {{ sectionIndex + 1 }}</h4>
+          
+          <div class="section-card">
+            <label>Titre principal (Headline) *</label>
+            <input type="text" 
+                   [(ngModel)]="section.headline" 
+                   placeholder="Ex: Compétences techniques"
+                   class="form-input">
+
+            <label>Sous-titre</label>
+            <input type="text" 
+                   [(ngModel)]="section.subtitle" 
+                   placeholder="Ex: Évaluation des compétences"
+                   class="form-input">
+
+            <!-- Détails -->
+            <div class="details-section">
+              <div class="details-header">
+                <h5>Détails de la section</h5>
+                <button type="button" 
+                        (click)="addDetailToSection(sectionIndex)" 
+                        class="btn btn-sm btn-blue">
+                  + Ajouter un détail
+                </button>
+              </div>
+
+              <div *ngFor="let detail of section.details; let i = index" class="detail-card">
+                <div class="detail-header">
+                  <span class="detail-number">Détail #{{ i + 1 }}</span>
+                  <button type="button" 
+                          (click)="removeDetailFromSection(sectionIndex, i)" 
+                          class="btn-icon btn-danger"
+                          title="Supprimer ce détail">
+                    🗑️
+                  </button>
+                </div>
+
+                <label>Titre *</label>
+                <input type="text" 
+                       [(ngModel)]="detail.titre" 
+                       placeholder="Ex: JavaScript"
+                       class="form-input">
+
+                <label>Description</label>
+                <textarea [(ngModel)]="detail.description" 
+                          rows="2" 
+                          placeholder="Ex: Maîtrise du langage JavaScript"
+                          class="form-input"></textarea>
+
+                <label>Icône *</label>
+                <div class="icon-selector">
+                  <input type="text" 
+                         [(ngModel)]="detail.icon" 
+                         placeholder="Ex: 💻 ou js-icon"
+                         class="form-input">
+                  <small class="form-text">Vous pouvez utiliser un emoji ou le nom d'une icône</small>
+                </div>
+
+                <!-- Suggestions d'icônes -->
+                <div class="icon-suggestions">
+                  <span class="icon-chip" (click)="detail.icon = '📊'" [class.selected]="detail.icon === '📊'">📊</span>
+                  <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
+                  <span class="icon-chip" (click)="detail.icon = '💼'" [class.selected]="detail.icon === '💼'">💼</span>
+                  <span class="icon-chip" (click)="detail.icon = '🔧'" [class.selected]="detail.icon === '🔧'">🔧</span>
+                  <span class="icon-chip" (click)="detail.icon = '💡'" [class.selected]="detail.icon === '💡'">💡</span>
+                  <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
+                  <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
+                  <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
+                  <span class="icon-chip" (click)="detail.icon = '💻'" [class.selected]="detail.icon === '💻'">💻</span>
+                  <span class="icon-chip" (click)="detail.icon = '📝'" [class.selected]="detail.icon === '📝'">📝</span>
+                  <span class="icon-chip" (click)="detail.icon = '📚'" [class.selected]="detail.icon === '📚'">📚</span>
+                  <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
+                  <span class="icon-chip" (click)="detail.icon = '🎓'" [class.selected]="detail.icon === '🎓'">🎓</span>
+                  <span class="icon-chip" (click)="detail.icon = '📈'" [class.selected]="detail.icon === '📈'">📈</span>
+                  <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
+                  <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
+                  <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
+                  <span class="icon-chip" (click)="detail.icon = '🛠️'" [class.selected]="detail.icon === '🛠️'">🛠️</span>
+                  <span class="icon-chip" (click)="detail.icon = '🧠'" [class.selected]="detail.icon === '🧠'">🧠</span>
+                  <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
+                  <span class="icon-chip" (click)="detail.icon = '🎨'" [class.selected]="detail.icon === '🎨'">🎨</span>
+                  <span class="icon-chip" (click)="detail.icon = '👥'" [class.selected]="detail.icon === '👥'">👥</span>
+                  <span class="icon-chip" (click)="detail.icon = '🤝'" [class.selected]="detail.icon === '🤝'">🤝</span>
+                  <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
+                  <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
+                </div>
+              </div>
+
+              <div *ngIf="section.details.length === 0" class="no-details">
+                <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6: Packs & Prix (PriceSections) -->
+      <div *ngIf="currentModalStep === 6" class="step-content">
+        <h4>💰 Packs & Prix</h4>
+        
+        <div class="price-section">
+          <div class="section-header">
+            <p class="section-description">
+              Créez différents packs de prix avec leurs fonctionnalités
+            </p>
+            <button type="button" (click)="addPriceSection()" class="btn btn-blue">
+              + Ajouter un pack
+            </button>
+          </div>
+
+          <!-- Liste des packs de prix -->
+          <div class="price-packs-container">
+            <div *ngFor="let priceSection of priceSections; let psIndex = index" class="price-pack-card">
+              
+              <!-- Header du pack -->
+              <div class="price-pack-header">
+                <h5>Pack #{{ psIndex + 1 }}</h5>
+                <button type="button" 
+                        (click)="removePriceSection(psIndex)" 
+                        class="btn-icon btn-danger"
+                        title="Supprimer ce pack">
+                  🗑️
+                </button>
+              </div>
+
+              <!-- Informations du pack -->
+              <div class="price-pack-info">
+                <div class="form-group">
+                  <label>Titre du pack *</label>
+                  <input type="text" 
+                         [(ngModel)]="priceSection.title" 
+                         placeholder="Ex: Pack Basique"
+                         class="form-input">
+                </div>
+
+                <div class="form-group">
+                  <label>Sous-titre</label>
+                  <input type="text" 
+                         [(ngModel)]="priceSection.subtitle" 
+                         placeholder="Ex: Pour les débutants"
+                         class="form-input">
+                </div>
+
+                <div class="form-group">
+                  <label>Prix *</label>
+                  <input type="text" 
+                         [(ngModel)]="priceSection.price" 
+                         placeholder="Ex: 99€/mois ou Gratuit"
+                         class="form-input">
+                </div>
+              </div>
+
+              <!-- Fonctionnalités du pack -->
+              <div class="price-features">
+                <div class="features-header">
+                  <h6>Fonctionnalités incluses</h6>
+                  <button type="button" 
+                          (click)="addDetailToPriceSection(psIndex)" 
+                          class="btn btn-sm btn-outline">
+                    + Ajouter une fonctionnalité
+                  </button>
+                </div>
+
+                <div *ngFor="let detail of priceSection.details; let dIndex = index" class="feature-item">
+                  <div class="feature-header">
+                    <span class="feature-number">Fonctionnalité #{{ dIndex + 1 }}</span>
+                    <button type="button" 
+                            (click)="removeDetailFromPriceSection(psIndex, dIndex)" 
+                            class="btn-icon-sm btn-danger"
+                            title="Supprimer">
+                      ✕
+                    </button>
+                  </div>
+
+                  <div class="feature-fields">
+                    <div class="form-group">
+                      <label>Titre *</label>
+                      <input type="text" 
+                             [(ngModel)]="detail.titre" 
+                             placeholder="Ex: Accès illimité"
+                             class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Description</label>
+                      <textarea [(ngModel)]="detail.description" 
+                                rows="2" 
+                                placeholder="Ex: Accédez à toutes les fonctionnalités"
+                                class="form-input"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Icône *</label>
+                      <input type="text" 
+                             [(ngModel)]="detail.icon" 
+                             placeholder="Ex: ✓ ou ✅"
+                             class="form-input">
+                    </div>
+
+                    <!-- Suggestions d'icônes pour prix -->
+                    <div class="icon-suggestions">
+                      <span class="icon-chip" (click)="detail.icon = '✓'" [class.selected]="detail.icon === '✓'">✓</span>
+                      <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
+                      <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
+                      <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
+                      <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
+                      <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
+                      <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
+                      <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
+                      <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
+                      <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
+                      <span class="icon-chip" (click)="detail.icon = '✕'" [class.selected]="detail.icon === '✕'">✕</span>
+                      <span class="icon-chip" (click)="detail.icon = '❌'" [class.selected]="detail.icon === '❌'">❌</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="priceSection.details.length === 0" class="no-features">
+                  <p>Aucune fonctionnalité ajoutée. Cliquez sur "+ Ajouter une fonctionnalité"</p>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="priceSections.length === 0" class="no-price-packs">
+              <div class="empty-state-icon">💰</div>
+              <p>Aucun pack de prix créé</p>
+              <p class="hint">Cliquez sur "+ Ajouter un pack" pour créer votre premier pack</p>
+            </div>
+          </div>
+
+          <!-- Résumé des packs -->
+          <div *ngIf="priceSections.length > 0" class="price-summary">
+            <h6>📊 Résumé des packs</h6>
+            <div class="summary-stats">
+              <div class="stat-item">
+                <strong>Total packs:</strong> {{ priceSections.length }}
+              </div>
+              <div class="stat-item">
+                <strong>Packs complets:</strong> {{ countCompletedPriceSections() }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 7: Partenaires -->
+      <div *ngIf="currentModalStep === 7" class="step-content">
+        <h4>🤝 Partenaires</h4>
+        
+        <div class="partners-section">
+          <div class="section-header">
+            <p class="section-description">
+              Sélectionnez les partenaires associés à ce CV
+            </p>
+          </div>
+
+          <!-- Liste des partenaires disponibles -->
+          <div class="partners-grid">
+            <div *ngFor="let partenaire of allPartenaires" 
+                class="partner-card"
+                [class.selected]="isPartenaireSelected(partenaire)"
+                (click)="togglePartenaireSelection(partenaire)">
+              
+              <input type="checkbox" 
+                    [checked]="isPartenaireSelected(partenaire)">
+              
+              <div class="partner-image">
+                <img [src]="sanitizeImage(partenaire.image)" [alt]="partenaire.name">
+              </div>
+              
+              <div class="partner-info">
+                <h5>{{ partenaire.name }}</h5>
+              </div>
+            </div>
+
+            <div *ngIf="allPartenaires.length === 0" class="no-partners">
+              <p>Aucun partenaire disponible</p>
+            </div>
+          </div>
+
+          <!-- Résumé des partenaires sélectionnés -->
+          <div *ngIf="selectedPartenaires.length > 0" class="selected-partners-summary">
+            <h5>✓ Partenaires sélectionnés ({{ selectedPartenaires.length }})</h5>
+            <div class="selected-chips">
+              <span *ngFor="let p of selectedPartenaires" class="partner-chip">
+                {{ p.Name }}
+                <button type="button" 
+                        (click)="togglePartenaireSelection(p)" 
+                        class="chip-remove">×</button>
+              </span>
+            </div>
+          </div>
+          
+          <div *ngIf="selectedPartenaires.length === 0" class="info-box">
+            <p>ℹ️ Aucun partenaire sélectionné. Vous pouvez continuer sans sélectionner de partenaires.</p>
+          </div>
+        </div>
+
+        <!-- Résumé final -->
+        <div class="summary-box">
+          <h5>📝 Résumé de votre CV</h5>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <strong>Nom:</strong> {{ formData.name || 'Non renseigné' }}
+            </div>
+            <div class="summary-item">
+              <strong>Description:</strong> {{ formData.description || 'Non renseignée' }}
+            </div>
+            <div class="summary-item">
+              <strong>Sections complétées:</strong> {{ countCompletedSections() }} / 4
+            </div>
+            <div class="summary-item">
+              <strong>Total de détails:</strong> 
+              {{ sections[0].details.length + sections[1].details.length + 
+                 sections[2].details.length + sections[3].details.length }}
+            </div>
+            <div class="summary-item">
+              <strong>Packs de prix:</strong> {{ priceSections.length }}
+            </div>
+            <div class="summary-item">
+              <strong>Partenaires:</strong> {{ selectedPartenaires.length }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Actions -->
+    <div class="modal-actions">
+      <div class="actions-left">
+        <button *ngIf="currentModalStep > 1" 
+                (click)="previousModalStep()" 
+                class="btn btn-gray">
+          ← Précédent
+        </button>
+      </div>
+      <div class="actions-right">
+        <button (click)="closeModal()" class="btn btn-gray">Annuler</button>
+        <button *ngIf="currentModalStep < 7" 
+                (click)="nextModalStep()" 
+                class="btn btn-blue">
+          Suivant →
+        </button>
+        <button *ngIf="currentModalStep === 7" 
+                (click)="handleSubmit()" 
+                class="btn btn-success">
+          {{modalMode === 'add' ? '✓ Créer le CV' : '✓ Enregistrer les modifications'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

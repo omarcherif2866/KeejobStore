@@ -1,0 +1,192 @@
+<body>
+
+  <div *ngIf="loading" class="loading-container">
+  <div class="spinner"></div>
+  <p>Chargement des évaluations...</p>
+</div>
+
+<div *ngIf="!loading && cvs.length === 0" class="no-data">
+  <p>Aucune évaluation disponible</p>
+</div>
+<div *ngFor="let cv of cvs; let i = index"> 
+
+    <section id="hero-section">
+      <div class="container">
+        <div class="hero-top">
+          <div class="hero-badge">
+            <div class="icon-box">
+              <img [src]="sanitizeImage(cv.image)" [alt]="cv.name + ' icon'">
+            </div>
+            <div class="badge-text">
+              <h1>{{ cv.name }}</h1>
+            </div>
+          </div>
+          
+          <div class="rating-block">
+            <img src="images/405_3319.svg" alt="Stars">
+            <span class="score">4.7</span>
+            <span class="reviews">Basé sur 17 avis</span>
+          </div>
+        </div>
+
+        <div class="hero-content">
+          <div class="hero-image">
+            <img [src]="sanitizeImage(cv.image)" [alt]="cv.name + ' icon'">
+          </div>
+          <div class="hero-text">
+            <h2>{{ cv.sections[0]?.headline }}</h2>
+            <p>{{ cv.sections[0]?.subtitle }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="expertise-section">
+      <div class="container">
+        <div class="expertise-grid">
+          <div class="expertise-left">
+            <h2>{{ cv.sections[1]?.headline }}</h2>
+            <p>{{ cv.sections[1]?.subtitle }}</p>
+          </div>
+          <div class="expertise-right">
+            <h3>{{ cv.sections[2]?.headline }}</h3>
+            <p>{{ cv.sections[2]?.subtitle }}</p>
+            <div class="expertise-right" *ngFor="let detail of cv.sections[2]?.details">
+              <div class="expertise-item">
+                <div class="check-icon">
+                  <img src="images/405_3353.svg" alt="Check">
+                </div>
+                <div class="item-text">
+                  <strong>{{ detail.titre }} :</strong> {{ detail.description }}
+                </div>
+              </div>              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- prix a regler -->
+    <section id="pricing-section">
+      <div class="container">
+        <h2 class="section-title">{{ cv.sections[3]?.headline }}</h2>
+        <p class="section-subtitle">{{ cv.sections[3]?.subtitle }}</p>
+
+        <div class="pricing-cards">
+          <!-- Card 1 -->
+          <div class="pricing-card card-blue">
+            <div class="card-header">
+              <div class="card-icon">
+                <img src="images/405_3410.svg" alt="Icon">
+              </div>
+              <h3>Relecture classique</h3>
+              <div class="price">3,6€ / page</div>
+            </div>
+            <div class="card-body">
+              <p class="included">Qu'est-ce qui est inclus ?</p>
+              <ul class="feature-list">
+                <li><img src="images/405_3365.svg" alt="v"> Relecture de texte</li>
+                <li><img src="images/405_3374.svg" alt="v"> Vérification au niveau du sens</li>
+                <li><img src="images/405_3383.svg" alt="v"> Recommandations</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">Commander</a>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="pricing-card card-yellow">
+            <div class="card-header">
+              <div class="card-icon">
+                <img src="images/405_3425.svg" alt="Icon">
+              </div>
+              <h3>Correction de texte</h3>
+              <div class="price">8,69 € / page</div>
+            </div>
+            <div class="card-body">
+              <p class="included">Qu'est-ce qui est inclus ?</p>
+              <ul class="feature-list">
+                <li><img src="images/405_3368.svg" alt="v"> Correction relecture</li>
+                <li><img src="images/405_3377.svg" alt="v"> Vérification au niveau du sens</li>
+                <li><img src="images/405_3386.svg" alt="v"> Vérification de la clarté</li>
+                <li><img src="images/405_3392.svg" alt="v"> Rapport de plagiat</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">Commander</a>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="pricing-card card-green">
+            <div class="card-header">
+              <div class="card-icon">
+                <img src="images/405_3434.svg" alt="Icon">
+              </div>
+              <h3>Amélioration et réécriture</h3>
+              <div class="price">14,99€ / page</div>
+            </div>
+            <div class="card-body">
+              <p class="included">Qu'est-ce qui est inclus ?</p>
+              <ul class="feature-list">
+                <li><img src="images/405_3371.svg" alt="v"> Correction relecture</li>
+                <li><img src="images/405_3380.svg" alt="v"> Vérification au niveau du sens</li>
+                <li><img src="images/405_3389.svg" alt="v"> Amélioration du contenu</li>
+                <li><img src="images/405_3395.svg" alt="v"> Rapport de plagiat</li>
+                <li><img src="images/405_3398.svg" alt="v"> Mise en page</li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="btn btn-primary">Commander</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+
+    <section id="process-section">
+      <div class="container">
+        <h2 class="section-title">{{ cv.sections[4]?.headline }}</h2>
+        
+        <div class="process-steps" *ngFor="let detail of cv.sections[4]?.details">
+          <!-- Step 1 -->
+          <div class="step">
+            <div class="step-icon">
+              <!-- merged image -->
+              <div style="position: relative; width: 168px; height: 168px; margin: 0 auto;">
+                <img src="images/405_3445.svg" alt="bg" style="position: absolute; top: 0; left: 0;">
+                <img src="images/405_3449.svg" alt="icon" style="position: absolute; top: 48px; left: 48px;">
+              </div>
+            </div>
+            <p class="step-text">{{ detail.titre }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials-section">
+      <div class="container">
+        <h2 class="section-title">Ils nous font confiance</h2>
+        <p class="section-subtitle">Il serait long et fastidieux de présenter la liste exhaustive de nos clients. Mais voici quelques exemples de collaborations qui illustrent une partie de notre savoir-faire. Alors pourquoi pas vous !</p>
+
+        <div class="testimonial-card">
+          <div class="testimonial-image">
+            <div class="image-bg"></div>
+            <img src="images/af0060a928e1813a3409f33491b715440c54c9e0.png" alt="Aymen B">
+          </div>
+          <div class="testimonial-content">
+            <h4>Ce que nos particuliers disent de nous</h4>
+            <blockquote>"J'ai été très satisfait du service de rédaction et de correction de CV que j'ai reçu. Ils ont vraiment pris le temps de comprendre mes compétences et mes objectifs professionnels, et le résultat final était professionnel et percutant !"</blockquote>
+            <div class="author">
+              <strong>Aymen B</strong><br>
+              Responsable des ressources humaines
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
+
+</body>

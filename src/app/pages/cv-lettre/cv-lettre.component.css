@@ -240,16 +240,17 @@
     margin-left: -30px; /* décale légèrement vers la gauche */
     overflow-x: visible; /* permet de voir le décalage */    
   }
-  .platform-card {
-    background-color: var(--color-white);
-    border-radius: 39px;
-    padding: 30px;
-    min-width: 464px;
-    box-shadow: 0px 15px 30px rgba(217, 218, 226, 0.3);
-    display: flex;
-    flex-direction: column;
-    
-  }
+.platform-card {
+  min-width: 280px;
+  max-width: 280px;
+  background: white;
+  border-radius: 15px;
+  margin-right: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+  transition: transform .3s;
+}
 
   .platform-header {
   display: flex;
@@ -280,13 +281,19 @@
     font-weight: 400;
     margin: 0 0 15px;
   }
-  .platform-description {
-    font-size: 14px;
-    line-height: 22px;
-    color: #919ca2;
-    margin: 0 0 20px;
-    flex-grow: 1;
-  }
+.platform-description {
+  font-size: 14px;
+  line-height: 22px;
+  color: #919ca2;
+  margin: 0 0 20px;
+  flex-grow: 1;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4;   /* 👉 limite à 4 lignes */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
   .platform-description .font-semibold { font-weight: 600; }
   .platform-rating {
     display: flex;
@@ -652,6 +659,55 @@
     color: var(--color-dark-blue);
     font-weight: 400;
   }
+
+.carousel-container {
+  max-width: 960px; /* ≈ 3 cartes + marges */
+  margin: auto;
+  overflow: hidden; /* CACHE la 4ème */
+  position: relative;
+}
+
+
+/* ----- LA ZONE QUI SCROLLE ----- */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+
+.carousel::-webkit-scrollbar {
+  display: none; /* Chrome */
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  font-size: 35px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  z-index: 10;
+}
+
+.carousel-btn:hover {
+  background: #f3f3f3;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
 
 /* Responsive (mobile) */
 @media (max-width: 900px) {

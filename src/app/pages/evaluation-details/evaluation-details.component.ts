@@ -29,7 +29,8 @@ export class EvaluationDetailsComponent implements OnInit {
     this.evaluationId = Number(this.route.snapshot.paramMap.get('id'));
     
     // Charger l'évaluation spécifique
-    this.fetchEvaluationById(this.evaluationId);    this.fetchCategories();
+    this.fetchEvaluationById(this.evaluationId);    
+    this.fetchCategories();
     this.evaluationId = Number(this.route.snapshot.paramMap.get('id'));
     this.getPartenaireByEvaluation();
   }

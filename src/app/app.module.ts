@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { SharedModule } from './pages/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
+import { CvDetailsComponent } from './pages/cv-details/cv-details.component';
 
 
 const routes = [
@@ -130,6 +131,13 @@ const routes = [
     ),
 },
 {
+  path: 'cv',
+  loadChildren: () =>
+    import('./dashboard/cv/cv.module').then(
+      (m) => m.CvModule
+    ),
+},
+{
   path: 'formationFormateur',
   loadChildren: () =>
     import('./dashboard/formation-formateur/formation-formateur.module').then(
@@ -176,6 +184,13 @@ const routes = [
   loadChildren: () =>
     import('./pages/evaluation-details/evaluation-details.module').then(
       (m) => m.EvaluationDetailsModule
+    ),
+},
+{
+  path: 'cv/:id',
+  loadChildren: () =>
+    import('./pages/cv-details/cv-details.module').then(
+      (m) => m.CvDetailsModule
     ),
 },
 {

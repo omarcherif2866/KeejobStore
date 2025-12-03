@@ -159,57 +159,35 @@
           <span class="font-regular">  sur les bons services pour un meilleur CV (03)</span> 
         </h2>
         <div class="platforms-cards-container">
-          <div class="platform-card">
-              <div class="platform-header">
-                    <div class="platform-logo-wrapper" style="background-color: #BDBFE2;">
-                    <img src="../../assets/correctionCV.svg" alt="CentralTest Logo" class="platform-logo">
-                    </div>
-                    <h3 class="platform-name">Rédaction et correction de CV</h3>
-              </div>
+          <div class="carousel-container">
+              <button class="carousel-btn prev" (click)="scrollLeft()">‹</button>  
+                  <div class="carousel" #carouselContainer>    
+                    <div *ngFor="let ev of visiblecvs" class="platform-card">
+                        <div class="platform-header">
+                          <div class="platform-logo-wrapper" style="background-color: #e0e7ff;">
+                            <img [src]="sanitizeImage(ev.image)" alt="logo" class="platform-logo">
+                          </div>
+                          <h3 class="platform-name">{{ ev.name }}</h3>
+                        </div>
 
-            <p class="platform-description">
-Notre service de correction et rédaction de CV assure une présentation professionnelle pour optimiser votre parcours. 
-Personnalisé pour valoriser vos compétences, il vous aide à atteindre vos objectifs professionnels avec confiance.</p>
-            <div class="platform-rating">
-              <img src="../../assets/87_913.svg" alt="4.7 stars rating">
-              <span class="rating-score">4.7</span>
-              <span class="rating-reviews">Basé sur 17 avis</span>
-            </div>
-            <a [routerLink]="['/centralTest']" class="btn btn-primary">En savoir plus</a>
-          </div>
+                        <p class="platform-description">
+                          {{ ev.description }}
+                        </p>
 
-          <div class="platform-card">
-              <div class="platform-header">
-                <div class="platform-logo-wrapper" style="background-color: #AEC5D7;">
-                <img src="../../assets/designCertif.svg" alt="E-testing Logo" class="platform-logo">
-                </div>
-                <h3 class="platform-name">Rédaction et correction de LM</h3>
-              </div>              
-            <p class="platform-description">Nous offrons des services de traduction professionnelle pour vos CV et lettres de motivation, 
-                vous permettant de présenter votre profil de manière convaincante sur les marchés internationaux.</p>
-            <div class="platform-rating">
-              <img src="../../assets/87_919.svg" alt="4.7 stars rating">
-              <span class="rating-score">4.7</span>
-              <span class="rating-reviews">Basé sur 17 avis</span>
-            </div>
-            <a [routerLink]="['/e-learning']" class="btn btn-primary">En savoir plus</a>
-          </div>
+                        <div class="platform-rating">
+                          <img src="../../assets/87_913.svg" alt="rating" />
+                          <span class="rating-score">4.7</span>
+                          <span class="rating-reviews">Basé sur 17 avis</span>
+                        </div>
 
-          <div class="platform-card">
-            <div class="platform-header">
-                <div class="platform-logo-wrapper" style="background-color: #C2C6E5;">
-                <img src="../../assets/traduction.svg" alt="E-testing Logo" class="platform-logo">
-                </div>
-                <h3 class="platform-name">Traduction de CV et LM</h3>
-            </div>
-            <p class="platform-description">Nousoffrons des services de traduction professionnelle pour vos CV et lettres demotivation,
-                 vous permettant de présenter votre profil de manière convaincantesur les marchés internationaux.</p>
-            <div class="platform-rating">
-              <img src="../../assets/87_1202.svg" alt="4.7 stars rating">
-              <span class="rating-score">4.7</span>
-              <span class="rating-reviews">Basé sur 17 avis</span>
-            </div>
-            <a href="#" class="btn btn-primary">En savoir plus</a>
+                        <a [routerLink]="['/cv', ev.id]" class="btn btn-primary">
+                          En savoir plus
+                        </a>
+
+                    </div>                   
+                  </div>    
+
+              <button class="carousel-btn next" (click)="scrollRight()">›</button>
           </div>
         </div>
           <div class="play-btn2">
