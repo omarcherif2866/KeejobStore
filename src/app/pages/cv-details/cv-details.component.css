@@ -22,12 +22,31 @@
         text-align: center;
       }
 
-#hero-section {
-  padding: 60px 0;
+.hero-section {
+    background-color: var(--color-bg-light);
+    padding: 60px 0 100px;
 }
 
+
 .hero-top {
-  margin-bottom: 40px;
+  width: 100%;
+  max-width: 1200px; /* même valeur que ton container interne */
+  margin: 0 auto 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.heroo-icon {
+    width: 168px;
+    height: 168px;
+    background-color: var(--color-primary); /* gris léger */
+    border-radius: 50%;        /* forme le cercle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;           /* taille icône */
+    color: #333;               /* couleur de l’icône */
 }
 
 .hero-badge {
@@ -104,6 +123,7 @@
 /* CSS for section section:Expertise */
 #expertise-section {
   padding: 60px 0;
+  margin-top: -10%;
 }
 
 .expertise-grid {
@@ -163,6 +183,14 @@
 /* CSS for section section:Pricing */
 #pricing-section {
   padding: 60px 0;
+    margin-top: -10%;
+
+}
+
+.pricing-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 par ligne */
+  gap: 30px;
 }
 
 .pricing-cards {
@@ -170,6 +198,24 @@
   justify-content: center;
   gap: 25px;
   flex-wrap: wrap;
+}
+
+.btn-primary {
+  background-color: var(--color-secondary);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      width: 151px;
+      height: 38px ;
+      font-size: 13px;
+
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
 }
 
 .pricing-card {
@@ -191,9 +237,6 @@
   margin-bottom: 20px;
 }
 
-.card-icon {
-  margin-bottom: 15px;
-}
 
 .card-header h3 {
   font-size: 20px;
@@ -228,6 +271,8 @@
 /* CSS for section section:Process */
 #process-section {
   padding: 80px 0;
+    margin-top: -10%;
+
 }
 
 .process-steps {
@@ -236,6 +281,12 @@
   gap: 20px;
   flex-wrap: wrap;
   text-align: center;
+
+}
+
+.section-title-pricing{
+    margin-bottom: 1%;
+
 }
 
 .step {
@@ -258,6 +309,13 @@
 /* CSS for section section:Testimonials */
 #testimonials-section {
   padding: 60px 0 100px;
+    margin-top: -10%;
+
+}
+
+.section-subtitle{
+    margin-bottom: 3%;
+
 }
 
 .testimonial-card {

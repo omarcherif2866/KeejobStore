@@ -61,4 +61,11 @@ export class CvDetailsComponent implements OnInit {
     return url;
   }
 
+getColorClass(i: number): string {
+  const colors = ['card-blue', 'card-yellow', 'card-green'];
+  return colors[i % 3];   // cycle automatiquement
+}
+
+
+
 }

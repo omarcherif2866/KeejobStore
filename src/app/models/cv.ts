@@ -35,7 +35,7 @@ export class Cv {
     this.description = data.description ?? null;
     this.image = data.image ?? null;
     this.sections = Array.isArray(data.sections) ? data.sections : [];
-    this.priceSections = Array.isArray(data.priceSection) ? data.priceSection : [];
+    this.priceSections = Array.isArray(data.priceSections) ? data.priceSections : [];
     this.cvPartenaires = Array.isArray(data.cvPartenaires) 
       ? data.cvPartenaires 
       : [];
