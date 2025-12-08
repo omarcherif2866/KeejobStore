@@ -88,7 +88,9 @@ export class CvComponent implements OnInit {
       { headline: '', subtitle: '', details: [] },
       { headline: '', subtitle: '', details: [] },
       { headline: '', subtitle: '', details: [] },
-      { headline: '', subtitle: '', details: [] }
+      { headline: '', subtitle: '', details: [] },
+          { headline: '', subtitle: '', details: [] }  // Section 5 ajoutée
+
     ];
   }
 
@@ -174,7 +176,7 @@ export class CvComponent implements OnInit {
     
     if (cv.Sections && cv.Sections.length > 0) {
       this.sections = [...cv.Sections];
-      while (this.sections.length < 4) {
+      while (this.sections.length < 5) {
         this.sections.push({ headline: '', subtitle: '', details: [] });
       }
     } else {
@@ -568,7 +570,7 @@ handleSubmit() {
       }
     }
 
-    if (this.currentModalStep < 7) {
+    if (this.currentModalStep < 8) {
       this.currentModalStep++;
     }
   }

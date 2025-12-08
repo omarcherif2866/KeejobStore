@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 
 
+
 const routes = [
   {
     path: '',
@@ -211,6 +212,20 @@ const routes = [
   loadChildren: () =>
     import('./pages/all-formation-keejob/all-formation-keejob.module').then(
       (m) => m.AllFormationKeejobModule
+    ),
+},
+{
+  path: 'allCv',
+  loadChildren: () =>
+    import('./pages/all-cv/all-cv.module').then(
+      (m) => m.AllCvModule
+    ),
+},
+{
+  path: 'allCoaching',
+  loadChildren: () =>
+    import('./pages/all-coaching/all-coaching.module').then(
+      (m) => m.AllCoachingModule
     ),
 },
 {

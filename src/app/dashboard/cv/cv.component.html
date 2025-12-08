@@ -176,509 +176,507 @@
     <h3>{{modalMode === 'add' ? 'Ajouter un CV' : 'Modifier le CV'}}</h3>
 
     <!-- Stepper Header -->
-    <div class="stepper-header">
-      <!-- Step 1: Informations -->
-      <div class="step" [class.active]="currentModalStep === 1" [class.completed]="currentModalStep > 1">
-        <div class="step-circle" (click)="goToModalStep(1)">
-          <span *ngIf="currentModalStep > 1">✓</span>
-          <span *ngIf="currentModalStep <= 1">1</span>
-        </div>
-        <div class="step-label">Informations</div>
-      </div>
+<!-- Stepper Header - 8 étapes -->
+<div class="stepper-header">
+  <!-- Step 1: Informations -->
+  <div class="step" [class.active]="currentModalStep === 1" [class.completed]="currentModalStep > 1">
+    <div class="step-circle" (click)="goToModalStep(1)">
+      <span *ngIf="currentModalStep > 1">✓</span>
+      <span *ngIf="currentModalStep <= 1">1</span>
+    </div>
+    <div class="step-label">Informations</div>
+  </div>
 
-      <div class="step-line" [class.completed]="currentModalStep > 1"></div>
+  <div class="step-line" [class.completed]="currentModalStep > 1"></div>
 
-      <!-- Step 2: Section 1 -->
-      <div class="step" [class.active]="currentModalStep === 2" [class.completed]="currentModalStep > 2">
-        <div class="step-circle" (click)="goToModalStep(2)">
-          <span *ngIf="currentModalStep > 2">✓</span>
-          <span *ngIf="currentModalStep <= 2">2</span>
-        </div>
-        <div class="step-label">Section 1</div>
-      </div>
+  <!-- Step 2: Section 1 -->
+  <div class="step" [class.active]="currentModalStep === 2" [class.completed]="currentModalStep > 2">
+    <div class="step-circle" (click)="goToModalStep(2)">
+      <span *ngIf="currentModalStep > 2">✓</span>
+      <span *ngIf="currentModalStep <= 2">2</span>
+    </div>
+    <div class="step-label">Section 1</div>
+  </div>
 
-      <div class="step-line" [class.completed]="currentModalStep > 2"></div>
+  <div class="step-line" [class.completed]="currentModalStep > 2"></div>
 
-      <!-- Step 3: Section 2 -->
-      <div class="step" [class.active]="currentModalStep === 3" [class.completed]="currentModalStep > 3">
-        <div class="step-circle" (click)="goToModalStep(3)">
-          <span *ngIf="currentModalStep > 3">✓</span>
-          <span *ngIf="currentModalStep <= 3">3</span>
-        </div>
-        <div class="step-label">Section 2</div>
-      </div>
+  <!-- Step 3: Section 2 -->
+  <div class="step" [class.active]="currentModalStep === 3" [class.completed]="currentModalStep > 3">
+    <div class="step-circle" (click)="goToModalStep(3)">
+      <span *ngIf="currentModalStep > 3">✓</span>
+      <span *ngIf="currentModalStep <= 3">3</span>
+    </div>
+    <div class="step-label">Section 2</div>
+  </div>
 
-      <div class="step-line" [class.completed]="currentModalStep > 3"></div>
+  <div class="step-line" [class.completed]="currentModalStep > 3"></div>
 
-      <!-- Step 4: Section 3 -->
-      <div class="step" [class.active]="currentModalStep === 4" [class.completed]="currentModalStep > 4">
-        <div class="step-circle" (click)="goToModalStep(4)">
-          <span *ngIf="currentModalStep > 4">✓</span>
-          <span *ngIf="currentModalStep <= 4">4</span>
-        </div>
-        <div class="step-label">Section 3</div>
-      </div>
+  <!-- Step 4: Section 3 -->
+  <div class="step" [class.active]="currentModalStep === 4" [class.completed]="currentModalStep > 4">
+    <div class="step-circle" (click)="goToModalStep(4)">
+      <span *ngIf="currentModalStep > 4">✓</span>
+      <span *ngIf="currentModalStep <= 4">4</span>
+    </div>
+    <div class="step-label">Section 3</div>
+  </div>
 
-      <div class="step-line" [class.completed]="currentModalStep > 4"></div>
+  <div class="step-line" [class.completed]="currentModalStep > 4"></div>
 
-      <!-- Step 5: Section 4 -->
-      <div class="step" [class.active]="currentModalStep === 5" [class.completed]="currentModalStep > 5">
-        <div class="step-circle" (click)="goToModalStep(5)">
-          <span *ngIf="currentModalStep > 5">✓</span>
-          <span *ngIf="currentModalStep <= 5">5</span>
-        </div>
-        <div class="step-label">Section 4</div>
-      </div>
+  <!-- Step 5: Section 4 -->
+  <div class="step" [class.active]="currentModalStep === 5" [class.completed]="currentModalStep > 5">
+    <div class="step-circle" (click)="goToModalStep(5)">
+      <span *ngIf="currentModalStep > 5">✓</span>
+      <span *ngIf="currentModalStep <= 5">5</span>
+    </div>
+    <div class="step-label">Section 4</div>
+  </div>
 
-      <div class="step-line" [class.completed]="currentModalStep > 5"></div>
+  <div class="step-line" [class.completed]="currentModalStep > 5"></div>
 
-      <!-- Step 6: Packs & Prix -->
-      <div class="step" [class.active]="currentModalStep === 6" [class.completed]="currentModalStep > 6">
-        <div class="step-circle" (click)="goToModalStep(6)">
-          <span *ngIf="currentModalStep > 6">✓</span>
-          <span *ngIf="currentModalStep <= 6">6</span>
-        </div>
-        <div class="step-label">Packs & Prix</div>
-      </div>
+  <!-- Step 6: Section 5 (NOUVELLE ÉTAPE) -->
+  <div class="step" [class.active]="currentModalStep === 6" [class.completed]="currentModalStep > 6">
+    <div class="step-circle" (click)="goToModalStep(6)">
+      <span *ngIf="currentModalStep > 6">✓</span>
+      <span *ngIf="currentModalStep <= 6">6</span>
+    </div>
+    <div class="step-label">Section 5</div>
+  </div>
 
-      <div class="step-line" [class.completed]="currentModalStep > 6"></div>
+  <div class="step-line" [class.completed]="currentModalStep > 6"></div>
 
-      <!-- Step 7: Partenaires -->
-      <div class="step" [class.active]="currentModalStep === 7">
-        <div class="step-circle" (click)="goToModalStep(7)">
-          <span>7</span>
-        </div>
-        <div class="step-label">Partenaires</div>
-      </div>
+  <!-- Step 7: Packs & Prix -->
+  <div class="step" [class.active]="currentModalStep === 7" [class.completed]="currentModalStep > 7">
+    <div class="step-circle" (click)="goToModalStep(7)">
+      <span *ngIf="currentModalStep > 7">✓</span>
+      <span *ngIf="currentModalStep <= 7">7</span>
+    </div>
+    <div class="step-label">Packs & Prix</div>
+  </div>
+
+  <div class="step-line" [class.completed]="currentModalStep > 7"></div>
+
+  <!-- Step 8: Partenaires -->
+  <div class="step" [class.active]="currentModalStep === 8">
+    <div class="step-circle" (click)="goToModalStep(8)">
+      <span>8</span>
+    </div>
+    <div class="step-label">Partenaires</div>
+  </div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="progress-indicator">
+  <div class="progress-text">Étape {{ currentModalStep }} sur 8</div>
+  <div class="progress-bar">
+    <div class="progress-fill" [style.width.%]="(currentModalStep / 8) * 100"></div>
+  </div>
+</div>
+
+<!-- Stepper Content -->
+<div class="modal-body scrollable">
+  
+  <!-- STEP 1: Informations générales -->
+  <div *ngIf="currentModalStep === 1" class="step-content">
+    <h4>📋 Informations de base</h4>
+
+    <label>Nom *</label>
+    <input type="text" 
+           [(ngModel)]="formData.name" 
+           placeholder="Entrez le nom du CV"
+           class="form-input">
+
+    <label>Description</label>
+    <textarea [(ngModel)]="formData.description" 
+              rows="4" 
+              placeholder="Décrivez l'objectif de ce CV"
+              class="form-input"></textarea>
+
+    <label>Image *</label>
+    <input 
+      type="file" 
+      id="image" 
+      class="form-input"
+      accept="image/*"
+      (change)="onImageSelected($event)">
+    <small class="form-text">Formats acceptés: JPG, PNG, GIF (Max 5MB)</small>
+    
+    <div *ngIf="selectedImage" class="selected-file">
+      <p>✓ Image sélectionnée: {{ selectedImage.name }}</p>
     </div>
 
-    <!-- Progress Indicator -->
-    <div class="progress-indicator">
-      <div class="progress-text">Étape {{ currentModalStep }} sur 7</div>
-      <div class="progress-bar">
-        <div class="progress-fill" [style.width.%]="(currentModalStep / 7) * 100"></div>
-      </div>
+    <div *ngIf="modalMode === 'edit' && formData.image && !selectedImage" class="current-image">
+      <p>Image actuelle:</p>
+      <img [src]="sanitizeImage(formData.image)" alt="Image actuelle" style="max-width: 200px; border-radius: 8px;">
     </div>
+  </div>
 
-    <!-- Stepper Content -->
-    <div class="modal-body scrollable">
+  <!-- STEP 2-6: Sections 1-5 -->
+  <div *ngFor="let section of sections; let sectionIndex = index">
+    <div *ngIf="currentModalStep === sectionIndex + 2" class="step-content">
+      <h4>📊 Section {{ sectionIndex + 1 }}</h4>
       
-      <!-- STEP 1: Informations générales -->
-      <div *ngIf="currentModalStep === 1" class="step-content">
-        <h4>📋 Informations de base</h4>
-
-        <label>Nom *</label>
+      <div class="section-card">
+        <label>Titre principal (Headline) *</label>
         <input type="text" 
-               [(ngModel)]="formData.name" 
-               placeholder="Entrez le nom du CV"
+               [(ngModel)]="section.headline" 
+               placeholder="Ex: Compétences techniques"
                class="form-input">
 
-        <label>Description</label>
-        <textarea [(ngModel)]="formData.description" 
-                  rows="4" 
-                  placeholder="Décrivez l'objectif de ce CV"
-                  class="form-input"></textarea>
+        <label>Sous-titre</label>
+        <input type="text" 
+               [(ngModel)]="section.subtitle" 
+               placeholder="Ex: Évaluation des compétences"
+               class="form-input">
 
-        <label>Image *</label>
-        <input 
-          type="file" 
-          id="image" 
-          class="form-input"
-          accept="image/*"
-          (change)="onImageSelected($event)">
-        <small class="form-text">Formats acceptés: JPG, PNG, GIF (Max 5MB)</small>
-        
-        <div *ngIf="selectedImage" class="selected-file">
-          <p>✓ Image sélectionnée: {{ selectedImage.name }}</p>
-        </div>
+        <!-- Détails -->
+        <div class="details-section">
+          <div class="details-header">
+            <h5>Détails de la section</h5>
+          </div>
 
-        <div *ngIf="modalMode === 'edit' && formData.image && !selectedImage" class="current-image">
-          <p>Image actuelle:</p>
-          <img [src]="sanitizeImage(formData.image)" alt="Image actuelle" style="max-width: 200px; border-radius: 8px;">
+          <div *ngFor="let detail of section.details; let i = index" class="detail-card">
+            <div class="detail-header">
+              <span class="detail-number">Détail #{{ i + 1 }}</span>
+            </div>
+
+            <label>Titre *</label>
+            <input type="text" 
+                   [(ngModel)]="detail.titre" 
+                   placeholder="Ex: JavaScript"
+                   class="form-input">
+
+            <label>Description</label>
+            <textarea [(ngModel)]="detail.description" 
+                      rows="2" 
+                      placeholder="Ex: Maîtrise du langage JavaScript"
+                      class="form-input"></textarea>
+
+            <label>Icône *</label>
+            <div class="icon-selector">
+              <input type="text" 
+                     [(ngModel)]="detail.icon" 
+                     placeholder="Ex: 💻 ou js-icon"
+                     class="form-input">
+              <small class="form-text">Vous pouvez utiliser un emoji ou le nom d'une icône</small>
+            </div>
+
+            <!-- Suggestions d'icônes -->
+            <div class="icon-suggestions">
+              <span class="icon-chip" (click)="detail.icon = '📊'" [class.selected]="detail.icon === '📊'">📊</span>
+              <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
+              <span class="icon-chip" (click)="detail.icon = '💼'" [class.selected]="detail.icon === '💼'">💼</span>
+              <span class="icon-chip" (click)="detail.icon = '🔧'" [class.selected]="detail.icon === '🔧'">🔧</span>
+              <span class="icon-chip" (click)="detail.icon = '💡'" [class.selected]="detail.icon === '💡'">💡</span>
+              <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
+              <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
+              <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
+              <span class="icon-chip" (click)="detail.icon = '💻'" [class.selected]="detail.icon === '💻'">💻</span>
+              <span class="icon-chip" (click)="detail.icon = '📝'" [class.selected]="detail.icon === '📝'">📝</span>
+              <span class="icon-chip" (click)="detail.icon = '📚'" [class.selected]="detail.icon === '📚'">📚</span>
+              <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
+              <span class="icon-chip" (click)="detail.icon = '🎓'" [class.selected]="detail.icon === '🎓'">🎓</span>
+              <span class="icon-chip" (click)="detail.icon = '📈'" [class.selected]="detail.icon === '📈'">📈</span>
+              <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
+              <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
+              <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
+              <span class="icon-chip" (click)="detail.icon = '🛠️'" [class.selected]="detail.icon === '🛠️'">🛠️</span>
+              <span class="icon-chip" (click)="detail.icon = '🧠'" [class.selected]="detail.icon === '🧠'">🧠</span>
+              <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
+              <span class="icon-chip" (click)="detail.icon = '🎨'" [class.selected]="detail.icon === '🎨'">🎨</span>
+              <span class="icon-chip" (click)="detail.icon = '👥'" [class.selected]="detail.icon === '👥'">👥</span>
+              <span class="icon-chip" (click)="detail.icon = '🤝'" [class.selected]="detail.icon === '🤝'">🤝</span>
+              <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
+              <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
+            </div>
+
+            <div class="detail-header">
+              <button type="button" 
+                      (click)="removeDetailFromSection(sectionIndex, i)" 
+                      class="btn-icon btn-danger"
+                      title="Supprimer ce détail">
+                🗑️
+              </button>
+            </div>                
+          </div>
+
+          <div class="details-header">
+            <button type="button" 
+                    (click)="addDetailToSection(sectionIndex)" 
+                    class="btn btn-sm btn-blue">
+              + Ajouter un détail
+            </button>
+          </div>
+
+          <div *ngIf="section.details.length === 0" class="no-details">
+            <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
+          </div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <!-- STEP 2-5: Sections 1-4 (Template répété) -->
-      <div *ngFor="let section of sections; let sectionIndex = index" 
-           [hidden]="currentModalStep !== sectionIndex + 2">
-        <div *ngIf="currentModalStep === sectionIndex + 2" class="step-content">
-          <h4>📊 Section {{ sectionIndex + 1 }}</h4>
+  <!-- STEP 7: Packs & Prix -->
+  <div *ngIf="currentModalStep === 7" class="step-content">
+    <h4>💰 Packs & Prix</h4>
+    
+    <div class="price-section">
+      <div class="section-header">
+        <p class="section-description">
+          Créez différents packs de prix avec leurs fonctionnalités
+        </p>
+      </div>
+
+      <!-- Liste des packs de prix -->
+      <div class="price-packs-container">
+        <div *ngFor="let priceSection of priceSections; let psIndex = index" class="price-pack-card">
           
-          <div class="section-card">
-            <label>Titre principal (Headline) *</label>
-            <input type="text" 
-                   [(ngModel)]="section.headline" 
-                   placeholder="Ex: Compétences techniques"
-                   class="form-input">
+          <!-- Header du pack -->
+          <div class="price-pack-header">
+            <h5>Pack #{{ psIndex + 1 }}</h5>
+            <button type="button" 
+                    (click)="removePriceSection(psIndex)" 
+                    class="btn-icon-sm btn-danger"
+                    title="Supprimer ce pack">
+              ✕
+            </button>
+          </div>
 
-            <label>Sous-titre</label>
-            <input type="text" 
-                   [(ngModel)]="section.subtitle" 
-                   placeholder="Ex: Évaluation des compétences"
-                   class="form-input">
+          <!-- Informations du pack -->
+          <div class="price-pack-info">
+            <div class="form-group">
+              <label>Titre du pack *</label>
+              <input type="text" 
+                     [(ngModel)]="priceSection.title" 
+                     placeholder="Ex: Pack Basique"
+                     class="form-input">
+            </div>
 
-            <!-- Détails -->
-            <div class="details-section">
-              <div class="details-header">
-                <h5>Détails de la section</h5>
-                <!-- <button type="button" 
-                        (click)="addDetailToSection(sectionIndex)" 
-                        class="btn btn-sm btn-blue">
-                  + Ajouter un détail
-                </button> -->
-              </div>
+            <div class="form-group">
+              <label>Sous-titre</label>
+              <input type="text" 
+                     [(ngModel)]="priceSection.subtitle" 
+                     placeholder="Ex: Pour les débutants"
+                     class="form-input">
+            </div>
 
-              <div *ngFor="let detail of section.details; let i = index" class="detail-card">
-                <div class="detail-header">
-                  <span class="detail-number">Détail #{{ i + 1 }}</span>
-                  <!-- <button type="button" 
-                          (click)="removeDetailFromSection(sectionIndex, i)" 
-                          class="btn-icon btn-danger"
-                          title="Supprimer ce détail">
-                    🗑️
-                  </button> -->
-                </div>
-
-                <label>Titre *</label>
-                <input type="text" 
-                       [(ngModel)]="detail.titre" 
-                       placeholder="Ex: JavaScript"
-                       class="form-input">
-
-                <label>Description</label>
-                <textarea [(ngModel)]="detail.description" 
-                          rows="2" 
-                          placeholder="Ex: Maîtrise du langage JavaScript"
-                          class="form-input"></textarea>
-
-                <label>Icône *</label>
-                <div class="icon-selector">
-                  <input type="text" 
-                         [(ngModel)]="detail.icon" 
-                         placeholder="Ex: 💻 ou js-icon"
-                         class="form-input">
-                  <small class="form-text">Vous pouvez utiliser un emoji ou le nom d'une icône</small>
-                </div>
-
-                <!-- Suggestions d'icônes -->
-                <div class="icon-suggestions">
-                  <span class="icon-chip" (click)="detail.icon = '📊'" [class.selected]="detail.icon === '📊'">📊</span>
-                  <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
-                  <span class="icon-chip" (click)="detail.icon = '💼'" [class.selected]="detail.icon === '💼'">💼</span>
-                  <span class="icon-chip" (click)="detail.icon = '🔧'" [class.selected]="detail.icon === '🔧'">🔧</span>
-                  <span class="icon-chip" (click)="detail.icon = '💡'" [class.selected]="detail.icon === '💡'">💡</span>
-                  <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
-                  <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
-                  <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
-                  <span class="icon-chip" (click)="detail.icon = '💻'" [class.selected]="detail.icon === '💻'">💻</span>
-                  <span class="icon-chip" (click)="detail.icon = '📝'" [class.selected]="detail.icon === '📝'">📝</span>
-                  <span class="icon-chip" (click)="detail.icon = '📚'" [class.selected]="detail.icon === '📚'">📚</span>
-                  <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
-                  <span class="icon-chip" (click)="detail.icon = '🎓'" [class.selected]="detail.icon === '🎓'">🎓</span>
-                  <span class="icon-chip" (click)="detail.icon = '📈'" [class.selected]="detail.icon === '📈'">📈</span>
-                  <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
-                  <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
-                  <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
-                  <span class="icon-chip" (click)="detail.icon = '🛠️'" [class.selected]="detail.icon === '🛠️'">🛠️</span>
-                  <span class="icon-chip" (click)="detail.icon = '🧠'" [class.selected]="detail.icon === '🧠'">🧠</span>
-                  <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
-                  <span class="icon-chip" (click)="detail.icon = '🎨'" [class.selected]="detail.icon === '🎨'">🎨</span>
-                  <span class="icon-chip" (click)="detail.icon = '👥'" [class.selected]="detail.icon === '👥'">👥</span>
-                  <span class="icon-chip" (click)="detail.icon = '🤝'" [class.selected]="detail.icon === '🤝'">🤝</span>
-                  <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
-                  <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
-                </div>
-                <div class="detail-header">
-                  <button type="button" 
-                          (click)="removeDetailFromSection(sectionIndex, i)" 
-                          class="btn-icon btn-danger"
-                          title="Supprimer ce détail">
-                    🗑️
-                  </button>
-                </div>                
-              </div>
-              <div class="details-header">
-                <button type="button" 
-                        (click)="addDetailToSection(sectionIndex)" 
-                        class="btn btn-sm btn-blue">
-                  + Ajouter un détail
-                </button>
-              </div>
-              <div *ngIf="section.details.length === 0" class="no-details">
-                <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
-              </div>
+            <div class="form-group">
+              <label>Prix *</label>
+              <input type="text" 
+                     [(ngModel)]="priceSection.price" 
+                     placeholder="Ex: 99€/mois ou Gratuit"
+                     class="form-input">
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- STEP 6: Packs & Prix (PriceSections) -->
-      <div *ngIf="currentModalStep === 6" class="step-content">
-        <h4>💰 Packs & Prix</h4>
-        
-        <div class="price-section">
-          <div class="section-header">
-            <p class="section-description">
-              Créez différents packs de prix avec leurs fonctionnalités
-            </p>
-            <!-- <button type="button" (click)="addPriceSection()" class="btn btn-blue">
-              + Ajouter un pack
-            </button> -->
-          </div>
+          <!-- Fonctionnalités du pack -->
+          <div class="price-features">
+            <div class="features-header">
+              <h6>Fonctionnalités incluses</h6>
+            </div>
 
-          <!-- Liste des packs de prix -->
-          <div class="price-packs-container">
-            <div *ngFor="let priceSection of priceSections; let psIndex = index" class="price-pack-card">
-              
-              <!-- Header du pack -->
-              <div class="price-pack-header">
-                <h5>Pack #{{ psIndex + 1 }}</h5>
+            <div *ngFor="let detail of priceSection.details; let dIndex = index" class="feature-item">
+              <div class="feature-header">
+                <span class="feature-number">Fonctionnalité #{{ dIndex + 1 }}</span>
                 <button type="button" 
-                        (click)="removePriceSection(psIndex)" 
+                        (click)="removeDetailFromPriceSection(psIndex, dIndex)" 
                         class="btn-icon-sm btn-danger"
-                        title="Supprimer ce pack">
+                        title="Supprimer">
                   ✕
                 </button>
               </div>
 
-              <!-- Informations du pack -->
-              <div class="price-pack-info">
+              <div class="feature-fields">
                 <div class="form-group">
-                  <label>Titre du pack *</label>
+                  <label>Titre *</label>
                   <input type="text" 
-                         [(ngModel)]="priceSection.title" 
-                         placeholder="Ex: Pack Basique"
+                         [(ngModel)]="detail.titre" 
+                         placeholder="Ex: Accès illimité"
                          class="form-input">
                 </div>
 
                 <div class="form-group">
-                  <label>Sous-titre</label>
-                  <input type="text" 
-                         [(ngModel)]="priceSection.subtitle" 
-                         placeholder="Ex: Pour les débutants"
-                         class="form-input">
+                  <label>Description</label>
+                  <textarea [(ngModel)]="detail.description" 
+                            rows="2" 
+                            placeholder="Ex: Accédez à toutes les fonctionnalités"
+                            class="form-input"></textarea>
                 </div>
 
                 <div class="form-group">
-                  <label>Prix *</label>
+                  <label>Icône *</label>
                   <input type="text" 
-                         [(ngModel)]="priceSection.price" 
-                         placeholder="Ex: 99€/mois ou Gratuit"
+                         [(ngModel)]="detail.icon" 
+                         placeholder="Ex: ✓ ou ✅"
                          class="form-input">
                 </div>
-              </div>
 
-              <!-- Fonctionnalités du pack -->
-              <div class="price-features">
-                <div class="features-header">
-                  <h6>Fonctionnalités incluses</h6>
-                  <!-- <button type="button" 
-                          (click)="addDetailToPriceSection(psIndex)" 
-                          class="btn btn-sm btn-outline">
-                    + Ajouter une fonctionnalité
-                  </button> -->
-                </div>
-
-                <div *ngFor="let detail of priceSection.details; let dIndex = index" class="feature-item">
-                  <div class="feature-header">
-                    <span class="feature-number">Fonctionnalité #{{ dIndex + 1 }}</span>
-                    <button type="button" 
-                            (click)="removeDetailFromPriceSection(psIndex, dIndex)" 
-                            class="btn-icon-sm btn-danger"
-                            title="Supprimer">
-                      ✕
-                    </button>
-                  </div>
-
-                  <div class="feature-fields">
-                    <div class="form-group">
-                      <label>Titre *</label>
-                      <input type="text" 
-                             [(ngModel)]="detail.titre" 
-                             placeholder="Ex: Accès illimité"
-                             class="form-input">
-                    </div>
-
-                    <div class="form-group">
-                      <label>Description</label>
-                      <textarea [(ngModel)]="detail.description" 
-                                rows="2" 
-                                placeholder="Ex: Accédez à toutes les fonctionnalités"
-                                class="form-input"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                      <label>Icône *</label>
-                      <input type="text" 
-                             [(ngModel)]="detail.icon" 
-                             placeholder="Ex: ✓ ou ✅"
-                             class="form-input">
-                    </div>
-
-                    <!-- Suggestions d'icônes pour prix -->
-                    <div class="icon-suggestions">
-                      <span class="icon-chip" (click)="detail.icon = '✓'" [class.selected]="detail.icon === '✓'">✓</span>
-                      <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
-                      <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
-                      <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
-                      <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
-                      <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
-                      <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
-                      <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
-                      <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
-                      <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
-                      <span class="icon-chip" (click)="detail.icon = '✕'" [class.selected]="detail.icon === '✕'">✕</span>
-                      <span class="icon-chip" (click)="detail.icon = '❌'" [class.selected]="detail.icon === '❌'">❌</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="features-header">
-                  <button type="button" 
-                          (click)="addDetailToPriceSection(psIndex)" 
-                          class="btn btn-sm btn-outline">
-                    + Ajouter une fonctionnalité
-                  </button>
-                </div>
-                <div *ngIf="priceSection.details.length === 0" class="no-features">
-                  <p>Aucune fonctionnalité ajoutée. Cliquez sur "+ Ajouter une fonctionnalité"</p>
+                <!-- Suggestions d'icônes pour prix -->
+                <div class="icon-suggestions">
+                  <span class="icon-chip" (click)="detail.icon = '✓'" [class.selected]="detail.icon === '✓'">✓</span>
+                  <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
+                  <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
+                  <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
+                  <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
+                  <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
+                  <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
+                  <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
+                  <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
+                  <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
+                  <span class="icon-chip" (click)="detail.icon = '✕'" [class.selected]="detail.icon === '✕'">✕</span>
+                  <span class="icon-chip" (click)="detail.icon = '❌'" [class.selected]="detail.icon === '❌'">❌</span>
                 </div>
               </div>
             </div>
 
-            <div *ngIf="priceSections.length === 0" class="no-price-packs">
-              <div class="empty-state-icon">💰</div>
-              <p>Aucun pack de prix créé</p>
-              <p class="hint">Cliquez sur "+ Ajouter un pack" pour créer votre premier pack</p>
+            <div class="features-header">
+              <button type="button" 
+                      (click)="addDetailToPriceSection(psIndex)" 
+                      class="btn btn-sm btn-outline">
+                + Ajouter une fonctionnalité
+              </button>
             </div>
-          </div>
 
-          <div class="section-header">
-            <button type="button" (click)="addPriceSection()" class="btn btn-blue">
-              + Ajouter un pack
-            </button>
-          </div>
-
-          <!-- Résumé des packs -->
-          <div *ngIf="priceSections.length > 0" class="price-summary">
-            <h6>📊 Résumé des packs</h6>
-            <div class="summary-stats">
-              <div class="stat-item">
-                <strong>Total packs:</strong> {{ priceSections.length }}
-              </div>
-              <div class="stat-item">
-                <strong>Packs complets:</strong> {{ countCompletedPriceSections() }}
-              </div>
+            <div *ngIf="priceSection.details.length === 0" class="no-features">
+              <p>Aucune fonctionnalité ajoutée. Cliquez sur "+ Ajouter une fonctionnalité"</p>
             </div>
           </div>
         </div>
+
+        <div *ngIf="priceSections.length === 0" class="no-price-packs">
+          <div class="empty-state-icon">💰</div>
+          <p>Aucun pack de prix créé</p>
+          <p class="hint">Cliquez sur "+ Ajouter un pack" pour créer votre premier pack</p>
+        </div>
       </div>
 
-      <!-- STEP 7: Partenaires -->
-      <div *ngIf="currentModalStep === 7" class="step-content">
-        <h4>🤝 Partenaires</h4>
-        
-        <div class="partners-section">
-          <div class="section-header">
-            <p class="section-description">
-              Sélectionnez les partenaires associés à ce CV
-            </p>
+      <div class="section-header">
+        <button type="button" (click)="addPriceSection()" class="btn btn-blue">
+          + Ajouter un pack
+        </button>
+      </div>
+
+      <!-- Résumé des packs -->
+      <div *ngIf="priceSections.length > 0" class="price-summary">
+        <h6>📊 Résumé des packs</h6>
+        <div class="summary-stats">
+          <div class="stat-item">
+            <strong>Total packs:</strong> {{ priceSections.length }}
           </div>
-
-          <!-- Liste des partenaires disponibles -->
-          <div class="partners-grid">
-            <div *ngFor="let partenaire of allPartenaires" 
-                class="partner-card"
-                [class.selected]="isPartenaireSelected(partenaire)"
-                (click)="togglePartenaireSelection(partenaire)">
-              
-              <input type="checkbox" 
-                    [checked]="isPartenaireSelected(partenaire)">
-              
-              <div class="partner-image">
-                <img [src]="sanitizeImage(partenaire.image)" [alt]="partenaire.name">
-              </div>
-              
-              <div class="partner-info">
-                <h5>{{ partenaire.name }}</h5>
-              </div>
-            </div>
-
-            <div *ngIf="allPartenaires.length === 0" class="no-partners">
-              <p>Aucun partenaire disponible</p>
-            </div>
+          <div class="stat-item">
+            <strong>Packs complets:</strong> {{ countCompletedPriceSections() }}
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <!-- Résumé des partenaires sélectionnés -->
-          <div *ngIf="selectedPartenaires.length > 0" class="selected-partners-summary">
-            <h5>✓ Partenaires sélectionnés ({{ selectedPartenaires.length }})</h5>
-            <div class="selected-chips">
-              <span *ngFor="let p of selectedPartenaires" class="partner-chip">
-                {{ p.Name }}
-                <button type="button" 
-                        (click)="togglePartenaireSelection(p)" 
-                        class="chip-remove">×</button>
-              </span>
-            </div>
+  <!-- STEP 8: Partenaires -->
+  <div *ngIf="currentModalStep === 8" class="step-content">
+    <h4>🤝 Partenaires</h4>
+    
+    <div class="partners-section">
+      <div class="section-header">
+        <p class="section-description">
+          Sélectionnez les partenaires associés à ce CV
+        </p>
+      </div>
+
+      <!-- Liste des partenaires disponibles -->
+      <div class="partners-grid">
+        <div *ngFor="let partenaire of allPartenaires" 
+            class="partner-card"
+            [class.selected]="isPartenaireSelected(partenaire)"
+            (click)="togglePartenaireSelection(partenaire)">
+          
+          <input type="checkbox" 
+                [checked]="isPartenaireSelected(partenaire)">
+          
+          <div class="partner-image">
+            <img [src]="sanitizeImage(partenaire.image)" [alt]="partenaire.name">
           </div>
           
-          <div *ngIf="selectedPartenaires.length === 0" class="info-box">
-            <p>ℹ️ Aucun partenaire sélectionné. Vous pouvez continuer sans sélectionner de partenaires.</p>
+          <div class="partner-info">
+            <h5>{{ partenaire.name }}</h5>
           </div>
         </div>
 
-        <!-- Résumé final -->
-        <div class="summary-box">
-          <h5>📝 Résumé de votre CV</h5>
-          <div class="summary-grid">
-            <div class="summary-item">
-              <strong>Nom:</strong> {{ formData.name || 'Non renseigné' }}
-            </div>
-            <div class="summary-item">
-              <strong>Description:</strong> {{ formData.description || 'Non renseignée' }}
-            </div>
-            <div class="summary-item">
-              <strong>Sections complétées:</strong> {{ countCompletedSections() }} / 4
-            </div>
-            <div class="summary-item">
-              <strong>Total de détails:</strong> 
-              {{ sections[0].details.length + sections[1].details.length + 
-                 sections[2].details.length + sections[3].details.length }}
-            </div>
-            <div class="summary-item">
-              <strong>Packs de prix:</strong> {{ priceSections.length }}
-            </div>
-            <div class="summary-item">
-              <strong>Partenaires:</strong> {{ selectedPartenaires.length }}
-            </div>
-          </div>
+        <div *ngIf="allPartenaires.length === 0" class="no-partners">
+          <p>Aucun partenaire disponible</p>
         </div>
       </div>
 
+      <!-- Résumé des partenaires sélectionnés -->
+      <div *ngIf="selectedPartenaires.length > 0" class="selected-partners-summary">
+        <h5>✓ Partenaires sélectionnés ({{ selectedPartenaires.length }})</h5>
+        <div class="selected-chips">
+          <span *ngFor="let p of selectedPartenaires" class="partner-chip">
+            {{ p.Name }}
+            <button type="button" 
+                    (click)="togglePartenaireSelection(p)" 
+                    class="chip-remove">×</button>
+          </span>
+        </div>
+      </div>
+      
+      <div *ngIf="selectedPartenaires.length === 0" class="info-box">
+        <p>ℹ️ Aucun partenaire sélectionné. Vous pouvez continuer sans sélectionner de partenaires.</p>
+      </div>
     </div>
 
-    <!-- Modal Actions -->
-    <div class="modal-actions">
-      <div class="actions-left">
-        <button *ngIf="currentModalStep > 1" 
-                (click)="previousModalStep()" 
-                class="btn btn-gray">
-          ← Précédent
-        </button>
-      </div>
-      <div class="actions-right">
-        <button (click)="closeModal()" class="btn btn-gray">Annuler</button>
-        <button *ngIf="currentModalStep < 7" 
-                (click)="nextModalStep()" 
-                class="btn btn-blue">
-          Suivant →
-        </button>
-        <button *ngIf="currentModalStep === 7" 
-                (click)="handleSubmit()" 
-                class="btn btn-success">
-          {{modalMode === 'add' ? '✓ Créer le CV' : '✓ Enregistrer les modifications'}}
-        </button>
+    <!-- Résumé final -->
+    <div class="summary-box">
+      <h5>📝 Résumé de votre CV</h5>
+      <div class="summary-grid">
+        <div class="summary-item">
+          <strong>Nom:</strong> {{ formData.name || 'Non renseigné' }}
+        </div>
+        <div class="summary-item">
+          <strong>Description:</strong> {{ formData.description || 'Non renseignée' }}
+        </div>
+        <div class="summary-item">
+          <strong>Sections complétées:</strong> {{ countCompletedSections() }} / 5
+        </div>
+        <div class="summary-item">
+          <strong>Total de détails:</strong> 
+          {{ sections[0].details.length + sections[1].details.length + 
+             sections[2].details.length + sections[3].details.length + 
+             sections[4].details.length }}
+        </div>
+        <div class="summary-item">
+          <strong>Packs de prix:</strong> {{ priceSections.length }}
+        </div>
+        <div class="summary-item">
+          <strong>Partenaires:</strong> {{ selectedPartenaires.length }}
+        </div>
       </div>
     </div>
+  </div>
+
+</div>
+
+<!-- Modal Actions -->
+<div class="modal-actions">
+  <div class="actions-left">
+    <button *ngIf="currentModalStep > 1" 
+            (click)="previousModalStep()" 
+            class="btn btn-gray">
+      ← Précédent
+    </button>
+  </div>
+  <div class="actions-right">
+    <button (click)="closeModal()" class="btn btn-gray">Annuler</button>
+    <button *ngIf="currentModalStep < 8" 
+            (click)="nextModalStep()" 
+            class="btn btn-blue">
+      Suivant →
+    </button>
+    <button *ngIf="currentModalStep === 8" 
+            (click)="handleSubmit()" 
+            class="btn btn-success">
+      {{modalMode === 'add' ? '✓ Créer le CV' : '✓ Enregistrer les modifications'}}
+    </button>
+  </div>
+</div>
   </div>
 </div>
 </div>
