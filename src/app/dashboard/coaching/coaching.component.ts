@@ -396,6 +396,14 @@ handleSubmit() {
   // 🔍 LOG 1: Vérifier this.sections AVANT mapping
   console.log('🔍 this.sections AVANT mapping:', this.sections);
   
+
+  this.priceSections = this.priceSections.map(ps => ({
+    ...ps,
+    price: ps.price
+      ? parseFloat(ps.price.toString().replace(',', '.'))
+      : 0
+  }));
+
   // Sections normales (4 premières) - avec "headline"
   const safeSections = this.sections.map(s => ({
     headline: s.headline || '',

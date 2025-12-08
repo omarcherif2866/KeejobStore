@@ -29,7 +29,7 @@ export class Coaching {
   private image: string | null;
   private sections: CoachingSection[];
   private priceSections: PriceSection[];
-  private cvPartenaires: Partenaire[] = [];
+  private coachingPartenaires: Partenaire[] = [];
 
   constructor(data: any = {}) {
     this.id = data.id ?? null;
@@ -40,8 +40,8 @@ export class Coaching {
     this.image = data.image ?? null;
     this.sections = Array.isArray(data.sections) ? data.sections : [];
     this.priceSections = Array.isArray(data.priceSections) ? data.priceSections : [];
-    this.cvPartenaires = Array.isArray(data.cvPartenaires) 
-      ? data.cvPartenaires 
+    this.coachingPartenaires = Array.isArray(data.coachingPartenaires) 
+      ? data.coachingPartenaires 
       : [];
   }
 
@@ -104,10 +104,10 @@ export class Coaching {
   }
 
   public get Partenaires(): Partenaire[] {
-    return this.cvPartenaires;
+    return this.coachingPartenaires;
   }
-  public set Partenaires(cvPartenaires: Partenaire[]) {
-    this.cvPartenaires = cvPartenaires;
+  public set Partenaires(coachingPartenaires: Partenaire[]) {
+    this.coachingPartenaires = coachingPartenaires;
   }
 
 }

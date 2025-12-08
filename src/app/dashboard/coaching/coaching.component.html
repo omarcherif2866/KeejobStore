@@ -22,11 +22,11 @@
           </svg>
           <span>Formateurs</span>
         </a>
-        <a href="coachings">
+        <a href="evaluations">
           <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
           </svg>
-          <span>coachings</span>
+          <span>Evaluations</span>
         </a>     
         <a href="formationFormateur">
           <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,11 +52,11 @@
           </svg>
           <span>Formations Keejob</span>
         </a>
-        <a href="Coaching">
+        <a href="cv">
           <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
           </svg>
-          <span>Coaching et Lettre de motivations</span>
+          <span>CV et Lettre de motivations</span>
         </a>    
         <a href="coaching">
           <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -336,24 +336,24 @@
 
             <!-- Détails -->
             <div class="details-section">
-              <div class="details-header">
+              <!-- <div class="details-header">
                 <h5>Détails de la section</h5>
                 <button type="button" 
                         (click)="addDetailToSection(sectionIndex)" 
                         class="btn btn-sm btn-blue">
                   + Ajouter un détail
                 </button>
-              </div>
+              </div> -->
 
               <div *ngFor="let detail of section.details; let i = index" class="detail-card">
                 <div class="detail-header">
                   <span class="detail-number">Détail #{{ i + 1 }}</span>
-                  <button type="button" 
+                  <!-- <button type="button" 
                           (click)="removeDetailFromSection(sectionIndex, i)" 
                           class="btn-icon btn-danger"
                           title="Supprimer ce détail">
                     🗑️
-                  </button>
+                  </button> -->
                 </div>
 
                 <label>Titre *</label>
@@ -405,8 +405,23 @@
                   <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
                   <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
                 </div>
+                <div class="detail-header">
+                  <button type="button" 
+                          (click)="removeDetailFromSection(sectionIndex, i)" 
+                          class="btn-icon btn-danger"
+                          title="Supprimer ce détail">
+                    🗑️
+                  </button>
+                </div>
               </div>
-
+              <div class="details-header">
+                <h5>Détails de la section</h5>
+                <button type="button" 
+                        (click)="addDetailToSection(sectionIndex)" 
+                        class="btn btn-sm btn-blue">
+                  + Ajouter un détail
+                </button>
+              </div>
               <div *ngIf="section.details.length === 0" class="no-details">
                 <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
               </div>
@@ -424,9 +439,9 @@
             <p class="section-description">
               Créez différents packs de prix avec leurs fonctionnalités
             </p>
-            <button type="button" (click)="addPriceSection()" class="btn btn-blue">
+            <!-- <button type="button" (click)="addPriceSection()" class="btn btn-blue">
               + Ajouter un pack
-            </button>
+            </button> -->
           </div>
 
           <!-- Liste des packs de prix -->
@@ -438,9 +453,9 @@
                 <h5>Pack #{{ psIndex + 1 }}</h5>
                 <button type="button" 
                         (click)="removePriceSection(psIndex)" 
-                        class="btn-icon btn-danger"
+                        class="btn-icon-sm btn-danger"
                         title="Supprimer ce pack">
-                  🗑️
+                  ✕
                 </button>
               </div>
 
@@ -475,11 +490,11 @@
               <div class="price-features">
                 <div class="features-header">
                   <h6>Fonctionnalités incluses</h6>
-                  <button type="button" 
+                  <!-- <button type="button" 
                           (click)="addDetailToPriceSection(psIndex)" 
                           class="btn btn-sm btn-outline">
                     + Ajouter une fonctionnalité
-                  </button>
+                  </button> -->
                 </div>
 
                 <div *ngFor="let detail of priceSection.details; let dIndex = index" class="feature-item">
@@ -535,7 +550,13 @@
                     </div>
                   </div>
                 </div>
-
+                <div class="features-header">
+                  <button type="button" 
+                          (click)="addDetailToPriceSection(psIndex)" 
+                          class="btn btn-sm btn-outline">
+                    + Ajouter une fonctionnalité
+                  </button>
+                </div>
                 <div *ngIf="priceSection.details.length === 0" class="no-features">
                   <p>Aucune fonctionnalité ajoutée. Cliquez sur "+ Ajouter une fonctionnalité"</p>
                 </div>
@@ -547,6 +568,12 @@
               <p>Aucun pack de prix créé</p>
               <p class="hint">Cliquez sur "+ Ajouter un pack" pour créer votre premier pack</p>
             </div>
+          </div>
+
+          <div class="section-header">
+            <button type="button" (click)="addPriceSection()" class="btn btn-blue">
+              + Ajouter un pack
+            </button>
           </div>
 
           <!-- Résumé des packs -->

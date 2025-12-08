@@ -211,7 +211,7 @@ Accompagnement personnalisé pour atteindre vos objectifs professionnels grâce 
           <span class="font-bold">Je me renseigne </span>
           <span class="font-regular">sur les services de bon coaching emploi (03)</span> 
         </h2>
-        <div class="platforms-cards-container">
+        <!-- <div class="platforms-cards-container">
           <div class="platform-card">
               <div class="platform-header">
                     <div class="platform-logo-wrapper" style="background-color: #A1C1D7;">
@@ -221,8 +221,8 @@ Accompagnement personnalisé pour atteindre vos objectifs professionnels grâce 
               </div>
 
             <p class="platform-description">
-Accédez à notre service de coaching emploi en ligne pour obtenir un accompagnement personnalisé dans votre recherche d'emploi, 
-comprenant des conseils stratégiques et une préparation efficace aux entretiens. </p>
+                  Accédez à notre service de coaching emploi en ligne pour obtenir un accompagnement personnalisé dans votre recherche d'emploi, 
+                  comprenant des conseils stratégiques et une préparation efficace aux entretiens. </p>
             <div class="platform-rating">
               <img src="../../assets/87_913.svg" alt="4.7 stars rating">
               <span class="rating-score">4.7</span>
@@ -264,8 +264,49 @@ comprenant des conseils stratégiques et une préparation efficace aux entretien
             </div>
             <a href="#" class="btn btn-primary">En savoir plus</a>
           </div>
-        </div>
-          <div class="play-btn2">
+        </div> -->
+        <div class="carousel-container">
+
+          <button class="carousel-btn prev" (click)="scrollLeft()">
+            ‹
+          </button>
+
+          <div class="carousel" #carouselContainer>
+            
+            <div *ngFor="let ev of visiblecoachings" class="platform-card">
+              
+              <div class="platform-header">
+                <div class="platform-logo-wrapper" style="background-color: #e0e7ff;">
+                  <img [src]="sanitizeImage(ev.image)" alt="logo" class="platform-logo">
+                </div>
+                <h3 class="platform-name">{{ ev.name }}</h3>
+              </div>
+
+              <p class="platform-description">
+                {{ ev.description }}
+              </p>
+
+              <div class="platform-rating">
+                <img src="../../assets/87_913.svg" alt="rating" />
+                <span class="rating-score">4.7</span>
+                <span class="rating-reviews">Basé sur 17 avis</span>
+              </div>
+
+              <a [routerLink]="['/coachingDetails', ev.id]" class="btn btn-primary">
+                En savoir plus
+              </a>
+
+            </div>
+
+          </div>
+
+          <button class="carousel-btn next" (click)="scrollRight()">
+            ›
+          </button>
+
+        </div>  
+        
+        <div class="play-btn2">
             <div class="play-icon2">▶</div>
             <span class="play-icon-text2">Voir les 28 services</span>
           </div>

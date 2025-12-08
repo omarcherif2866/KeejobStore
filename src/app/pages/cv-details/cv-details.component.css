@@ -252,6 +252,7 @@
 .included {
   font-weight: 600;
   margin-bottom: 15px;
+  color: var(--color-secondary);
 }
 
 .feature-list li {
