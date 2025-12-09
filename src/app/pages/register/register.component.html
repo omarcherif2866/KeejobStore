@@ -1,5 +1,5 @@
  <body>
-   <section id="hero" class="hero-section">
+   <!-- <section id="hero" class="hero-section">
         <div class="container hero-container">           
             
             <div class="hero-form-wrapper">
@@ -29,5 +29,39 @@
 
             </div>
         </div>
+    </section> -->
+
+        <section id="hero" class="hero-section">
+        <div class="container">
+            
+            <!-- FORMULAIRE PROFIL -->
+            <div class="hero-form-wrapper">
+                <form class="hero-form">
+                    <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" [(ngModel)]="user.Username" name="username">
+                    </div>
+
+                    <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" [(ngModel)]="user.Email" name="email">
+                    </div>
+
+                    <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" [(ngModel)]="user.Password" name="password">
+                    </div>                    
+
+                    <div class="button-container">
+                    <button type="button" class="btn btn-primary" (click)="addUser()">Sign Up</button>
+                    <button type="button" class="btn btn-cancel">Cancel</button>
+                    <br>
+                    <a href="login"> tu a déja un compte!</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
     </section>
+
 </body>    

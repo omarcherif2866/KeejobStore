@@ -249,6 +249,13 @@ const routes = [
       (m) => m.SousFormationKeejobDetailsModule
     ),
 },
+{
+  path: 'profil',
+  loadChildren: () =>
+    import('./dashboard/profil/profil.module').then(
+      (m) => m.ProfilModule
+    ),
+},
   {
     path: '**',
     loadChildren: () =>

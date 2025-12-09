@@ -11,6 +11,8 @@ import { User } from '../models/user';
 export class AuthService {
 
   private apiUrl = "http://localhost:9090/api/auth";
+  private apiUrlUser = "http://localhost:9090/users";
+
   private localStorageKey = "userAuth";   // stockage principal
   private loggedIn = new BehaviorSubject<boolean>(false);
   private jwtHelper = new JwtHelperService();
@@ -101,4 +103,15 @@ logout(): void {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
+
+getUserById(id: number): Observable<User> {
+  return this.httpClient.get<User>(`${this.apiUrlUser}/${id}`);
+}
+
+changePassword(id: number, data: any): Observable<any> {
+  return this.httpClient.put(`${this.apiUrlUser}/change-password/${id}`, data);
+}
+
+
+
 }
