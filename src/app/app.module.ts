@@ -7,6 +7,8 @@ import { BrowserModule } from '@angular/platform-browser'
 import { SharedModule } from './pages/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
+import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
+import { VerifyCodeComponent } from './pages/verify-code/verify-code.component';
 
 
 
@@ -254,6 +256,27 @@ const routes = [
   loadChildren: () =>
     import('./dashboard/profil/profil.module').then(
       (m) => m.ProfilModule
+    ),
+},
+{
+  path: 'forgot-password',
+  loadChildren: () =>
+    import('./pages/forget-password/forget-password.module').then(
+      (m) => m.ForgetPasswordModule
+    ),
+},
+{
+  path: 'verify-code',
+  loadChildren: () =>
+    import('./pages/verify-code/verify-code.module').then(
+      (m) => m.VerifyCodeModule
+    ),
+},
+{
+  path: 'reset-password',
+  loadChildren: () =>
+    import('./pages/reset-password/reset-password.module').then(
+      (m) => m.ResetPasswordModule
     ),
 },
   {

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="card">
+    <h2>Vérification du code</h2>
+    <p class="subtitle">Entrez le code à 6 chiffres envoyé à votre email</p>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="code">Code de vérification</label>
+        <input 
+          type="text" 
+          id="code" 
+          [(ngModel)]="code" 
+          name="code"
+          placeholder="123456"
+          maxlength="6"
+          required
+          [disabled]="loading"
+        >
+      </div>
+
+      <div class="alert alert-success" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+
+      <div class="alert alert-error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button 
+        type="submit" 
+        class="btn-primary" 
+        [disabled]="loading"
+      >
+        <span *ngIf="!loading">Vérifier</span>
+        <span *ngIf="loading">Vérification...</span>
+      </button>
+    </form>
+
+    <div class="resend-link">
+      <a (click)="resendCode()">Renvoyer le code</a>
+    </div>
+  </div>
+</div>

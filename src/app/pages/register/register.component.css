@@ -1,7 +1,19 @@
-       .hero-section {
+  * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .hero-section {
             width: 100%;
             max-width: 1200px;
-            margin-left: 350px;
+            margin: 0 auto;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -13,10 +25,13 @@
             display: flex;
             gap: 30px;
             flex-wrap: wrap;
+            width: 100%;
+            justify-content: center;
         }
 
         .hero-form-wrapper {
             flex: 1;
+            max-width: 500px;
             min-width: 300px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -73,8 +88,14 @@
 
         .button-container {
             display: flex;
+            flex-direction: column;
             gap: 15px;
             margin-top: 30px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
         }
 
         .btn {
@@ -117,39 +138,33 @@
             color: #333;
         }
 
-        /* Icon decorations */
-        .hero-form-wrapper:first-child::before {
-            content: "👤";
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .links-container a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .links-container a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+
+        .hero-form-wrapper.signup-form::before {
+            content: "✍️";
             font-size: 48px;
             display: block;
             text-align: center;
             margin-bottom: 20px;
-        }
-
-        .hero-form-wrapper:last-child::before {
-            content: "🔒";
-            font-size: 48px;
-            display: block;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .hero-form-wrapper {
-                min-width: 100%;
-            }
-
-            .button-container {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
         }
 
         /* Animation d'apparition */
@@ -168,6 +183,46 @@
             animation: fadeInUp 0.6s ease forwards;
         }
 
-        .hero-form-wrapper:last-child {
+        .hero-form-wrapper.signup-form {
             animation-delay: 0.2s;
+        }
+
+        /* Media queries pour la responsivité */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 20px 15px;
+            }
+
+            .hero-form-wrapper {
+                min-width: 100%;
+                padding: 30px 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-form-wrapper {
+                padding: 25px 15px;
+            }
+
+            .hero-form-wrapper::before {
+                font-size: 36px;
+            }
+
+            .form-group input {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
         }

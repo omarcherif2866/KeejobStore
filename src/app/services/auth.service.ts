@@ -112,6 +112,18 @@ changePassword(id: number, data: any): Observable<any> {
   return this.httpClient.put(`${this.apiUrlUser}/change-password/${id}`, data);
 }
 
+ forgotPassword(email: string): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}/forgot`, { email });
+  }
 
+  // Vérifier le code
+  verifyCode(userId: string, code: string): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}/verify-code`, { userId, code });
+  }
+
+  // Réinitialiser le mot de passe
+  resetPassword(userId: string, newPassword: string): Observable<any> {
+    return this.httpClient.post(`${this.apiUrl}/reset`, { userId, newPassword });
+  }
 
 }

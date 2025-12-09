@@ -35,31 +35,37 @@
         <div class="container">
             
             <!-- FORMULAIRE PROFIL -->
-            <div class="hero-form-wrapper">
+            <div class="hero-form-wrapper signup-form">
                 <form class="hero-form">
+                    <h3>Inscription</h3>
                     <div class="form-group">
-                    <label for="prenom">Prénom</label>
-                    <input type="text" id="prenom" [(ngModel)]="user.Username" name="username">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" placeholder="Entrez votre nom">
                     </div>
 
                     <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" [(ngModel)]="user.Email" name="email">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Entrez votre email">
                     </div>
 
                     <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" [(ngModel)]="user.Password" name="password">
-                    </div>                    
+                        <label for="new-password">Mot de passe</label>
+                        <input type="password" id="new-password" name="new-password" placeholder="Créez un mot de passe">
+                    </div>
 
                     <div class="button-container">
-                    <button type="button" class="btn btn-primary" (click)="addUser()">Sign Up</button>
-                    <button type="button" class="btn btn-cancel">Cancel</button>
-                    <br>
-                    <a href="login"> tu a déja un compte!</a>
+                        <div class="button-group">
+                            <button type="button" class="btn btn-primary">S'inscrire</button>
+                            <button type="button" class="btn btn-cancel">Annuler</button>
+                        </div>
+                        
+                        <div class="links-container">
+                            <a href="login">Déjà un compte? Se connecter</a>
+                        </div>
                     </div>
                 </form>
             </div>
+
 
         </div>
     </section>

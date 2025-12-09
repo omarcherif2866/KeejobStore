@@ -27,31 +27,35 @@
         </div>
     </section> -->
 
-        <section id="hero" class="hero-section">
+   <section id="hero" class="hero-section">
         <div class="container">
-            
             <!-- FORMULAIRE PROFIL -->
-            <div class="hero-form-wrapper">
+           <div class="hero-form-wrapper login-form">
                 <form class="hero-form">
+                    <h3>Connexion</h3>
                     <div class="form-group">
-                    <label for="prenom">Prénom</label>
-                    <input type="text" id="prenom" [(ngModel)]="user.Username" name="username">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" id="prenom" name="username" placeholder="Entrez votre prénom">
                     </div>
 
                     <div class="form-group">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" [(ngModel)]="user.Password" name="password">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe">
                     </div>
 
                     <div class="button-container">
-                    <button type="button" class="btn btn-primary" (click)="login()">Sign in</button>
-                    <button type="button" class="btn btn-cancel">Cancel</button>
-                    <br> <br>
-                    <a href="register">Créer un compte!</a>
+                        <div class="button-group">
+                            <button type="button" class="btn btn-primary">Se connecter</button>
+                            <button type="button" class="btn btn-cancel">Annuler</button>
+                        </div>
+                        
+                        <div class="links-container">
+                            <a href="register">Créer un compte!</a>
+                            <a href="forgot-password">Mot de passe oublié!</a>
+                        </div>
                     </div>
                 </form>
             </div>
-
         </div>
     </section>
 </body>    
