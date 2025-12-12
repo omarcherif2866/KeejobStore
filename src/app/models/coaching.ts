@@ -4,7 +4,7 @@ import { Partenaire } from "./partenaire";
 export interface Details {
   titre: string;
   description: string;
-  icon: string;
+  icon: any;
 }
 
 export interface CoachingSection {
@@ -20,6 +20,13 @@ export interface PriceSection {
   details: Details[];
 }
 
+export enum CoachingCategory {
+  En_Ligne = 'En_Ligne',
+  Présentiel = 'Présentiel',
+  Simulation_dentretint = 'Simulation_dentretint',
+}
+
+
 export class Coaching {
   private id: any;
   private name: string | null;
@@ -27,9 +34,11 @@ export class Coaching {
   private sousTitre: string | null;
   private description: string | null;
   private image: string | null;
+  private logo: string | null;
   private sections: CoachingSection[];
   private priceSections: PriceSection[];
   private coachingPartenaires: Partenaire[] = [];
+  private categoryCoaching: CoachingCategory;
 
   constructor(data: any = {}) {
     this.id = data.id ?? null;
@@ -38,11 +47,13 @@ export class Coaching {
     this.sousTitre = data.sousTitre ?? null;
     this.description = data.description ?? null;
     this.image = data.image ?? null;
+    this.logo = data.logo ?? null;
     this.sections = Array.isArray(data.sections) ? data.sections : [];
     this.priceSections = Array.isArray(data.priceSections) ? data.priceSections : [];
     this.coachingPartenaires = Array.isArray(data.coachingPartenaires) 
       ? data.coachingPartenaires 
       : [];
+    this.categoryCoaching = data.categoryCoaching ?? null;
   }
 
   // --- GETTERS & SETTERS --- //
@@ -109,5 +120,20 @@ export class Coaching {
   public set Partenaires(coachingPartenaires: Partenaire[]) {
     this.coachingPartenaires = coachingPartenaires;
   }
+
+        public get Category(): CoachingCategory {
+          return this.categoryCoaching;
+        }
+      
+        public set Category(categoryCoaching: CoachingCategory) {
+          this.categoryCoaching = categoryCoaching;
+        }
+  
+      public get Logo(): string | null {
+      return this.logo;
+    }
+    public set Logo(value: string | null) {
+      this.logo = value;
+    }
 
 }

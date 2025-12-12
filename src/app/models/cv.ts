@@ -4,7 +4,7 @@ import { Partenaire } from "./partenaire";
 export interface Details {
   titre: string;
   description: string;
-  icon: string;
+  icon: any;
 }
 
 export interface CvSection {
@@ -20,25 +20,36 @@ export interface PriceSection {
   details: Details[];
 }
 
+export enum CVCategory {
+  Correction_et_rédaction_de_CV = 'Correction_et_rédaction_de_CV',
+  Correction_et_rédaction_de_LM = 'Correction_et_rédaction_de_LM',
+  Traduction_de_CV_et_LM = 'Traduction_de_CV_et_LM',
+}
+
 export class Cv {
   private id: any;
   private name: string | null;
   private description: string | null;
   private image: string | null;
+  private logo: string | null;
   private sections: CvSection[];
   private priceSections: PriceSection[];
   private cvPartenaires: Partenaire[] = [];
+  private categoryCV: CVCategory;
 
   constructor(data: any = {}) {
     this.id = data.id ?? null;
     this.name = data.name ?? null;
     this.description = data.description ?? null;
     this.image = data.image ?? null;
+    this.logo = data.logo ?? null;
     this.sections = Array.isArray(data.sections) ? data.sections : [];
     this.priceSections = Array.isArray(data.priceSections) ? data.priceSections : [];
     this.cvPartenaires = Array.isArray(data.cvPartenaires) 
       ? data.cvPartenaires 
       : [];
+    this.categoryCV = data.categoryCV ?? null;
+    
   }
 
   // --- GETTERS & SETTERS --- //
@@ -91,5 +102,21 @@ export class Cv {
   public set Partenaires(cvPartenaires: Partenaire[]) {
     this.cvPartenaires = cvPartenaires;
   }
+
+      public get Category(): CVCategory {
+        return this.categoryCV;
+      }
+    
+      public set Category(categoryCV: CVCategory) {
+        this.categoryCV = categoryCV;
+      }
+
+    public get Logo(): string | null {
+    return this.logo;
+  }
+  public set Logo(value: string | null) {
+    this.logo = value;
+  }
+
 
 }

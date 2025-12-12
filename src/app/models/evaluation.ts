@@ -94,9 +94,18 @@ export enum Category {
 export interface Details {
   titre: string;
   description: string;
-  icon: string;
+  icon: any;
   category: Category | null;
 }
+
+export enum EvaluationCategory {
+  Les_tests_psychométriques = 'Les_tests_psychométriques',
+  Les_tests_de_compétences = 'Les_tests_de_compétences'
+}
+
+
+
+
 
 export interface EvaluationSection {
   headline: string;
@@ -109,15 +118,19 @@ export class Evaluation {
   private name: string | null;
   private description: string | null;
   private image: string | null;
+  private logo: string | null;
   private sections: EvaluationSection[];
   private evaluationPartenaires: Partenaire[] = [];
   private evaluationCatalogues: EvaluationCatalogue[] = [];
+  private evaluationCategory: EvaluationCategory;
+  
 
   constructor(data: any = {}) {
     this.id = data.id ?? null;
     this.name = data.name ?? null;
     this.description = data.description ?? null;
     this.image = data.image ?? null;
+    this.logo = data.logo ?? null;
     this.sections = Array.isArray(data.sections) ? data.sections : [];
     this.evaluationPartenaires = Array.isArray(data.evaluationPartenaires) 
       ? data.evaluationPartenaires 
@@ -130,6 +143,8 @@ export class Evaluation {
           return catalogue;
         })
       : [];
+    this.evaluationCategory = data.evaluationCategory ?? null;
+      
   }
 
   // --- GETTERS & SETTERS --- //
@@ -162,6 +177,14 @@ export class Evaluation {
     this.image = value;
   }
 
+    public get Logo(): string | null {
+    return this.logo;
+  }
+  public set Logo(value: string | null) {
+    this.logo = value;
+  }
+
+
   public get Sections(): EvaluationSection[] {
     return this.sections;
   }
@@ -182,4 +205,13 @@ export class Evaluation {
   public set Catalogues(evaluationCatalogues: EvaluationCatalogue[]) {
     this.evaluationCatalogues = evaluationCatalogues;
   }
+
+    public get Category(): EvaluationCategory {
+      return this.evaluationCategory;
+    }
+  
+    public set Category(evaluationCategory: EvaluationCategory) {
+      this.evaluationCategory = evaluationCategory;
+    }
+
 }

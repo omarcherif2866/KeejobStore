@@ -107,6 +107,56 @@
 
     }
 
+
+/* ---- MENU DÉROULANT MODERNE ---- */
+.cool-menu {
+  position: absolute;
+  top: 100%;   /* juste sous son menu principal */
+  left: 0;     /* aligné exactement sous l'élément parent */
+  min-width: 230px;
+  padding: 12px 0;
+  list-style: none;
+  border-radius: 12px;
+
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  
+  display: none;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 99;
+}
+/* LIENS DU SOUS-MENU */
+.cool-menu li a {
+  display: block;
+  padding: 12px 20px;
+  color: #5958A0;
+  transition: 0.2s ease;
+}
+
+.cool-menu li a:hover {
+  background: rgba(255, 255, 255, 0.45);
+  /* backdrop-filter: blur(10px); */
+  border-radius: 8px;
+}
+
+/* ANIMATION - APPARITION */
+.dropdown:hover .cool-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0px);
+}
+    
+
+.nav-links li {
+  position: relative; /* ESSENTIEL pour que le sous-menu se positionne sous chaque élément */
+}
+
     .nav-links {
   display: flex;
   gap: 30px;

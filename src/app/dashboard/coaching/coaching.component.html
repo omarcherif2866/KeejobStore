@@ -296,6 +296,41 @@
                   placeholder="Décrivez l'objectif de ce Coaching"
                   class="form-input"></textarea>
 
+  <label>Catégorie de CV et/ou LM *</label>
+  <select [(ngModel)]="formData.categoryCoaching" class="form-input category-select">
+    <option [ngValue]="null" disabled>-- Sélectionnez une catégorie --</option>
+<option *ngFor="let category of availableCoachingCategories" [ngValue]="category">
+  {{ formatCategory(category) }}
+</option>
+
+  </select>
+  <small class="form-text">Choisissez le type de CV et/ou LM</small>
+
+  <!-- Aperçu de la catégorie sélectionnée -->
+  <div *ngIf="formData.categoryCoaching" class="selected-category-preview">
+    <span class="category-badge-large">
+      {{ formData.categoryCoaching }}
+    </span>
+  </div>
+
+        <label>Logo *</label>
+        <input 
+          type="file" 
+          id="image" 
+          class="form-input"
+          accept="image/*"
+          (change)="onLogoSelected($event)">
+        <small class="form-text">Formats acceptés: JPG, PNG, GIF (Max 5MB)</small>
+        
+        <div *ngIf="selectedLogo" class="selected-file">
+          <p>✓ Image sélectionnée: {{ selectedLogo.name }}</p>
+        </div>
+
+        <div *ngIf="modalMode === 'edit' && formData.image && !selectedImage" class="current-image">
+          <p>Logo actuel:</p>
+          <img [src]="sanitizeImage(formData.logo)" alt="Logo actuel" style="max-width: 60px; border-radius: 8px;">
+        </div>
+
         <label>Image *</label>
         <input 
           type="file" 
@@ -368,43 +403,37 @@
                           placeholder="Ex: Maîtrise du langage JavaScript"
                           class="form-input"></textarea>
 
-                <label>Icône *</label>
-                <div class="icon-selector">
-                  <input type="text" 
-                         [(ngModel)]="detail.icon" 
-                         placeholder="Ex: 💻 ou js-icon"
-                         class="form-input">
-                  <small class="form-text">Vous pouvez utiliser un emoji ou le nom d'une icône</small>
-                </div>
 
-                <!-- Suggestions d'icônes -->
-                <div class="icon-suggestions">
-                  <span class="icon-chip" (click)="detail.icon = '📊'" [class.selected]="detail.icon === '📊'">📊</span>
-                  <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
-                  <span class="icon-chip" (click)="detail.icon = '💼'" [class.selected]="detail.icon === '💼'">💼</span>
-                  <span class="icon-chip" (click)="detail.icon = '🔧'" [class.selected]="detail.icon === '🔧'">🔧</span>
-                  <span class="icon-chip" (click)="detail.icon = '💡'" [class.selected]="detail.icon === '💡'">💡</span>
-                  <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
-                  <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
-                  <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
-                  <span class="icon-chip" (click)="detail.icon = '💻'" [class.selected]="detail.icon === '💻'">💻</span>
-                  <span class="icon-chip" (click)="detail.icon = '📝'" [class.selected]="detail.icon === '📝'">📝</span>
-                  <span class="icon-chip" (click)="detail.icon = '📚'" [class.selected]="detail.icon === '📚'">📚</span>
-                  <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
-                  <span class="icon-chip" (click)="detail.icon = '🎓'" [class.selected]="detail.icon === '🎓'">🎓</span>
-                  <span class="icon-chip" (click)="detail.icon = '📈'" [class.selected]="detail.icon === '📈'">📈</span>
-                  <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
-                  <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
-                  <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
-                  <span class="icon-chip" (click)="detail.icon = '🛠️'" [class.selected]="detail.icon === '🛠️'">🛠️</span>
-                  <span class="icon-chip" (click)="detail.icon = '🧠'" [class.selected]="detail.icon === '🧠'">🧠</span>
-                  <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
-                  <span class="icon-chip" (click)="detail.icon = '🎨'" [class.selected]="detail.icon === '🎨'">🎨</span>
-                  <span class="icon-chip" (click)="detail.icon = '👥'" [class.selected]="detail.icon === '👥'">👥</span>
-                  <span class="icon-chip" (click)="detail.icon = '🤝'" [class.selected]="detail.icon === '🤝'">🤝</span>
-                  <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
-                  <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
-                </div>
+
+        <!-- Upload d'icône -->
+        <label>Icône * (Image)</label>
+        <div class="icon-upload-section">
+          <!-- Preview de l'icône -->
+          <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
+            <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
+            <button type="button" 
+                    (click)="removeIcon(detail)" 
+                    class="btn-remove-icon"
+                    title="Supprimer l'icône">
+              ✕
+            </button>
+          </div>
+
+          <!-- Input file pour upload -->
+          <div class="file-input-wrapper">
+            <input type="file" 
+                   (change)="onIconSelected($event, detail)" 
+                   accept="image/*"
+                   [id]="'icon-input-0-' + i"
+                   class="file-input">
+            <label [for]="'icon-input-0-' + i" class="file-label">
+              <span class="file-icon">📁</span>
+              <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
+            </label>
+          </div>
+          
+          <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+        </div>
                 <div class="detail-header">
                   <button type="button" 
                           (click)="removeDetailFromSection(sectionIndex, i)" 
@@ -415,7 +444,6 @@
                 </div>
               </div>
               <div class="details-header">
-                <h5>Détails de la section</h5>
                 <button type="button" 
                         (click)="addDetailToSection(sectionIndex)" 
                         class="btn btn-sm btn-blue">
@@ -525,29 +553,37 @@
                                 class="form-input"></textarea>
                     </div>
 
-                    <div class="form-group">
-                      <label>Icône *</label>
-                      <input type="text" 
-                             [(ngModel)]="detail.icon" 
-                             placeholder="Ex: ✓ ou ✅"
-                             class="form-input">
-                    </div>
 
-                    <!-- Suggestions d'icônes pour prix -->
-                    <div class="icon-suggestions">
-                      <span class="icon-chip" (click)="detail.icon = '✓'" [class.selected]="detail.icon === '✓'">✓</span>
-                      <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
-                      <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
-                      <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
-                      <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
-                      <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
-                      <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
-                      <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
-                      <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
-                      <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
-                      <span class="icon-chip" (click)="detail.icon = '✕'" [class.selected]="detail.icon === '✕'">✕</span>
-                      <span class="icon-chip" (click)="detail.icon = '❌'" [class.selected]="detail.icon === '❌'">❌</span>
-                    </div>
+
+        <!-- Upload d'icône -->
+        <label>Icône * (Image)</label>
+        <div class="icon-upload-section">
+          <!-- Preview de l'icône -->
+          <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
+            <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
+            <button type="button" 
+                    (click)="removeIcon(detail)" 
+                    class="btn-remove-icon"
+                    title="Supprimer l'icône">
+              ✕
+            </button>
+          </div>
+
+          <!-- Input file pour upload -->
+          <div class="file-input-wrapper">
+            <input type="file" 
+                   (change)="onIconSelected($event, detail)" 
+                   accept="image/*"
+                  [id]="'icon-input-' + psIndex + '-' + dIndex"
+                   class="file-input">
+            <label [for]="'icon-input-' + psIndex + '-' + dIndex" class="file-label">
+              <span class="file-icon">📁</span>
+              <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
+            </label>
+          </div>
+          
+          <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+        </div>
                   </div>
                 </div>
                 <div class="features-header">

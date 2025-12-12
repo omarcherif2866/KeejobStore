@@ -46,6 +46,7 @@ export class FormationKeejobComponent implements OnInit {
     title: '',
     description: '',
     image:'',
+    logo:'',
     partenaires: []
   };
   
@@ -60,7 +61,7 @@ export class FormationKeejobComponent implements OnInit {
 
   editId: any = null;
   selectedImage: File | null = null;
-
+  selectedLogo?: File;
   currentStep = 1;
   createdFormation: FormationKeejob | null = null;
   selectedSousFormation: any = null;
@@ -189,6 +190,7 @@ export class FormationKeejobComponent implements OnInit {
       title: '',
       description: '',
       image: '',
+      logo: '',
       partenaires: []
     };
     this.selectedPartenaires = [];
@@ -205,6 +207,7 @@ export class FormationKeejobComponent implements OnInit {
       title: formation.Title,
       description: formation.Description,
       image: formation.Image,
+      logo: formation.Logo,
       partenaires: []
     };
 
@@ -300,6 +303,11 @@ export class FormationKeejobComponent implements OnInit {
     if (this.selectedImage) {
       fd.append('image', this.selectedImage, this.selectedImage.name);
     }
+
+    if (this.selectedLogo) {
+      fd.append('logo', this.selectedLogo, this.selectedLogo.name);
+    }
+
 
     if (this.selectedPartenaires.length > 0) {
       this.selectedPartenaires.forEach(p => {
@@ -624,6 +632,7 @@ openLogicielsModal(sf: any) {
       title: '',
       description: '',
       image: '',
+      logo:'',
       partenaires: []
     };
     this.selectedPartenaires = [];
@@ -702,6 +711,35 @@ onSousFormationSelected(sousFormation: any) {
   console.log('✅ Sous-formation stockée:', this.selectedSousFormation);
       this.currentStep = 3;
  
+}
+
+  onLogoSelected(event: any) {
+  const file = event.target.files[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Veuillez sélectionner une image valide',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        return;
+      }
+      
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'L\'image ne doit pas dépasser 5MB',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        return;
+      }
+      
+      this.selectedLogo = file;
+    }
 }
 
   onSousFormationChange() {

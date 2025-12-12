@@ -7,6 +7,7 @@ export class FormationKeejob {
     private description: string;
     private partenaires: Partenaire[] = [];
     private image: string;
+    private logo: string | null;
     private sousFormations: SousFormationKeejob[] = []
   
     constructor(
@@ -14,6 +15,7 @@ export class FormationKeejob {
       title: string,
       description: string,
       image: string,
+      logo: string,
       partenaires: Partenaire[] = [],
       sousFormations: SousFormationKeejob[] = []
 
@@ -22,6 +24,7 @@ export class FormationKeejob {
       this.title = title;
       this.description = description;
       this.image = image;
+      this.logo = logo;
       this.partenaires = partenaires;
       this.sousFormations = sousFormations;
 
@@ -74,6 +77,13 @@ export class FormationKeejob {
     public set Image(image: string) {
       this.image = image;
     } 
+
+    public get Logo(): string | null {
+    return this.logo;
+  }
+  public set Logo(value: string | null) {
+    this.logo = value;
+  }
 
   }
 

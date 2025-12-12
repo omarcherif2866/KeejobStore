@@ -1237,6 +1237,73 @@ textarea.form-input {
   color: #ffffff;
 }
 
+.icon-upload-section {
+  margin: 10px 0;
+}
+.icon-preview {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.icon-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+}
+
+.btn-remove-icon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f44336;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.file-input-wrapper {
+  margin: 10px 0;
+}
+
+.file-input {
+  display: none;
+}
+.file-icon {
+  font-size: 18px;
+}
+.form-text {
+  display: block;
+  color: #666;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.file-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #2196F3;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 14px;
+}
+
+.file-label:hover {
+  background: #1976D2;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .price-pack-card {

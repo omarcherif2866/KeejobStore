@@ -113,9 +113,10 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Image</th>
+        <th>Logo</th>
         <th>Nom</th>
         <th>Description</th>
+        <th>Catégorie</th> <!-- NOUVELLE COLONNE -->
         <th>Sections</th>
         <th>Actions</th>
       </tr>
@@ -124,10 +125,19 @@
       <tr *ngFor="let evaluation of currentItems">
         <td>{{evaluation.Id}}</td>
         <td>
-          <img [src]="sanitizeImage(evaluation.Image)" alt="Photo evaluation" class="ev-image" />
+          <img [src]="sanitizeImage(evaluation.Logo)" alt="Photo evaluation" class="ev-image" />
         </td>
         <td>{{evaluation.Name}}</td>
         <td>{{evaluation.Description}}</td>
+        <td>
+          <!-- NOUVELLE CELLULE POUR LA CATÉGORIE -->
+          <span class="category-badge-table" *ngIf="evaluation.Category">
+            {{ evaluation.Category }}
+          </span>
+          <span class="category-badge-table no-category" *ngIf="!evaluation.Category">
+            Non définie
+          </span>
+        </td>
         <td>
           <span class="badge">{{ evaluation.Sections?.length || 0 }} section(s)</span>
         </td>
@@ -269,6 +279,42 @@
                   placeholder="Décrivez l'objectif de cette évaluation"
                   class="form-input"></textarea>
 
+  <label>Catégorie d'évaluation *</label>
+  <select [(ngModel)]="formData.evaluationCategory" class="form-input category-select">
+    <option [ngValue]="null" disabled>-- Sélectionnez une catégorie --</option>
+<option *ngFor="let category of availableEvaluationCategories" [ngValue]="category">
+  {{ formatCategory(category) }}
+</option>
+
+  </select>
+  <small class="form-text">Choisissez le type d'évaluation</small>
+
+  <!-- Aperçu de la catégorie sélectionnée -->
+  <div *ngIf="formData.evaluationCategory" class="selected-category-preview">
+    <span class="category-badge-large">
+      {{ formData.evaluationCategory }}
+    </span>
+  </div>
+
+
+        <label>Logo *</label>
+        <input 
+          type="file" 
+          id="image" 
+          class="form-input"
+          accept="image/*"
+          (change)="onLogoSelected($event)">
+        <small class="form-text">Formats acceptés: JPG, PNG, GIF (Max 5MB)</small>
+        
+        <div *ngIf="selectedLogo" class="selected-file">
+          <p>✓ Image sélectionnée: {{ selectedLogo.name }}</p>
+        </div>
+
+        <div *ngIf="modalMode === 'edit' && formData.image && !selectedImage" class="current-image">
+          <p>Logo actuel:</p>
+          <img [src]="sanitizeImage(formData.logo)" alt="Logo actuel" style="max-width: 60px; border-radius: 8px;">
+        </div>
+
         <label>Image *</label>
         <input 
           type="file" 
@@ -284,121 +330,102 @@
 
         <div *ngIf="modalMode === 'edit' && formData.image && !selectedImage" class="current-image">
           <p>Image actuelle:</p>
-          <img [src]="sanitizeImage(formData.image)" alt="Image actuelle" style="max-width: 200px; border-radius: 8px;">
+          <img [src]="sanitizeImage(formData.image)" alt="Image actuelle" style="max-width: 100px; border-radius: 8px;">
         </div>
       </div>
 
       <!-- STEP 2: Section 1 -->
-      <div *ngIf="currentModalStep === 2" class="step-content">
-        <h4>📊 Section 1</h4>
-        
-        <div class="section-card">
-          <label>Titre principal (Headline) *</label>
-          <input type="text" 
-                 [(ngModel)]="sections[0].headline" 
-                 placeholder="Ex: Compétences techniques"
-                 class="form-input">
+<div *ngIf="currentModalStep === 2" class="step-content">
+  <h4>📊 Section 1</h4>
+  
+  <div class="section-card">
+    <label>Titre principal (Headline) *</label>
+    <input type="text" 
+           [(ngModel)]="sections[0].headline" 
+           placeholder="Ex: Compétences techniques"
+           class="form-input">
 
-          <label>Sous-titre </label>
-          <input type="text" 
-                 [(ngModel)]="sections[0].subtitle" 
-                 placeholder="Ex: Évaluation des compétences en programmation"
-                 class="form-input">
+    <label>Sous-titre</label>
+    <input type="text" 
+           [(ngModel)]="sections[0].subtitle" 
+           placeholder="Ex: Évaluation des compétences en programmation"
+           class="form-input">
 
-          <!-- Détails -->
-          <div class="details-section">
-            <div class="details-header">
-              <h5>Détails de la section</h5>
-              <button type="button" (click)="addDetailToSection(0)" class="btn btn-sm btn-blue">
-                + Ajouter un détail
-              </button>
-            </div>
+    <!-- Détails -->
+    <div class="details-section">
+      <div class="details-header">
+        <h5>Détails de la section</h5>
+      </div>
 
-            <div *ngFor="let detail of sections[0].details; let i = index" class="detail-card">
-              <div class="detail-header">
-                <span class="detail-number">Détail #{{ i + 1 }}</span>
-                <button type="button" 
-                        (click)="removeDetailFromSection(0, i)" 
-                        class="btn-icon btn-danger"
-                        title="Supprimer ce détail">
-                  🗑️
-                </button>
-              </div>
+      <div *ngFor="let detail of sections[0].details; let i = index" class="detail-card">
+        <div class="detail-header">
+          <span class="detail-number">Détail #{{ i + 1 }}</span>
+        </div>
 
-              <label>Titre *</label>
-              <input type="text" 
-                     [(ngModel)]="detail.titre" 
-                     placeholder="Ex: JavaScript"
-                     class="form-input">
+        <label>Titre *</label>
+        <input type="text" 
+               [(ngModel)]="detail.titre" 
+               placeholder="Ex: JavaScript"
+               class="form-input">
 
-              <label>Description </label>
-              <textarea [(ngModel)]="detail.description" 
-                        rows="2" 
-                        placeholder="Ex: Maîtrise du langage JavaScript et ses frameworks"
-                        class="form-input"></textarea>
+        <label>Description</label>
+        <textarea [(ngModel)]="detail.description" 
+                  rows="2" 
+                  placeholder="Ex: Maîtrise du langage JavaScript et ses frameworks"
+                  class="form-input"></textarea>
 
-              <label>Icône *</label>
-              <div class="icon-selector">
-                <input type="text" 
-                       [(ngModel)]="detail.icon" 
-                       placeholder="Ex: 💻 ou js-icon"
-                       class="form-input">
-                <small class="form-text">Vous pouvez utiliser un emoji ou le nom d'une icône</small>
-              </div>
-
-              <!-- Suggestions d'icônes -->
-              <div class="icon-suggestions">
-                <span class="icon-chip" (click)="detail.icon = '📊'" [class.selected]="detail.icon === '📊'">📊</span>
-                <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
-                <span class="icon-chip" (click)="detail.icon = '💼'" [class.selected]="detail.icon === '💼'">💼</span>
-                <span class="icon-chip" (click)="detail.icon = '🔧'" [class.selected]="detail.icon === '🔧'">🔧</span>
-                <span class="icon-chip" (click)="detail.icon = '💡'" [class.selected]="detail.icon === '💡'">💡</span>
-                <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
-                <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
-                <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
-                <span class="icon-chip" (click)="detail.icon = '💻'" [class.selected]="detail.icon === '💻'">💻</span>
-                <span class="icon-chip" (click)="detail.icon = '📝'" [class.selected]="detail.icon === '📝'">📝</span>
-                <span class="icon-chip" (click)="detail.icon = '📚'" [class.selected]="detail.icon === '📚'">📚</span>
-                <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
-                <span class="icon-chip" (click)="detail.icon = '🎓'" [class.selected]="detail.icon === '🎓'">🎓</span>
-                <span class="icon-chip" (click)="detail.icon = '📈'" [class.selected]="detail.icon === '📈'">📈</span>
-                <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
-                <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
-                <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
-                <span class="icon-chip" (click)="detail.icon = '🛠️'" [class.selected]="detail.icon === '🛠️'">🛠️</span>
-                <span class="icon-chip" (click)="detail.icon = '🧠'" [class.selected]="detail.icon === '🧠'">🧠</span>
-                <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
-                <span class="icon-chip" (click)="detail.icon = '📌'" [class.selected]="detail.icon === '📌'">📌</span>
-                <span class="icon-chip" (click)="detail.icon = '📎'" [class.selected]="detail.icon === '📎'">📎</span>
-                <span class="icon-chip" (click)="detail.icon = '🔑'" [class.selected]="detail.icon === '🔑'">🔑</span>
-                <span class="icon-chip" (click)="detail.icon = '💰'" [class.selected]="detail.icon === '💰'">💰</span>
-                <span class="icon-chip" (click)="detail.icon = '🧩'" [class.selected]="detail.icon === '🧩'">🧩</span>
-                <span class="icon-chip" (click)="detail.icon = '🎨'" [class.selected]="detail.icon === '🎨'">🎨</span>
-                <span class="icon-chip" (click)="detail.icon = '🖥️'" [class.selected]="detail.icon === '🖥️'">🖥️</span>
-                <span class="icon-chip" (click)="detail.icon = '🎤'" [class.selected]="detail.icon === '🎤'">🎤</span>
-                <span class="icon-chip" (click)="detail.icon = '🎬'" [class.selected]="detail.icon === '🎬'">🎬</span>
-                <span class="icon-chip" (click)="detail.icon = '👥'" [class.selected]="detail.icon === '👥'">👥</span>
-                <span class="icon-chip" (click)="detail.icon = '🗣️'" [class.selected]="detail.icon === '🗣️'">🗣️</span>
-                <span class="icon-chip" (click)="detail.icon = '🤝'" [class.selected]="detail.icon === '🤝'">🤝</span>
-                <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
-                <span class="icon-chip" (click)="detail.icon = '🎭'" [class.selected]="detail.icon === '🎭'">🎭</span>
-                <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
-                <span class="icon-chip" (click)="detail.icon = '📋'" [class.selected]="detail.icon === '📋'">📋</span>
-                <span class="icon-chip" (click)="detail.icon = '⏰'" [class.selected]="detail.icon === '⏰'">⏰</span>
-                <span class="icon-chip" (click)="detail.icon = '📌'" [class.selected]="detail.icon === '📌'">📌</span>
-                <span class="icon-chip" (click)="detail.icon = '🎲'" [class.selected]="detail.icon === '🎲'">🎲</span>
-                <span class="icon-chip" (click)="detail.icon = '🔔'" [class.selected]="detail.icon === '🔔'">🔔</span>
-                <span class="icon-chip" (click)="detail.icon = '📍'" [class.selected]="detail.icon === '📍'">📍</span>
-              </div>
-
-            </div>
-
-            <div *ngIf="sections[0].details.length === 0" class="no-details">
-              <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
-            </div>
+        <!-- Upload d'icône -->
+        <label>Icône * (Image)</label>
+        <div class="icon-upload-section">
+          <!-- Preview de l'icône -->
+          <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
+            <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
+            <button type="button" 
+                    (click)="removeIcon(detail)" 
+                    class="btn-remove-icon"
+                    title="Supprimer l'icône">
+              ✕
+            </button>
           </div>
+
+          <!-- Input file pour upload -->
+          <div class="file-input-wrapper">
+            <input type="file" 
+                   (change)="onIconSelected($event, detail)" 
+                   accept="image/*"
+                   [id]="'icon-input-0-' + i"
+                   class="file-input">
+            <label [for]="'icon-input-0-' + i" class="file-label">
+              <span class="file-icon">📁</span>
+              <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
+            </label>
+          </div>
+          
+          <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+        </div>
+
+        <div class="detail-header">
+          <button type="button" 
+                  (click)="removeDetailFromSection(0, i)" 
+                  class="btn-icon btn-danger"
+                  title="Supprimer ce détail">
+            🗑️
+          </button>
         </div>
       </div>
+
+      <div *ngIf="sections[0].details.length === 0" class="no-details">
+        <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
+      </div>
+    </div>
+    
+    <div class="details-header">
+      <button type="button" (click)="addDetailToSection(0)" class="btn btn-sm btn-blue">
+        + Ajouter un détail
+      </button>
+    </div>
+  </div>
+</div>
 
       <!-- STEP 3: Section 2 -->
       <div *ngIf="currentModalStep === 3" class="step-content">
@@ -421,20 +448,20 @@
           <div class="details-section">
             <div class="details-header">
               <h5>Détails de la section</h5>
-              <button type="button" (click)="addDetailToSection(1)" class="btn btn-sm btn-blue">
+              <!-- <button type="button" (click)="addDetailToSection(1)" class="btn btn-sm btn-blue">
                 + Ajouter un détail
-              </button>
+              </button> -->
             </div>
 
             <div *ngFor="let detail of sections[1].details; let i = index" class="detail-card">
               <div class="detail-header">
                 <span class="detail-number">Détail #{{ i + 1 }}</span>
-                <button type="button" 
+                <!-- <button type="button" 
                         (click)="removeDetailFromSection(1, i)" 
                         class="btn-icon btn-danger"
                         title="Supprimer ce détail">
                   🗑️
-                </button>
+                </button> -->
               </div>
 
               <label>Titre *</label>
@@ -449,68 +476,42 @@
                         placeholder="Ex: Capacité à communiquer efficacement"
                         class="form-input"></textarea>
 
-              <label>Icône *</label>
-              <div class="icon-selector">
-                <input type="text" 
-                       [(ngModel)]="detail.icon" 
-                       placeholder="Ex: 👥 ou team-icon"
-                       class="form-input">
-                <small class="form-text">Vous pouvez utiliser un emoji ou le nom d'une icône</small>
+              <label>Icône * (Image)</label>
+              <div class="icon-upload-section">
+                <!-- Preview de l'icône -->
+                <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
+                  <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
+                  <button type="button" 
+                          (click)="removeIcon(detail)" 
+                          class="btn-remove-icon"
+                          title="Supprimer l'icône">
+                    ✕
+                  </button>
+                </div>
+
+                <!-- Input file pour upload -->
+                <div class="file-input-wrapper">
+                  <input type="file" 
+                        (change)="onIconSelected($event, detail)" 
+                        accept="image/*"
+                        [id]="'icon-input-0-' + i"
+                        class="file-input">
+                  <label [for]="'icon-input-0-' + i" class="file-label">
+                    <span class="file-icon">📁</span>
+                    <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
+                  </label>
+                </div>
+                
+                <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
               </div>
 
-              <div class="icon-suggestions">
-                <span class="icon-chip" (click)="detail.icon = '📊'" [class.selected]="detail.icon === '📊'">📊</span>
-                <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
-                <span class="icon-chip" (click)="detail.icon = '💼'" [class.selected]="detail.icon === '💼'">💼</span>
-                <span class="icon-chip" (click)="detail.icon = '🔧'" [class.selected]="detail.icon === '🔧'">🔧</span>
-                <span class="icon-chip" (click)="detail.icon = '💡'" [class.selected]="detail.icon === '💡'">💡</span>
-                <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
-                <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
-                <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
-                <span class="icon-chip" (click)="detail.icon = '💻'" [class.selected]="detail.icon === '💻'">💻</span>
-                <span class="icon-chip" (click)="detail.icon = '📝'" [class.selected]="detail.icon === '📝'">📝</span>
-                <span class="icon-chip" (click)="detail.icon = '📚'" [class.selected]="detail.icon === '📚'">📚</span>
-                <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
-                <span class="icon-chip" (click)="detail.icon = '🎓'" [class.selected]="detail.icon === '🎓'">🎓</span>
-                <span class="icon-chip" (click)="detail.icon = '📈'" [class.selected]="detail.icon === '📈'">📈</span>
-                <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
-                <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
-                <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
-                <span class="icon-chip" (click)="detail.icon = '🛠️'" [class.selected]="detail.icon === '🛠️'">🛠️</span>
-                <span class="icon-chip" (click)="detail.icon = '🧠'" [class.selected]="detail.icon === '🧠'">🧠</span>
-                <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
-                <span class="icon-chip" (click)="detail.icon = '📌'" [class.selected]="detail.icon === '📌'">📌</span>
-                <span class="icon-chip" (click)="detail.icon = '📎'" [class.selected]="detail.icon === '📎'">📎</span>
-                <span class="icon-chip" (click)="detail.icon = '🔑'" [class.selected]="detail.icon === '🔑'">🔑</span>
-                <span class="icon-chip" (click)="detail.icon = '💰'" [class.selected]="detail.icon === '💰'">💰</span>
-                <span class="icon-chip" (click)="detail.icon = '🧩'" [class.selected]="detail.icon === '🧩'">🧩</span>
-                <span class="icon-chip" (click)="detail.icon = '🎨'" [class.selected]="detail.icon === '🎨'">🎨</span>
-                <span class="icon-chip" (click)="detail.icon = '🖥️'" [class.selected]="detail.icon === '🖥️'">🖥️</span>
-                <span class="icon-chip" (click)="detail.icon = '🎤'" [class.selected]="detail.icon === '🎤'">🎤</span>
-                <span class="icon-chip" (click)="detail.icon = '🎬'" [class.selected]="detail.icon === '🎬'">🎬</span>
-                <span class="icon-chip" (click)="detail.icon = '👥'" [class.selected]="detail.icon === '👥'">👥</span>
-                <span class="icon-chip" (click)="detail.icon = '🗣️'" [class.selected]="detail.icon === '🗣️'">🗣️</span>
-                <span class="icon-chip" (click)="detail.icon = '🤝'" [class.selected]="detail.icon === '🤝'">🤝</span>
-                <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
-                <span class="icon-chip" (click)="detail.icon = '🎭'" [class.selected]="detail.icon === '🎭'">🎭</span>
-                <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
-                <span class="icon-chip" (click)="detail.icon = '📋'" [class.selected]="detail.icon === '📋'">📋</span>
-                <span class="icon-chip" (click)="detail.icon = '⏰'" [class.selected]="detail.icon === '⏰'">⏰</span>
-                <span class="icon-chip" (click)="detail.icon = '📌'" [class.selected]="detail.icon === '📌'">📌</span>
-                <span class="icon-chip" (click)="detail.icon = '🎲'" [class.selected]="detail.icon === '🎲'">🎲</span>
-                <span class="icon-chip" (click)="detail.icon = '🔔'" [class.selected]="detail.icon === '🔔'">🔔</span>
-                <span class="icon-chip" (click)="detail.icon = '📍'" [class.selected]="detail.icon === '📍'">📍</span>
-                <span class="icon-chip" (click)="detail.icon = '🈯'" [class.selected]="detail.icon === '🈯'">🈯</span>
-                <span class="icon-chip" (click)="detail.icon = '🈳'" [class.selected]="detail.icon === '🈳'">🈳</span>
-                <span class="icon-chip" (click)="detail.icon = '⚖️'" [class.selected]="detail.icon === '⚖️'">⚖️</span>
-                <span class="icon-chip" (click)="detail.icon = '🕒'" [class.selected]="detail.icon === '🕒'">🕒</span>
-                <span class="icon-chip" (click)="detail.icon = '⏱️'" [class.selected]="detail.icon === '⏱️'">⏱️</span>
-                <span class="icon-chip" (click)="detail.icon = '🏢'" [class.selected]="detail.icon === '🏢'">🏢</span>
-                <span class="icon-chip" (click)="detail.icon = '🏛️'" [class.selected]="detail.icon === '🏛️'">🏛️</span>
-                <span class="icon-chip" (click)="detail.icon = '🏫'" [class.selected]="detail.icon === '🏫'">🏫</span>
-
-
-
+              <div class="detail-header">
+                <button type="button" 
+                        (click)="removeDetailFromSection(1, i)" 
+                        class="btn-icon btn-danger"
+                        title="Supprimer ce détail">
+                  🗑️
+                </button>
               </div>
             </div>
 
@@ -518,6 +519,11 @@
               <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
             </div>
           </div>
+            <div class="details-header">
+              <button type="button" (click)="addDetailToSection(1)" class="btn btn-sm btn-blue">
+                + Ajouter un détail
+              </button>
+            </div>
         </div>
       </div>
 
@@ -542,20 +548,20 @@
           <div class="details-section">
             <div class="details-header">
               <h5>Détails de la section</h5>
-              <button type="button" (click)="addDetailToSection(2)" class="btn btn-sm btn-blue">
+              <!-- <button type="button" (click)="addDetailToSection(2)" class="btn btn-sm btn-blue">
                 + Ajouter un détail
-              </button>
+              </button> -->
             </div>
 
             <div *ngFor="let detail of sections[2].details; let i = index" class="detail-card">
               <div class="detail-header">
                 <span class="detail-number">Détail #{{ i + 1 }}</span>
-                <button type="button" 
+                <!-- <button type="button" 
                         (click)="removeDetailFromSection(2, i)" 
                         class="btn-icon btn-danger"
                         title="Supprimer ce détail">
                   🗑️
-                </button>
+                </button> -->
               </div>
 
               <label>Titre *</label>
@@ -570,65 +576,41 @@
                         placeholder="Ex: Capacité à planifier et organiser les tâches"
                         class="form-input"></textarea>
 
-              <label>Icône *</label>
-              <div class="icon-selector">
-                <input type="text" 
-                       [(ngModel)]="detail.icon" 
-                       placeholder="Ex: 📅 ou calendar-icon"
-                       class="form-input">
-                <small class="form-text">Vous pouvez utiliser un emoji ou le nom d'une icône</small>
-              </div>
+              <label>Icône * (Image)</label>
+              <div class="icon-upload-section">
+                <!-- Preview de l'icône -->
+                <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
+                  <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
+                  <button type="button" 
+                          (click)="removeIcon(detail)" 
+                          class="btn-remove-icon"
+                          title="Supprimer l'icône">
+                    ✕
+                  </button>
+                </div>
 
-              <div class="icon-suggestions">
-                <span class="icon-chip" (click)="detail.icon = '📊'" [class.selected]="detail.icon === '📊'">📊</span>
-                <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
-                <span class="icon-chip" (click)="detail.icon = '💼'" [class.selected]="detail.icon === '💼'">💼</span>
-                <span class="icon-chip" (click)="detail.icon = '🔧'" [class.selected]="detail.icon === '🔧'">🔧</span>
-                <span class="icon-chip" (click)="detail.icon = '💡'" [class.selected]="detail.icon === '💡'">💡</span>
-                <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
-                <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
-                <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
-                <span class="icon-chip" (click)="detail.icon = '💻'" [class.selected]="detail.icon === '💻'">💻</span>
-                <span class="icon-chip" (click)="detail.icon = '📝'" [class.selected]="detail.icon === '📝'">📝</span>
-                <span class="icon-chip" (click)="detail.icon = '📚'" [class.selected]="detail.icon === '📚'">📚</span>
-                <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
-                <span class="icon-chip" (click)="detail.icon = '🎓'" [class.selected]="detail.icon === '🎓'">🎓</span>
-                <span class="icon-chip" (click)="detail.icon = '📈'" [class.selected]="detail.icon === '📈'">📈</span>
-                <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
-                <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
-                <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
-                <span class="icon-chip" (click)="detail.icon = '🛠️'" [class.selected]="detail.icon === '🛠️'">🛠️</span>
-                <span class="icon-chip" (click)="detail.icon = '🧠'" [class.selected]="detail.icon === '🧠'">🧠</span>
-                <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
-                <span class="icon-chip" (click)="detail.icon = '📌'" [class.selected]="detail.icon === '📌'">📌</span>
-                <span class="icon-chip" (click)="detail.icon = '📎'" [class.selected]="detail.icon === '📎'">📎</span>
-                <span class="icon-chip" (click)="detail.icon = '🔑'" [class.selected]="detail.icon === '🔑'">🔑</span>
-                <span class="icon-chip" (click)="detail.icon = '💰'" [class.selected]="detail.icon === '💰'">💰</span>
-                <span class="icon-chip" (click)="detail.icon = '🧩'" [class.selected]="detail.icon === '🧩'">🧩</span>
-                <span class="icon-chip" (click)="detail.icon = '🎨'" [class.selected]="detail.icon === '🎨'">🎨</span>
-                <span class="icon-chip" (click)="detail.icon = '🖥️'" [class.selected]="detail.icon === '🖥️'">🖥️</span>
-                <span class="icon-chip" (click)="detail.icon = '🎤'" [class.selected]="detail.icon === '🎤'">🎤</span>
-                <span class="icon-chip" (click)="detail.icon = '🎬'" [class.selected]="detail.icon === '🎬'">🎬</span>
-                <span class="icon-chip" (click)="detail.icon = '👥'" [class.selected]="detail.icon === '👥'">👥</span>
-                <span class="icon-chip" (click)="detail.icon = '🗣️'" [class.selected]="detail.icon === '🗣️'">🗣️</span>
-                <span class="icon-chip" (click)="detail.icon = '🤝'" [class.selected]="detail.icon === '🤝'">🤝</span>
-                <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
-                <span class="icon-chip" (click)="detail.icon = '🎭'" [class.selected]="detail.icon === '🎭'">🎭</span>
-                <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
-                <span class="icon-chip" (click)="detail.icon = '📋'" [class.selected]="detail.icon === '📋'">📋</span>
-                <span class="icon-chip" (click)="detail.icon = '⏰'" [class.selected]="detail.icon === '⏰'">⏰</span>
-                <span class="icon-chip" (click)="detail.icon = '📌'" [class.selected]="detail.icon === '📌'">📌</span>
-                <span class="icon-chip" (click)="detail.icon = '🎲'" [class.selected]="detail.icon === '🎲'">🎲</span>
-                <span class="icon-chip" (click)="detail.icon = '🔔'" [class.selected]="detail.icon === '🔔'">🔔</span>
-                <span class="icon-chip" (click)="detail.icon = '📍'" [class.selected]="detail.icon === '📍'">📍</span>
-                <span class="icon-chip" (click)="detail.icon = '🈯'" [class.selected]="detail.icon === '🈯'">🈯</span>
-                <span class="icon-chip" (click)="detail.icon = '🈳'" [class.selected]="detail.icon === '🈳'">🈳</span>
-                <span class="icon-chip" (click)="detail.icon = '⚖️'" [class.selected]="detail.icon === '⚖️'">⚖️</span>
-                <span class="icon-chip" (click)="detail.icon = '🕒'" [class.selected]="detail.icon === '🕒'">🕒</span>
-                <span class="icon-chip" (click)="detail.icon = '⏱️'" [class.selected]="detail.icon === '⏱️'">⏱️</span>
-                <span class="icon-chip" (click)="detail.icon = '🏢'" [class.selected]="detail.icon === '🏢'">🏢</span>
-                <span class="icon-chip" (click)="detail.icon = '🏛️'" [class.selected]="detail.icon === '🏛️'">🏛️</span>
-                <span class="icon-chip" (click)="detail.icon = '🏫'" [class.selected]="detail.icon === '🏫'">🏫</span>
+                <!-- Input file pour upload -->
+                <div class="file-input-wrapper">
+                  <input type="file" 
+                        (change)="onIconSelected($event, detail)" 
+                        accept="image/*"
+                        [id]="'icon-input-0-' + i"
+                        class="file-input">
+                  <label [for]="'icon-input-0-' + i" class="file-label">
+                    <span class="file-icon">📁</span>
+                    <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
+                  </label>
+                </div>
+                
+                <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+              </div>
+              <div class="detail-header">
+                <button type="button" 
+                        (click)="removeDetailFromSection(3, i)" 
+                        class="btn-icon btn-danger"
+                        title="Supprimer ce détail">
+                  🗑️
+                </button>
               </div>
             </div>
 
@@ -636,6 +618,11 @@
               <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
             </div>
           </div>
+             <div class="details-header">
+              <button type="button" (click)="addDetailToSection(2)" class="btn btn-sm btn-blue">
+                + Ajouter un détail
+              </button>
+            </div>         
         </div>
       </div>
 
@@ -661,20 +648,20 @@
     <div class="details-section">
       <div class="details-header">
         <h5>Détails de la section</h5>
-        <button type="button" (click)="addDetailToSection(3)" class="btn btn-sm btn-blue">
+        <!-- <button type="button" (click)="addDetailToSection(3)" class="btn btn-sm btn-blue">
           + Ajouter un détail
-        </button>
+        </button> -->
       </div>
 
       <div *ngFor="let detail of sections[3].details; let i = index" class="detail-card">
         <div class="detail-header">
           <span class="detail-number">Détail #{{ i + 1 }}</span>
-          <button type="button" 
+          <!-- <button type="button" 
                   (click)="removeDetailFromSection(3, i)" 
                   class="btn-icon btn-danger"
                   title="Supprimer ce détail">
             🗑️
-          </button>
+          </button> -->
         </div>
 
         <label>Titre *</label>
@@ -689,66 +676,34 @@
                   placeholder="Ex: Capacité à proposer des idées innovantes"
                   class="form-input"></textarea>
 
-        <label>Icône *</label>
-        <div class="icon-selector">
-          <input type="text" 
-                 [(ngModel)]="detail.icon" 
-                 placeholder="Ex: 💡 ou lightbulb-icon"
-                 class="form-input">
-          <small class="form-text">Vous pouvez utiliser un emoji ou le nom d'une icône</small>
-        </div>
+        <label>Icône * (Image)</label>
+        <div class="icon-upload-section">
+          <!-- Preview de l'icône -->
+          <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
+            <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
+            <button type="button" 
+                    (click)="removeIcon(detail)" 
+                    class="btn-remove-icon"
+                    title="Supprimer l'icône">
+              ✕
+            </button>
+          </div>
 
-              <div class="icon-suggestions">
-                <span class="icon-chip" (click)="detail.icon = '📊'" [class.selected]="detail.icon === '📊'">📊</span>
-                <span class="icon-chip" (click)="detail.icon = '🎯'" [class.selected]="detail.icon === '🎯'">🎯</span>
-                <span class="icon-chip" (click)="detail.icon = '💼'" [class.selected]="detail.icon === '💼'">💼</span>
-                <span class="icon-chip" (click)="detail.icon = '🔧'" [class.selected]="detail.icon === '🔧'">🔧</span>
-                <span class="icon-chip" (click)="detail.icon = '💡'" [class.selected]="detail.icon === '💡'">💡</span>
-                <span class="icon-chip" (click)="detail.icon = '🚀'" [class.selected]="detail.icon === '🚀'">🚀</span>
-                <span class="icon-chip" (click)="detail.icon = '⭐'" [class.selected]="detail.icon === '⭐'">⭐</span>
-                <span class="icon-chip" (click)="detail.icon = '✅'" [class.selected]="detail.icon === '✅'">✅</span>
-                <span class="icon-chip" (click)="detail.icon = '💻'" [class.selected]="detail.icon === '💻'">💻</span>
-                <span class="icon-chip" (click)="detail.icon = '📝'" [class.selected]="detail.icon === '📝'">📝</span>
-                <span class="icon-chip" (click)="detail.icon = '📚'" [class.selected]="detail.icon === '📚'">📚</span>
-                <span class="icon-chip" (click)="detail.icon = '🏆'" [class.selected]="detail.icon === '🏆'">🏆</span>
-                <span class="icon-chip" (click)="detail.icon = '🎓'" [class.selected]="detail.icon === '🎓'">🎓</span>
-                <span class="icon-chip" (click)="detail.icon = '📈'" [class.selected]="detail.icon === '📈'">📈</span>
-                <span class="icon-chip" (click)="detail.icon = '🔥'" [class.selected]="detail.icon === '🔥'">🔥</span>
-                <span class="icon-chip" (click)="detail.icon = '⚡'" [class.selected]="detail.icon === '⚡'">⚡</span>
-                <span class="icon-chip" (click)="detail.icon = '💎'" [class.selected]="detail.icon === '💎'">💎</span>
-                <span class="icon-chip" (click)="detail.icon = '🛠️'" [class.selected]="detail.icon === '🛠️'">🛠️</span>
-                <span class="icon-chip" (click)="detail.icon = '🧠'" [class.selected]="detail.icon === '🧠'">🧠</span>
-                <span class="icon-chip" (click)="detail.icon = '🌟'" [class.selected]="detail.icon === '🌟'">🌟</span>
-                <span class="icon-chip" (click)="detail.icon = '📌'" [class.selected]="detail.icon === '📌'">📌</span>
-                <span class="icon-chip" (click)="detail.icon = '📎'" [class.selected]="detail.icon === '📎'">📎</span>
-                <span class="icon-chip" (click)="detail.icon = '🔑'" [class.selected]="detail.icon === '🔑'">🔑</span>
-                <span class="icon-chip" (click)="detail.icon = '💰'" [class.selected]="detail.icon === '💰'">💰</span>
-                <span class="icon-chip" (click)="detail.icon = '🧩'" [class.selected]="detail.icon === '🧩'">🧩</span>
-                <span class="icon-chip" (click)="detail.icon = '🎨'" [class.selected]="detail.icon === '🎨'">🎨</span>
-                <span class="icon-chip" (click)="detail.icon = '🖥️'" [class.selected]="detail.icon === '🖥️'">🖥️</span>
-                <span class="icon-chip" (click)="detail.icon = '🎤'" [class.selected]="detail.icon === '🎤'">🎤</span>
-                <span class="icon-chip" (click)="detail.icon = '🎬'" [class.selected]="detail.icon === '🎬'">🎬</span>
-                <span class="icon-chip" (click)="detail.icon = '👥'" [class.selected]="detail.icon === '👥'">👥</span>
-                <span class="icon-chip" (click)="detail.icon = '🗣️'" [class.selected]="detail.icon === '🗣️'">🗣️</span>
-                <span class="icon-chip" (click)="detail.icon = '🤝'" [class.selected]="detail.icon === '🤝'">🤝</span>
-                <span class="icon-chip" (click)="detail.icon = '💬'" [class.selected]="detail.icon === '💬'">💬</span>
-                <span class="icon-chip" (click)="detail.icon = '🎭'" [class.selected]="detail.icon === '🎭'">🎭</span>
-                <span class="icon-chip" (click)="detail.icon = '📅'" [class.selected]="detail.icon === '📅'">📅</span>
-                <span class="icon-chip" (click)="detail.icon = '📋'" [class.selected]="detail.icon === '📋'">📋</span>
-                <span class="icon-chip" (click)="detail.icon = '⏰'" [class.selected]="detail.icon === '⏰'">⏰</span>
-                <span class="icon-chip" (click)="detail.icon = '📌'" [class.selected]="detail.icon === '📌'">📌</span>
-                <span class="icon-chip" (click)="detail.icon = '🎲'" [class.selected]="detail.icon === '🎲'">🎲</span>
-                <span class="icon-chip" (click)="detail.icon = '🔔'" [class.selected]="detail.icon === '🔔'">🔔</span>
-                <span class="icon-chip" (click)="detail.icon = '📍'" [class.selected]="detail.icon === '📍'">📍</span>
-                <span class="icon-chip" (click)="detail.icon = '🈯'" [class.selected]="detail.icon === '🈯'">🈯</span>
-                <span class="icon-chip" (click)="detail.icon = '🈳'" [class.selected]="detail.icon === '🈳'">🈳</span>
-                <span class="icon-chip" (click)="detail.icon = '⚖️'" [class.selected]="detail.icon === '⚖️'">⚖️</span>
-                <span class="icon-chip" (click)="detail.icon = '🕒'" [class.selected]="detail.icon === '🕒'">🕒</span>
-                <span class="icon-chip" (click)="detail.icon = '⏱️'" [class.selected]="detail.icon === '⏱️'">⏱️</span>
-                <span class="icon-chip" (click)="detail.icon = '🏢'" [class.selected]="detail.icon === '🏢'">🏢</span>
-                <span class="icon-chip" (click)="detail.icon = '🏛️'" [class.selected]="detail.icon === '🏛️'">🏛️</span>
-                <span class="icon-chip" (click)="detail.icon = '🏫'" [class.selected]="detail.icon === '🏫'">🏫</span>
-              </div>
+          <!-- Input file pour upload -->
+          <div class="file-input-wrapper">
+            <input type="file" 
+                   (change)="onIconSelected($event, detail)" 
+                   accept="image/*"
+                   [id]="'icon-input-0-' + i"
+                   class="file-input">
+            <label [for]="'icon-input-0-' + i" class="file-label">
+              <span class="file-icon">📁</span>
+              <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
+            </label>
+          </div>
+          
+          <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+        </div>
 
         <!-- NOUVEAU: Champ Category -->
         <label>Catégorie </label>
@@ -770,12 +725,26 @@
         <div *ngIf="detail.category" class="selected-category">
           <span class="category-badge">📂 {{ detail.category }}</span>
         </div>
+
+        <div class="detail-header">
+          <button type="button" 
+                  (click)="removeDetailFromSection(3, i)" 
+                  class="btn-icon btn-danger"
+                  title="Supprimer ce détail">
+            🗑️
+          </button>
+        </div>        
       </div>
 
       <div *ngIf="sections[3].details.length === 0" class="no-details">
         <p>Aucun détail ajouté. Cliquez sur "+ Ajouter un détail" pour commencer.</p>
       </div>
     </div>
+      <div class="details-header">
+        <button type="button" (click)="addDetailToSection(3)" class="btn btn-sm btn-blue">
+          + Ajouter un détail
+        </button>
+      </div>
   </div>
 
   <!-- Résumé final -->
@@ -860,9 +829,9 @@
       <p class="section-description">
         Ajoutez des catalogues associés à cette évaluation (brochures, documents...)
       </p>
-      <button type="button" (click)="addCatalogue()" class="btn btn-blue">
+      <!-- <button type="button" (click)="addCatalogue()" class="btn btn-blue">
         + Ajouter un catalogue
-      </button>
+      </button> -->
     </div>
 
     <!-- Liste des catalogues -->
@@ -870,12 +839,12 @@
       <div *ngFor="let catalogue of catalogues; let i = index" class="catalogue-card">
         <div class="catalogue-header">
           <span class="catalogue-number">Catalogue #{{ i + 1 }}</span>
-          <button type="button" 
+          <!-- <button type="button" 
                   (click)="removeCatalogue(i)" 
                   class="btn-icon btn-danger"
                   title="Supprimer ce catalogue">
             🗑️
-          </button>
+          </button> -->
         </div>
         
         <div class="catalogue-body">
@@ -903,6 +872,16 @@
                  class="preview-image">
           </div>
         </div>
+
+        <div class="catalogue-header">
+          <button type="button" 
+                  (click)="removeCatalogue(i)" 
+                  class="btn-icon btn-danger"
+                  title="Supprimer ce catalogue">
+            🗑️
+          </button>
+        </div>
+
       </div>
       
       <div *ngIf="catalogues.length === 0" class="no-catalogues">
@@ -937,6 +916,11 @@
       </div>
     </div>
   </div>
+      <div class="section-header">
+      <button type="button" (click)="addCatalogue()" class="btn btn-blue">
+        + Ajouter un catalogue
+      </button>
+    </div>
 </div>
     </div>
 

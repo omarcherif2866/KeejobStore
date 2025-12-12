@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Evaluation, EvaluationSection, Category } from 'src/app/models/evaluation';
+import { Evaluation, EvaluationSection, Category, EvaluationCategory, Details } from 'src/app/models/evaluation';
 import { EvaluationCatalogue } from 'src/app/models/evaluation-catalogue';
 import { Partenaire } from 'src/app/models/partenaire';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,16 +22,22 @@ export class EvaluationComponent implements OnInit {
   itemsPerPage = 5;
   showModal = false;
   modalMode: 'add' | 'edit' = 'add';
-
+  evaluationCategoryEnum = EvaluationCategory;
+  availableEvaluationCategories = Object.values(EvaluationCategory);
   formData = {
     id: null as any,
     name: '',
     description: '',
-    image: ''
+    image: '',
+    logo: '',
+    evaluationCategory: null as EvaluationCategory | null  // NOUVEAU
+
   };
   
   editId: any = null;
   selectedImage: File | null = null;
+  selectedLogo?: File;
+
   currentModalStep: number = 1;
   sections: EvaluationSection[] = [];
   
@@ -53,7 +60,9 @@ export class EvaluationComponent implements OnInit {
     private evaluationservice: EvaluationService, 
     private partenaireService: PartenaireService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+      private sanitizer: DomSanitizer  // ✅ AJOUTER CECI
+
   ) {}
 
   ngOnInit() {
@@ -145,7 +154,9 @@ export class EvaluationComponent implements OnInit {
       id: null,
       name: '',
       description: '',
-      image: ''
+      image: '',
+      logo: '',
+      evaluationCategory: null  // NOUVEAU
     };
     this.selectedImage = null;
     this.initializeSections();
@@ -155,45 +166,57 @@ export class EvaluationComponent implements OnInit {
     this.showModal = true;
   }
 
-  handleEdit(evaluation: Evaluation) {
-    this.modalMode = 'edit';
+handleEdit(evaluation: Evaluation) {
+  this.modalMode = 'edit';
+  
+  this.formData = {
+    id: evaluation.Id,
+    name: evaluation.Name || '',
+    description: evaluation.Description || '',
+    image: evaluation.Image || '',
+    logo: evaluation.Logo || '',
+    evaluationCategory: evaluation.Category || null
+  };
+  
+  this.editId = evaluation.Id;
+  this.selectedImage = null;
+  
+  // ✅ Correction: Garder les URLs des icônes existantes
+  if (evaluation.Sections && evaluation.Sections.length > 0) {
+    this.sections = evaluation.Sections.map(section => ({
+      headline: section.headline || '',
+      subtitle: section.subtitle || '',
+      details: (section.details || []).map(detail => ({
+        titre: detail.titre || '',
+        description: detail.description || '',
+        // ✅ CORRECTION ICI: Ne pas convertir les URLs en chaînes vides
+        icon: detail.icon || null,  // Garder l'URL ou null
+        category: detail.category || null
+      }))
+    }));
     
-    this.formData = {
-      id: evaluation.Id,
-      name: evaluation.Name || '',
-      description: evaluation.Description || '',
-      image: evaluation.Image || ''
-    };
-    
-    this.editId = evaluation.Id;
-    this.selectedImage = null;
-    
-    if (evaluation.Sections && evaluation.Sections.length > 0) {
-      this.sections = [...evaluation.Sections];
-      while (this.sections.length < 4) {
-        this.sections.push({ headline: '', subtitle: '', details: [] });
-      }
-    } else {
-      this.initializeSections();
+    while (this.sections.length < 4) {
+      this.sections.push({ headline: '', subtitle: '', details: [] });
     }
-    
-    // Charger les partenaires sélectionnés
-    this.selectedPartenaires = evaluation.Partenaires ? [...evaluation.Partenaires] : [];
-    
-    // Charger les catalogues existants
-    if (evaluation.Catalogues && evaluation.Catalogues.length > 0) {
-      this.catalogues = evaluation.Catalogues.map(cat => ({
-        title: cat.Title,
-        image: null,
-        imagePreview: cat.Image
-      }));
-    } else {
-      this.catalogues = [];
-    }
-    
-    this.currentModalStep = 1;
-    this.showModal = true;
+  } else {
+    this.initializeSections();
   }
+  
+  this.selectedPartenaires = evaluation.Partenaires ? [...evaluation.Partenaires] : [];
+  
+  if (evaluation.Catalogues && evaluation.Catalogues.length > 0) {
+    this.catalogues = evaluation.Catalogues.map(cat => ({
+      title: cat.Title,
+      image: null,
+      imagePreview: cat.Image
+    }));
+  } else {
+    this.catalogues = [];
+  }
+  
+  this.currentModalStep = 1;
+  this.showModal = true;
+}
 
   closeModal() {
     this.showModal = false;
@@ -201,7 +224,9 @@ export class EvaluationComponent implements OnInit {
       id: null,
       name: '',
       description: '',
-      image: ''
+      image: '',
+      logo: '',
+      evaluationCategory: null  // NOUVEAU
     };
     this.selectedImage = null;
     this.editId = null;
@@ -249,16 +274,16 @@ export class EvaluationComponent implements OnInit {
     });
   }
 
-  addDetailToSection(sectionIndex: number) {
-    if (this.sections[sectionIndex]) {
-      this.sections[sectionIndex].details.push({
-        titre: '',
-        description: '',
-        icon: '',
-        category: null
-      });
-    }
+addDetailToSection(sectionIndex: number) {
+  if (this.sections[sectionIndex]) {
+    this.sections[sectionIndex].details.push({
+      titre: '',
+      description: '',
+      icon: null,  // ← CHANGÉ DE '' à null
+      category: null
+    });
   }
+}
 
   removeDetailFromSection(sectionIndex: number, detailIndex: number) {
     if (this.sections[sectionIndex] && this.sections[sectionIndex].details[detailIndex]) {
@@ -385,128 +410,144 @@ export class EvaluationComponent implements OnInit {
   }
 
 handleSubmit() {
-  // Vérification des champs obligatoires
-  if (!this.formData.name || !this.formData.description) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Champs manquants',
-      text: 'Veuillez remplir tous les champs obligatoires',
-      timer: 2000,
-      showConfirmButton: false
-    });
-    this.currentModalStep = 1;
-    return;
-  }
-
-  if (this.modalMode === 'add' && !this.selectedImage) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Image manquante',
-      text: 'Veuillez sélectionner une image',
-      timer: 2000,
-      showConfirmButton: false
-    });
-    this.currentModalStep = 1;
-    return;
-  }
-
-  // Vérification des sections complètes
-  const incompleteSections = this.sections.filter((s) => {
-    if (!s.headline || !s.details || s.details.length === 0) return true;
-    return s.details.some(d => !d.titre || !d.icon);
-  });
-
-  // if (incompleteSections.length > 0) {
-  //   Swal.fire({
-  //     icon: 'warning',
-  //     title: 'Sections incomplètes',
-  //     text: `Il reste ${incompleteSections.length} section(s) à compléter`,
-  //     timer: 2000,
-  //     showConfirmButton: false
-  //   });
-  //   return;
-  // }
-
-  // Création de FormData
-  const formData = new FormData();
-  formData.append('name', this.formData.name);
-  formData.append('description', this.formData.description);
-
-  if (this.selectedImage) {
-    formData.append('image', this.selectedImage, this.selectedImage.name);
-  }
-
-  // Sections sécurisées
-  const safeSections = this.sections.map(s => ({
-    headline: s.headline || '',
-    subtitle: s.subtitle || '',
-    details: (s.details || []).map(d => ({
-      titre: d.titre || '',
-      description: d.description || '',
-      icon: d.icon || '',
-      category: d.category || null
-    }))
-  }));
-  formData.append('sections', JSON.stringify(safeSections));
-
-  // Partenaires sécurisés
-  (this.selectedPartenaires || []).forEach(p => {
-    if (p?.Id != null) formData.append('partenairesIds', p.Id.toString());
-  });
-
-  // Catalogues sécurisés
-  (this.catalogues || []).forEach(cat => {
-    if (cat.title) formData.append('catalogueTitles', cat.title);
-    if (cat.image instanceof File) {
-      formData.append('catalogueImages', cat.image, cat.image.name);
-    }
-  });
-
-  // Envoi au service
-  const request$ = this.modalMode === 'add' 
-    ? this.evaluationservice.addEvaluation(formData) 
-    : this.evaluationservice.putEvaluation(this.editId, formData);
-
-  request$.subscribe({
-    next: (response: any) => {
-      const newEvaluation = new Evaluation({
-        id: response.id,
-        name: response.name,
-        description: response.description,
-        image: response.image,
-        sections: response.sections || [],
-        evaluationPartenaires: response.evaluationPartenaires || [],
-        evaluationCatalogues: response.evaluationCatalogues || []
-      });
-
-      if (this.modalMode === 'add') {
-        this.evaluations.push(newEvaluation);
-      } else {
-        const index = this.evaluations.findIndex(item => item.Id === this.editId);
-        if (index !== -1) this.evaluations[index] = newEvaluation;
-      }
-
-      this.closeModal();
+    // Vérification des champs obligatoires
+    if (!this.formData.name || !this.formData.description || !this.formData.evaluationCategory) {
       Swal.fire({
-        title: 'Succès!',
-        text: this.modalMode === 'add' ? 'Évaluation ajoutée avec succès' : 'Évaluation modifiée avec succès',
-        icon: 'success',
-        timer: 1500,
+        icon: 'warning',
+        title: 'Champs manquants',
+        text: 'Veuillez remplir tous les champs obligatoires (nom, description et catégorie)',
+        timer: 2000,
         showConfirmButton: false
-      }).then(() => this.fetchEvaluations());
-    },
-    error: (error) => {
-      console.error('Erreur:', error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Erreur',
-        text: error?.message || 'Une erreur est survenue',
-        showConfirmButton: false,
-        timer: 1500
       });
+      this.currentModalStep = 1;
+      return;
     }
-  });
-}
+
+    if (this.modalMode === 'add' && !this.selectedImage) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Image manquante',
+        text: 'Veuillez sélectionner une image',
+        timer: 2000,
+        showConfirmButton: false
+      });
+      this.currentModalStep = 1;
+      return;
+    }
+
+    // Création de FormData
+    const formData = new FormData();
+    formData.append('name', this.formData.name);
+    formData.append('description', this.formData.description);
+    formData.append('evaluationCategory', this.formData.evaluationCategory!);
+
+    if (this.selectedImage) {
+      formData.append('image', this.selectedImage, this.selectedImage.name);
+    }
+
+    if (this.selectedLogo) {
+      formData.append('logo', this.selectedLogo, this.selectedLogo.name);
+    }
+
+    // Collecter les fichiers d'icônes avant de créer le JSON des sections
+    const iconFiles: (File | null)[] = [];
+    
+    this.sections.forEach(section => {
+      (section.details || []).forEach(detail => {
+        // Vérifier si detail.icon est un File ou une string
+        if (detail.icon && typeof detail.icon !== 'string' && detail.icon instanceof File) {
+          iconFiles.push(detail.icon);
+        } else {
+          iconFiles.push(null); // Pas de nouveau fichier pour ce detail
+        }
+      });
+    });
+
+    // Sections sécurisées (sans les fichiers d'icônes dans le JSON)
+    const safeSections = this.sections.map(s => ({
+      headline: s.headline || '',
+      subtitle: s.subtitle || '',
+      details: (s.details || []).map(d => ({
+        titre: d.titre || '',
+        description: d.description || '',
+        icon: typeof d.icon === 'string' ? d.icon : '', // Garder l'URL existante ou vide
+        category: d.category || null
+      }))
+    }));
+    formData.append('sections', JSON.stringify(safeSections));
+
+    // Ajouter les fichiers d'icônes dans l'ordre
+    iconFiles.forEach(iconFile => {
+      if (iconFile instanceof File) {
+        formData.append('iconFiles', iconFile, iconFile.name);
+      } else {
+        // Ajouter un placeholder vide pour maintenir l'ordre
+        const emptyBlob = new Blob([], { type: 'application/octet-stream' });
+        formData.append('iconFiles', emptyBlob, '');
+      }
+    });
+
+    // Partenaires sécurisés
+    (this.selectedPartenaires || []).forEach(p => {
+      if (p?.Id != null) formData.append('partenairesIds', p.Id.toString());
+    });
+
+    // Catalogues sécurisés
+    (this.catalogues || []).forEach(cat => {
+      if (cat.title) formData.append('catalogueTitles', cat.title);
+      if (cat.image instanceof File) {
+        formData.append('catalogueImages', cat.image, cat.image.name);
+      }
+    });
+
+    // Envoi au service
+    const request$ = this.modalMode === 'add' 
+      ? this.evaluationservice.addEvaluation(formData) 
+      : this.evaluationservice.putEvaluation(this.editId, formData);
+
+    request$.subscribe({
+      next: (response: any) => {
+        const newEvaluation = new Evaluation({
+          id: response.id,
+          name: response.name,
+          description: response.description,
+          image: response.image,
+          logo: response.logo,
+          sections: response.sections || [],
+          evaluationPartenaires: response.evaluationPartenaires || [],
+          evaluationCatalogues: response.evaluationCatalogues || [],
+          evaluationCategory: response.evaluationCategory || null
+        });
+
+        if (this.modalMode === 'add') {
+          this.evaluations.push(newEvaluation);
+        } else {
+          const index = this.evaluations.findIndex(item => item.Id === this.editId);
+          if (index !== -1) this.evaluations[index] = newEvaluation;
+        }
+
+        this.closeModal();
+        Swal.fire({
+          title: 'Succès!',
+          text: this.modalMode === 'add' ? 'Évaluation ajoutée avec succès' : 'Évaluation modifiée avec succès',
+          icon: 'success',
+          timer: 1500,
+          showConfirmButton: false
+        }).then(() => this.fetchEvaluations());
+      },
+      error: (error) => {
+        console.error('Erreur:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: error?.message || 'Une erreur est survenue',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
+  }
+
 
 
   toggleSidebar() {
@@ -556,6 +597,35 @@ handleSubmit() {
     }
   }
 
+  onLogoSelected(event: any) {
+  const file = event.target.files[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Veuillez sélectionner une image valide',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        return;
+      }
+      
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'L\'image ne doit pas dépasser 5MB',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        return;
+      }
+      
+      this.selectedLogo = file;
+    }
+}
+
   sanitizeImage(url: string | null): string {
     if (!url) return '';
 
@@ -574,76 +644,38 @@ handleSubmit() {
 // Par: if (this.currentModalStep === 7)
 
 // 1. Modifier la progression pour inclure 7 steps au lieu de 5
-nextModalStep() {
-  if (this.currentModalStep === 1) {
-    if (!this.formData.name || !this.formData.description) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Champs manquants',
-        text: 'Veuillez remplir le nom et la description',
-        timer: 2000,
-        showConfirmButton: false
-      });
-      return;
+  nextModalStep() {
+    if (this.currentModalStep === 1) {
+      if (!this.formData.name || !this.formData.description || !this.formData.evaluationCategory) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Champs manquants',
+          text: 'Veuillez remplir le nom, la description et sélectionner une catégorie',
+          timer: 2000,
+          showConfirmButton: false
+        });
+        return;
+      }
+
+      if (this.modalMode === 'add' && !this.selectedImage) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Image manquante',
+          text: 'Veuillez sélectionner une image',
+          timer: 2000,
+          showConfirmButton: false
+        });
+        return;
+      }
     }
 
-    if (this.modalMode === 'add' && !this.selectedImage) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Image manquante',
-        text: 'Veuillez sélectionner une image',
-        timer: 2000,
-        showConfirmButton: false
-      });
-      return;
-    }
-  }
 
   // Validation des sections 1-4 (steps 2-5)
   if (this.currentModalStep >= 2 && this.currentModalStep <= 5) {
     const sectionIndex = this.currentModalStep - 2;
     const section = this.sections[sectionIndex];
-    
-    // Vérifier seulement le headline (subtitle est optionnel maintenant)
-    // if (!section.headline) {
-    //   Swal.fire({
-    //     icon: 'warning',
-    //     title: 'Section incomplète',
-    //     text: `Veuillez remplir le champ headline de la section ${sectionIndex + 1}`,
-    //     timer: 2000,
-    //     showConfirmButton: false
-    //   });
-    //   return;
-    // }
 
-    // if (section.details.length === 0) {
-    //   Swal.fire({
-    //     icon: 'warning',
-    //     title: 'Détails manquants',
-    //     text: `Veuillez ajouter au moins un détail à la section ${sectionIndex + 1}`,
-    //     timer: 2000,
-    //     showConfirmButton: false
-    //   });
-    //   return;
-    // }
-
-    // Vérification des champs - seulement titre et icône sont obligatoires
-    // description et category sont optionnels
-    // const missingFields = section.details.some(d => !d.titre || !d.icon);
-    
-    // if (missingFields) {
-    //   Swal.fire({
-    //     icon: 'warning',
-    //     title: 'Détails incomplets',
-    //     text: `Veuillez remplir les champs titre et icône pour la section ${sectionIndex + 1}`,
-    //     timer: 2000,
-    //     showConfirmButton: false
-    //   });
-    //   return;
-    // }
   }
-
-  // Step 6: Pas de validation obligatoire pour les partenaires (optionnel)
   
   // Step 7: Validation des catalogues
   if (this.currentModalStep === 7) {
@@ -666,8 +698,7 @@ nextModalStep() {
   if (this.currentModalStep < 7) {
     this.currentModalStep++;
   }
-}
-
+  }
 
   previousModalStep() {
     if (this.currentModalStep > 1) {
@@ -692,4 +723,74 @@ countCompletedSections(): number {
     return s.details.every(d => d.titre && d.icon);
   }).length;
 }
+
+
+
+formatCategory(category: string): string {
+  return category.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+}
+
+
+// Fonction pour gérer la sélection d'une icône
+onIconSelected(event: any, detail: Details) {
+  const file = event.target.files[0];
+  
+  if (file) {
+    // Validation du type de fichier
+    if (!file.type.startsWith('image/')) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Veuillez sélectionner une image valide',
+        timer: 1500,
+        showConfirmButton: false
+      });
+      event.target.value = ''; // Reset input
+      return;
+    }
+    
+    // Validation de la taille (max 2MB pour les icônes)
+    if (file.size > 2 * 1024 * 1024) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'L\'icône ne doit pas dépasser 2MB',
+        timer: 1500,
+        showConfirmButton: false
+      });
+      event.target.value = ''; // Reset input
+      return;
+    }
+    
+    // Stocker le fichier dans detail.icon
+    detail.icon = file;
+  }
+}
+
+// Fonction pour supprimer une icône
+removeIcon(detail: Details) {
+  detail.icon = null;
+}
+
+// Fonction pour vérifier si l'icône est une image
+isImageIcon(icon: any): boolean {
+  return icon instanceof File || (typeof icon === 'string' && icon.startsWith('http'));
+}
+
+// Fonction pour obtenir l'aperçu de l'icône
+getIconPreview(icon: any): SafeUrl | string {
+  if (!icon) return '';
+  
+  if (icon instanceof File) {
+    const url = URL.createObjectURL(icon);
+    return this.sanitizer.bypassSecurityTrustUrl(url);  // ✅ SANITIZE
+  }
+  
+  if (typeof icon === 'string' && icon.startsWith('http')) {
+    return icon;
+  }
+  
+  return '';
+}
+
 }

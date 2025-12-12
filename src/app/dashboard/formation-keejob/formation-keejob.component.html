@@ -415,6 +415,25 @@
                 placeholder="Entrez la description"
                 class="form-input"></textarea>
 
+        <label>Logo *</label>
+        <input 
+          type="file" 
+          id="image" 
+          class="form-input"
+          accept="image/*"
+          (change)="onLogoSelected($event)">
+        <small class="form-text">Formats acceptés: JPG, PNG, GIF (Max 5MB)</small>
+        
+        <div *ngIf="selectedLogo" class="selected-file">
+          <p>✓ Image sélectionnée: {{ selectedLogo.name }}</p>
+        </div>
+
+        <div *ngIf="modalMode === 'edit' && formData.image && !selectedImage" class="current-image">
+          <p>Logo actuel:</p>
+          <img [src]="sanitizeImage(formData.logo)" alt="Logo actuel" style="max-width: 60px; border-radius: 8px;">
+        </div>
+
+
       <label>Image *</label>
       <input type="file" 
              accept="image/*" 
@@ -422,6 +441,10 @@
              class="form-input">
       <div *ngIf="selectedImage" class="selected-file">
         <p>✓ Image sélectionnée : {{ selectedImage.name }}</p>
+      </div>
+      <div *ngIf="modalMode === 'edit' && formData.image && !selectedImage" class="current-image">
+          <p>Image actuelle:</p>
+          <img [src]="sanitizeImage(formData.image)" alt="Image actuelle" style="max-width: 100px; border-radius: 8px;">
       </div>
 
       <label>Partenaires</label>
