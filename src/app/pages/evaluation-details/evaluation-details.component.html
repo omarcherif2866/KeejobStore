@@ -38,7 +38,12 @@
                         [class.heroo-item-shadow]="first">
                         <div class="heroo-icon-wrapper">
                         <div class="heroo-icon">
-                            <span *ngIf="detail.icon" style="font-size: 24px;">{{ detail.icon }}</span>
+                          <img 
+                            [src]="sanitizeImage(detail.icon)" 
+                            [alt]="evaluation.name + ' icon'" 
+                            class="iconDetails"
+                          />
+                            <!-- <span *ngIf="detail.icon" style="font-size: 24px;">{{ detail.icon }}</span> -->
                         </div>
                         </div>
                         <div class="heroo-text">
@@ -62,7 +67,11 @@
     <div class="features-grid" >
         <div *ngFor="let detail of evaluation.sections[1]?.details" class="feature-item">
           <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-            <span style="font-size: 43px; line-height: 1;">{{ detail.icon }}</span>
+            <!-- <span style="font-size: 43px; line-height: 1;">{{ detail.icon }}</span> -->
+            <img 
+              [src]="sanitizeImage(detail.icon)" 
+              [alt]="evaluation.name + ' icon'" 
+            />
             <h3>{{ detail.titre }}</h3>
           </div>
           <p>{{ detail.description }}</p>
@@ -80,7 +89,12 @@
     <div class="professionals-grid">
       <div class="professional-card" *ngFor="let detail of evaluation.sections[2]?.details">
         <div class="heroo-icon-test">
-            <span style="font-size: 24px; line-height: 1;">{{ detail.icon }}</span>
+            <!-- <span style="font-size: 24px; line-height: 1;">{{ detail.icon }}</span> -->
+            <img 
+              [src]="sanitizeImage(detail.icon)" 
+              [alt]="evaluation.name + ' icon'" 
+              class="iconDetailSectionOne"
+            />
         </div>
         <h4>{{ detail.titre }}</h4>
         <p>{{ detail.description }}</p>

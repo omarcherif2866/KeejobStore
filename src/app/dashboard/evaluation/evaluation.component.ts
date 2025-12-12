@@ -54,7 +54,8 @@ export class EvaluationComponent implements OnInit {
   catalogues: Array<{title: string, image: File | null, imagePreview: string | null}> = [];
   
 
-
+  availableIcons: string[] = []; // Liste des icônes disponibles depuis Cloudinary
+  loadingIcons = false; // État de chargement des icônes
   
   constructor(
     private evaluationservice: EvaluationService, 
@@ -68,6 +69,8 @@ export class EvaluationComponent implements OnInit {
   ngOnInit() {
     this.fetchEvaluations();
     this.fetchPartenaires();
+    this.fetchAvailableIcons(); // ← AJOUTER CECI
+
   }
 
   fetchPartenaires() {
@@ -792,5 +795,42 @@ getIconPreview(icon: any): SafeUrl | string {
   
   return '';
 }
+
+
+fetchAvailableIcons() {
+    this.loadingIcons = true;
+    console.log('📡 Récupération des icônes disponibles...');
+    
+    this.evaluationservice.getAvailableIcons().subscribe({
+      next: (icons: string[]) => {
+        this.availableIcons = icons;
+        this.loadingIcons = false;
+        console.log('✅ Icônes disponibles:', this.availableIcons.length, icons);
+      },
+      error: (error) => {
+        console.error('❌ Erreur lors du chargement des icônes:', error);
+        this.loadingIcons = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Impossible de charger les icônes disponibles',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      }
+    });
+  }
+
+  // ✅ NOUVELLE MÉTHODE: Sélectionner une icône depuis la galerie
+  selectIconFromGallery(iconUrl: string, detail: Details) {
+    detail.icon = iconUrl;
+    console.log('✅ Icône sélectionnée:', iconUrl);
+  }
+
+  // ✅ NOUVELLE MÉTHODE: Vérifier si une icône est déjà sélectionnée
+  isIconSelected(iconUrl: string, detail: Details): boolean {
+    return detail.icon === iconUrl;
+  }
+
 
 }

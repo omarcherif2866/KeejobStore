@@ -7,8 +7,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { SharedModule } from './pages/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
-import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
-import { VerifyCodeComponent } from './pages/verify-code/verify-code.component';
+import { EvaluationCategoryComponent } from './pages/evaluation-category/evaluation-category.component';
 
 
 
@@ -277,6 +276,14 @@ const routes = [
   loadChildren: () =>
     import('./pages/reset-password/reset-password.module').then(
       (m) => m.ResetPasswordModule
+    ),
+},
+
+{
+  path: 'evaluation/category/:category',
+  loadChildren: () =>
+    import('./pages/evaluation-category/evaluation-category.module').then(
+      (m) => m.EvaluationCategoryModule
     ),
 },
   {

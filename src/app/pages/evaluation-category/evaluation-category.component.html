@@ -1,0 +1,32 @@
+<section class="expertise-section">
+  <div class="platforms-cards-container">
+
+    <div *ngFor="let ev of evaluations" class="platform-card">
+
+      <!-- HEADER CARD -->
+      <div class="platform-header">
+        <div class="platform-logo-wrapper">
+          <img [src]="sanitizeImage(ev.image)" alt="logo" class="platform-logo">
+        </div>
+
+        <h3 class="platform-name">{{ ev.name }}</h3>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <p class="platform-description">{{ ev.description }}</p>
+
+      <!-- RATING -->
+      <div class="platform-rating">
+        <img src="../../assets/87_913.svg" alt="4.7 stars rating">
+        <span class="rating-score">4.7</span>
+        <span class="rating-reviews">Basé sur 17 avis</span>
+      </div>
+
+      <!-- BUTTON -->
+      <a [routerLink]="['/evaluation', ev.id]" class="btn btn-primary">
+        En savoir plus
+      </a>
+    </div>
+
+  </div>
+</section>

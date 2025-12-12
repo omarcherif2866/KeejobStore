@@ -43,10 +43,20 @@
         <a href="evaluation">Evaluation</a>
 
         <ul class="dropdown-menu cool-menu">
-          <li><a href="tests_psychometriques">Les tests psychométriques</a></li>
-          <li><a href="tests_competences">Les tests de compétences</a></li>
+          <li>
+            <a [routerLink]="['/evaluation/category', 'Les_tests_psychométriques']">
+              Les tests psychométriques
+            </a>
+          </li>
+
+          <li>
+            <a [routerLink]="['/evaluation/category', 'Les_tests_de_compétences']">
+              Les tests de compétences
+            </a>
+          </li>
         </ul>
       </li>
+
       <li class="dropdown">
         <a href="formation">Formations</a>
 

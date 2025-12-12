@@ -1305,6 +1305,118 @@ textarea.form-input {
   background: #1976D2;
 }
 
+
+.inline-icon-gallery {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.inline-icon-gallery::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inline-icon-gallery::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.inline-icon-gallery::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.inline-icon-gallery::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.loading-icons {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #2196F3;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.no-icons-message {
+  text-align: center;
+  padding: 30px;
+  color: #999;
+}
+
+.icons-grid-inline {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 12px;
+}
+
+.icon-item-inline {
+  position: relative;
+  aspect-ratio: 1;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+
+.icon-item-inline:hover {
+  border-color: #2196F3;
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.icon-item-inline.selected {
+  border-color: #4CAF50;
+  border-width: 3px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.gallery-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;
+}
+
+.icon-check {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(76, 175, 80, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-mark {
+  font-size: 32px;
+  color: white;
+  font-weight: bold;
+}
+
+
+
 /* Responsive */
 @media (max-width: 768px) {
   .price-pack-card {

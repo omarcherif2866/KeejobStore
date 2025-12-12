@@ -402,6 +402,32 @@
           </div>
           
           <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+
+          <!-- ✅ GALERIE D'ICÔNES INLINE -->
+          <div class="inline-icon-gallery">
+            <div *ngIf="loadingIcons" class="loading-icons">
+              <div class="spinner"></div>
+              <p>Chargement des icônes...</p>
+            </div>
+
+            <div *ngIf="!loadingIcons && availableIcons.length === 0" class="no-icons-message">
+              <p>Aucune icône disponible. Uploadez-en une !</p>
+            </div>
+
+            <div *ngIf="!loadingIcons && availableIcons.length > 0" class="icons-grid-inline">
+              <div *ngFor="let iconUrl of availableIcons" 
+                   class="icon-item-inline"
+                   [class.selected]="isIconSelected(iconUrl, detail)"
+                   (click)="selectIconFromGallery(iconUrl, detail)"
+                   [title]="iconUrl">
+                <img [src]="iconUrl" alt="Icon" class="gallery-icon-img">
+                <div class="icon-check" *ngIf="isIconSelected(iconUrl, detail)">
+                  <span class="check-mark">✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <div class="detail-header">
@@ -503,6 +529,32 @@
                 </div>
                 
                 <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+
+          <!-- ✅ GALERIE D'ICÔNES INLINE -->
+          <div class="inline-icon-gallery">
+            <div *ngIf="loadingIcons" class="loading-icons">
+              <div class="spinner"></div>
+              <p>Chargement des icônes...</p>
+            </div>
+
+            <div *ngIf="!loadingIcons && availableIcons.length === 0" class="no-icons-message">
+              <p>Aucune icône disponible. Uploadez-en une !</p>
+            </div>
+
+            <div *ngIf="!loadingIcons && availableIcons.length > 0" class="icons-grid-inline">
+              <div *ngFor="let iconUrl of availableIcons" 
+                   class="icon-item-inline"
+                   [class.selected]="isIconSelected(iconUrl, detail)"
+                   (click)="selectIconFromGallery(iconUrl, detail)"
+                   [title]="iconUrl">
+                <img [src]="iconUrl" alt="Icon" class="gallery-icon-img">
+                <div class="icon-check" *ngIf="isIconSelected(iconUrl, detail)">
+                  <span class="check-mark">✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
               </div>
 
               <div class="detail-header">
@@ -603,7 +655,34 @@
                 </div>
                 
                 <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+
+                <!-- ✅ GALERIE D'ICÔNES INLINE -->
+                <div class="inline-icon-gallery">
+                  <div *ngIf="loadingIcons" class="loading-icons">
+                    <div class="spinner"></div>
+                    <p>Chargement des icônes...</p>
+                  </div>
+
+                  <div *ngIf="!loadingIcons && availableIcons.length === 0" class="no-icons-message">
+                    <p>Aucune icône disponible. Uploadez-en une !</p>
+                  </div>
+
+                  <div *ngIf="!loadingIcons && availableIcons.length > 0" class="icons-grid-inline">
+                    <div *ngFor="let iconUrl of availableIcons" 
+                        class="icon-item-inline"
+                        [class.selected]="isIconSelected(iconUrl, detail)"
+                        (click)="selectIconFromGallery(iconUrl, detail)"
+                        [title]="iconUrl">
+                      <img [src]="iconUrl" alt="Icon" class="gallery-icon-img">
+                      <div class="icon-check" *ngIf="isIconSelected(iconUrl, detail)">
+                        <span class="check-mark">✓</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
+
               <div class="detail-header">
                 <button type="button" 
                         (click)="removeDetailFromSection(3, i)" 
@@ -703,6 +782,32 @@
           </div>
           
           <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+
+          <!-- ✅ GALERIE D'ICÔNES INLINE -->
+          <div class="inline-icon-gallery">
+            <div *ngIf="loadingIcons" class="loading-icons">
+              <div class="spinner"></div>
+              <p>Chargement des icônes...</p>
+            </div>
+
+            <div *ngIf="!loadingIcons && availableIcons.length === 0" class="no-icons-message">
+              <p>Aucune icône disponible. Uploadez-en une !</p>
+            </div>
+
+            <div *ngIf="!loadingIcons && availableIcons.length > 0" class="icons-grid-inline">
+              <div *ngFor="let iconUrl of availableIcons" 
+                   class="icon-item-inline"
+                   [class.selected]="isIconSelected(iconUrl, detail)"
+                   (click)="selectIconFromGallery(iconUrl, detail)"
+                   [title]="iconUrl">
+                <img [src]="iconUrl" alt="Icon" class="gallery-icon-img">
+                <div class="icon-check" *ngIf="isIconSelected(iconUrl, detail)">
+                  <span class="check-mark">✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- NOUVEAU: Champ Category -->

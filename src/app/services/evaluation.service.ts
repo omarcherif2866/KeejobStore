@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { Evaluation } from '../models/evaluation';
+import { Evaluation, EvaluationCategory } from '../models/evaluation';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class EvaluationService {
   private apiUrl = "http://localhost:9090/evaluation";
+  private apiUrlImage = "http://localhost:9090/images";
 
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -86,6 +87,18 @@ addEvaluation(data: FormData): Observable<Evaluation> {
   // Optionnel : récupérer les détails groupés par catégorie
   getDetailsByCategory(): Observable<Record<string, any[]>> {
     return this.http.get<Record<string, any[]>>(`${this.apiUrl}/by-category`);
+  }
+
+  getAvailableIcons(): Observable<string[]> {
+  return this.http.get<string[]>(`${this.apiUrlImage}/icons`);
+}
+
+  getAvailablePriceIcons(): Observable<string[]> {
+  return this.http.get<string[]>(`${this.apiUrlImage}/price_icons`);
+}
+
+  getByCategory(category: EvaluationCategory): Observable<Evaluation[]> {
+    return this.http.get<Evaluation[]>(`${this.apiUrl}/by-category/${category}`);
   }
 
 }

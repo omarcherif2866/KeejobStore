@@ -6,6 +6,7 @@ import { PriceSection } from 'src/app/models/cv';
 import { Partenaire } from 'src/app/models/partenaire';
 import { AuthService } from 'src/app/services/auth.service';
 import { CoachingService } from 'src/app/services/coaching.service';
+import { EvaluationService } from 'src/app/services/evaluation.service';
 import { PartenaireService } from 'src/app/services/partenaire.service';
 import Swal from 'sweetalert2';
 
@@ -47,9 +48,13 @@ export class CoachingComponent implements OnInit {
   // Partenaires
   allPartenaires: Partenaire[] = [];
   selectedPartenaires: Partenaire[] = [];
-
+  availableIcons: string[] = [];
+  availablePriceIcons: string[] = []; // ✅ NOUVEAU
+  loadingIcons = false;
+  loadingPriceIcons = false; // ✅ NOUVEAU
   constructor(
     private coachingservice: CoachingService, 
+    private evaluationservice: EvaluationService, 
     private partenaireService: PartenaireService,
     private authService: AuthService,
     private router: Router,
@@ -60,6 +65,8 @@ export class CoachingComponent implements OnInit {
   ngOnInit() {
     this.fetchCoachings();
     this.fetchPartenaires();
+    this.fetchAvailableIcons(); // ← AJOUTER CECI
+    this.fetchAvailablePriceIcons(); // ✅ NOUVEAU
   }
 
   fetchPartenaires() {
@@ -759,5 +766,72 @@ getIconPreview(icon: any): SafeUrl | string {
   formatCategory(category: string): string {
   return category.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
 }
+
+
+fetchAvailableIcons() {
+    this.loadingIcons = true;
+    console.log('📡 Récupération des icônes disponibles...');
+    
+    this.evaluationservice.getAvailableIcons().subscribe({
+      next: (icons: string[]) => {
+        this.availableIcons = icons;
+        this.loadingIcons = false;
+        console.log('✅ Icônes disponibles:', this.availableIcons.length, icons);
+      },
+      error: (error) => {
+        console.error('❌ Erreur lors du chargement des icônes:', error);
+        this.loadingIcons = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Impossible de charger les icônes disponibles',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      }
+    });
+  }
+
+  // ✅ NOUVELLE MÉTHODE: Sélectionner une icône depuis la galerie
+  selectIconFromGallery(iconUrl: string, detail: Details) {
+    detail.icon = iconUrl;
+    console.log('✅ Icône sélectionnée:', iconUrl);
+  }
+
+  // ✅ NOUVELLE MÉTHODE: Vérifier si une icône est déjà sélectionnée
+  isIconSelected(iconUrl: string, detail: Details): boolean {
+    return detail.icon === iconUrl;
+  }
+
+
+    fetchAvailablePriceIcons() {
+    this.loadingPriceIcons = true;
+    console.log('📡 Récupération des icônes de prix disponibles...');
+    
+    this.evaluationservice.getAvailablePriceIcons().subscribe({
+      next: (icons: string[]) => {
+        this.availablePriceIcons = icons;
+        this.loadingPriceIcons = false;
+        console.log('✅ Icônes de prix disponibles:', this.availablePriceIcons.length, icons);
+      },
+      error: (error) => {
+        console.error('❌ Erreur lors du chargement des icônes de prix:', error);
+        this.loadingPriceIcons = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Impossible de charger les icônes de prix disponibles',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      }
+    });
+  }
+
+  selectPriceIconFromGallery(iconUrl: string, detail: Details) {
+    detail.icon = iconUrl;
+    console.log('✅ Icône de prix sélectionnée:', iconUrl);
+  }
+
 
 }

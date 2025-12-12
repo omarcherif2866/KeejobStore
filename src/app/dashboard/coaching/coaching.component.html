@@ -405,35 +405,61 @@
 
 
 
-        <!-- Upload d'icône -->
-        <label>Icône * (Image)</label>
-        <div class="icon-upload-section">
-          <!-- Preview de l'icône -->
-          <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
-            <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
-            <button type="button" 
-                    (click)="removeIcon(detail)" 
-                    class="btn-remove-icon"
-                    title="Supprimer l'icône">
-              ✕
-            </button>
-          </div>
+                <!-- Upload d'icône -->
+                <label>Icône * (Image)</label>
+                <div class="icon-upload-section">
+                  <!-- Preview de l'icône -->
+                  <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
+                    <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
+                    <button type="button" 
+                            (click)="removeIcon(detail)" 
+                            class="btn-remove-icon"
+                            title="Supprimer l'icône">
+                      ✕
+                    </button>
+                  </div>
 
-          <!-- Input file pour upload -->
-          <div class="file-input-wrapper">
-            <input type="file" 
-                   (change)="onIconSelected($event, detail)" 
-                   accept="image/*"
-                   [id]="'icon-input-0-' + i"
-                   class="file-input">
-            <label [for]="'icon-input-0-' + i" class="file-label">
-              <span class="file-icon">📁</span>
-              <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
-            </label>
-          </div>
-          
-          <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
-        </div>
+                  <!-- Input file pour upload -->
+                  <div class="file-input-wrapper">
+                    <input type="file" 
+                          (change)="onIconSelected($event, detail)" 
+                          accept="image/*"
+                          [id]="'icon-input-0-' + i"
+                          class="file-input">
+                    <label [for]="'icon-input-0-' + i" class="file-label">
+                      <span class="file-icon">📁</span>
+                      <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
+                    </label>
+                  </div>
+                  
+                  <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+
+                  <!-- ✅ GALERIE D'ICÔNES INLINE -->
+                  <div class="inline-icon-gallery">
+                    <div *ngIf="loadingIcons" class="loading-icons">
+                      <div class="spinner"></div>
+                      <p>Chargement des icônes...</p>
+                    </div>
+
+                    <div *ngIf="!loadingIcons && availableIcons.length === 0" class="no-icons-message">
+                      <p>Aucune icône disponible. Uploadez-en une !</p>
+                    </div>
+
+                    <div *ngIf="!loadingIcons && availableIcons.length > 0" class="icons-grid-inline">
+                      <div *ngFor="let iconUrl of availableIcons" 
+                          class="icon-item-inline"
+                          [class.selected]="isIconSelected(iconUrl, detail)"
+                          (click)="selectIconFromGallery(iconUrl, detail)"
+                          [title]="iconUrl">
+                        <img [src]="iconUrl" alt="Icon" class="gallery-icon-img">
+                        <div class="icon-check" *ngIf="isIconSelected(iconUrl, detail)">
+                          <span class="check-mark">✓</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>          
+
+                </div>
                 <div class="detail-header">
                   <button type="button" 
                           (click)="removeDetailFromSection(sectionIndex, i)" 
@@ -555,35 +581,60 @@
 
 
 
-        <!-- Upload d'icône -->
-        <label>Icône * (Image)</label>
-        <div class="icon-upload-section">
-          <!-- Preview de l'icône -->
-          <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
-            <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
-            <button type="button" 
-                    (click)="removeIcon(detail)" 
-                    class="btn-remove-icon"
-                    title="Supprimer l'icône">
-              ✕
-            </button>
-          </div>
+                <!-- Upload d'icône -->
+                <label>Icône * (Image)</label>
+                <div class="icon-upload-section">
+                    <!-- Preview de l'icône -->
+                    <div *ngIf="isImageIcon(detail.icon)" class="icon-preview">
+                      <img [src]="getIconPreview(detail.icon)" alt="Icon preview" class="icon-thumbnail">
+                      <button type="button" 
+                              (click)="removeIcon(detail)" 
+                              class="btn-remove-icon"
+                              title="Supprimer l'icône">
+                        ✕
+                      </button>
+                    </div>
 
-          <!-- Input file pour upload -->
-          <div class="file-input-wrapper">
-            <input type="file" 
-                   (change)="onIconSelected($event, detail)" 
-                   accept="image/*"
-                  [id]="'icon-input-' + psIndex + '-' + dIndex"
-                   class="file-input">
-            <label [for]="'icon-input-' + psIndex + '-' + dIndex" class="file-label">
-              <span class="file-icon">📁</span>
-              <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
-            </label>
-          </div>
-          
-          <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
-        </div>
+                    <!-- Input file pour upload -->
+                    <div class="file-input-wrapper">
+                      <input type="file" 
+                            (change)="onIconSelected($event, detail)" 
+                            accept="image/*"
+                            [id]="'icon-input-' + psIndex + '-' + dIndex"
+                            class="file-input">
+                      <label [for]="'icon-input-' + psIndex + '-' + dIndex" class="file-label">
+                        <span class="file-icon">📁</span>
+                        <span>{{ detail.icon ? 'Changer l\'icône' : 'Choisir une icône' }}</span>
+                      </label>
+                    </div>
+                  
+                    <small class="form-text">Format accepté: JPG, PNG, SVG (Max 2MB)</small>
+
+                    <div class="inline-icon-gallery">
+                      <div *ngIf="loadingPriceIcons" class="loading-icons">
+                        <div class="spinner"></div>
+                        <p>Chargement des icônes de prix...</p>
+                      </div>
+
+                      <div *ngIf="!loadingPriceIcons && availablePriceIcons.length === 0" class="no-icons-message">
+                        <p>Aucune icône de prix disponible. Uploadez-en une !</p>
+                      </div>
+
+                      <div *ngIf="!loadingPriceIcons && availablePriceIcons.length > 0" class="icons-grid-inline">
+                        <div *ngFor="let iconUrl of availablePriceIcons" 
+                            class="icon-item-inline"
+                            [class.selected]="isIconSelected(iconUrl, detail)"
+                            (click)="selectPriceIconFromGallery(iconUrl, detail)"
+                            [title]="iconUrl">
+                          <img [src]="iconUrl" alt="Price Icon" class="gallery-icon-img">
+                          <div class="icon-check" *ngIf="isIconSelected(iconUrl, detail)">
+                            <span class="check-mark">✓</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
                   </div>
                 </div>
                 <div class="features-header">
