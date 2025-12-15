@@ -31,7 +31,9 @@ export class AllFormationKeejobComponent implements OnInit {
           f.title,
           f.image,
           f.logo,
-
+          f.categoryFormationKeejob,
+          f.partenaires,
+          f.sousFormations
         ));
         this.formations = this.formations; // si pagination ou filtrage
         this.loading = false;

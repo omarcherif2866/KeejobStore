@@ -38,7 +38,9 @@ currentIndexSous = 0;  // index de la première sous-formation affichée
         data.description,
         data.image,
         data.partenaires,
-        data.sousFormations
+        data.sousFormations,
+        data.categoryFormationKeejob,
+        data.logo
       );
 
       // --- PARTENAIRES ---

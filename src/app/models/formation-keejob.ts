@@ -1,6 +1,13 @@
 import { Partenaire } from "./partenaire";
 import { SousFormationKeejob } from "./sous-formation-keejob";
 
+
+export enum FormationCategory {
+  Formations_langues = 'Formations_langues',
+  Formations_office = 'Formations_office',
+}
+
+
 export class FormationKeejob {
     private id : any
     private title: string;
@@ -9,6 +16,7 @@ export class FormationKeejob {
     private image: string;
     private logo: string | null;
     private sousFormations: SousFormationKeejob[] = []
+    private categoryFormationKeejob: FormationCategory;
   
     constructor(
       id: any,
@@ -17,7 +25,8 @@ export class FormationKeejob {
       image: string,
       logo: string,
       partenaires: Partenaire[] = [],
-      sousFormations: SousFormationKeejob[] = []
+      sousFormations: SousFormationKeejob[] = [],
+      categoryFormationKeejob: FormationCategory
 
     ) {
       this.id = id;
@@ -27,6 +36,7 @@ export class FormationKeejob {
       this.logo = logo;
       this.partenaires = partenaires;
       this.sousFormations = sousFormations;
+      this.categoryFormationKeejob = categoryFormationKeejob;
 
     }
 
@@ -84,6 +94,15 @@ export class FormationKeejob {
   public set Logo(value: string | null) {
     this.logo = value;
   }
+
+
+      public get Category(): FormationCategory {
+        return this.categoryFormationKeejob;
+      }
+    
+      public set Category(categoryFormationKeejob: FormationCategory) {
+        this.categoryFormationKeejob = categoryFormationKeejob;
+      }
 
   }
 

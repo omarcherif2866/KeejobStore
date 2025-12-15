@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { FormationKeejob } from '../models/formation-keejob';
+import { FormationCategory, FormationKeejob } from '../models/formation-keejob';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +78,11 @@ addFormationKeejob(data: FormData): Observable<FormationKeejob> {
   deleteFormationKeejob(id:any):Observable<FormationKeejob>{
     return this.http.delete<FormationKeejob>(`${this.apiUrl}/${id}`)
 
+  }
+
+
+  getByCategory(category: FormationCategory): Observable<FormationKeejob[]> {
+    return this.http.get<FormationKeejob[]>(`${this.apiUrl}/by-category/${category}`);
   }
 
 

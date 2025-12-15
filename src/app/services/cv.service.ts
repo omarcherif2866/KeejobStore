@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { Cv } from '../models/cv';
+import { Cv, CVCategory } from '../models/cv';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +76,11 @@ addCv(data: FormData): Observable<Cv> {
   deleteCv(id:any):Observable<Cv>{
     return this.http.delete<Cv>(`${this.apiUrl}/${id}`)
 
+  }
+
+
+  getByCategory(category: CVCategory): Observable<Cv[]> {
+    return this.http.get<Cv[]>(`${this.apiUrl}/by-category/${category}`);
   }
 
 

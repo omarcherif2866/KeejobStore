@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
-import { Coaching } from '../models/coaching';
+import { Coaching, CoachingCategory } from '../models/coaching';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -76,6 +76,11 @@ addCoaching(data: FormData): Observable<Coaching> {
   deleteCoaching(id:any):Observable<Coaching>{
     return this.http.delete<Coaching>(`${this.apiUrl}/${id}`)
 
+  }
+
+
+  getByCategory(category: CoachingCategory): Observable<Coaching[]> {
+    return this.http.get<Coaching[]>(`${this.apiUrl}/by-category/${category}`);
   }
 
 

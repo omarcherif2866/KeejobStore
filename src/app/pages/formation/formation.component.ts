@@ -31,8 +31,10 @@ export class FormationComponent implements OnInit {
           f.title,
           f.description,
           f.image,
-          f.logo
-
+          f.logo,
+          f.categoryFormationKeejob,
+          f.partenaires,
+          f.sousFormations
         ));
 
         this.updateVisibleFormations();

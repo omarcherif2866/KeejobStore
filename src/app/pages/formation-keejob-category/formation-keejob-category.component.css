@@ -1,0 +1,142 @@
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9fafb;
+        color: #333;
+      }
+
+      /* Conteneur principal */
+      .container {
+        max-width: 1200px;
+        margin: 100px auto 0 auto; /* ⇦ décale le contenu sous la navbar */
+        padding: 0 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+      }
+  /* Texte principal */
+
+
+.expertise-section {
+  margin-top: 100px; /* espace normal au lieu d’un décalage négatif */
+  background-image: 
+    url("../../../assets/277_1591.svg"),
+    url("../../../assets/ellipse77182-8qp-600h.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: 
+    right -100px bottom -400px,
+    left top -200px;
+  background-size: 
+    1900px auto,
+    900px auto;
+  padding: 80px 10%;
+  position: relative;
+  background-attachment: local;
+}
+
+
+
+.platforms-cards-container {
+    max-width: 1600px; 
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+
+
+.platform-card {
+    background-color: var(--color-white);
+    border-radius: 20px;
+    padding: 20px;
+    flex: 0 0 calc(25% - 40px); /* 4 par ligne */
+    max-width: 450px;           /* Largeur maximale de chaque card */
+    box-shadow: 0px 10px 20px rgba(217, 218, 226, 0.3);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+}
+
+
+  .platform-header {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* espace entre image et titre */
+  margin-bottom: 15px;
+}
+  .platform-card:hover {
+  transform: translateY(-5px);
+}
+  .platform-logo-wrapper {
+    width: 73px;
+    height: 73px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .platform-logo {
+    max-width: 80%;
+    max-height: 80%;
+  }
+  .platform-name {
+    font-size: 25px;
+    line-height: 35px;
+    color: var(--color-primary);
+    font-weight: 400;
+    margin: 0 0 15px;
+  }
+  .platform-description {
+    font-size: 14px;
+    line-height: 22px;
+    color: #919ca2;
+    margin: 0 0 20px;
+    flex-grow: 1;
+  }
+  .platform-description .font-semibold { font-weight: 600; }
+  .platform-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .platform-rating img { width: 99px; }
+  .rating-score { font-weight: 700; color: var(--color-primary); }
+  .rating-reviews { font-size: 13px; color: var(--color-primary); }
+.play-btn2 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* place le contenu à droite */
+  gap: 10px; /* espace entre l’icône et le texte */
+  margin-top: 30px; /* espace au-dessus du bouton */
+  margin-right: 60px; /* décale vers la droite */
+}
+.btn-primary {
+  background-color: var(--color-secondary);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      width: 151px;
+      height: 38px ;
+      font-size: 13px;
+
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+

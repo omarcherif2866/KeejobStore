@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormationKeejob } from 'src/app/models/formation-keejob';
+import { FormationCategory, FormationKeejob } from 'src/app/models/formation-keejob';
 import { Partenaire } from 'src/app/models/partenaire';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormationKeejobService } from 'src/app/services/formation-keejob.service';
@@ -47,6 +47,7 @@ export class FormationKeejobComponent implements OnInit {
     description: '',
     image:'',
     logo:'',
+    categoryFormationKeejob: null as FormationCategory | null,  // NOUVEAU
     partenaires: []
   };
   
@@ -75,6 +76,8 @@ export class FormationKeejobComponent implements OnInit {
   // Maps pour stocker les données
   sousFormationsMap: { [formationId: number]: SousFormationKeejob[] } = {};
   logicielMap: { [sfId: number]: Logiciel[] } = {};
+  formationCategoryEnum = FormationCategory;
+  availableFormationsCategories = Object.values(FormationCategory);
 
   constructor(
     private partenaireservice: PartenaireService, 
@@ -113,7 +116,10 @@ export class FormationKeejobComponent implements OnInit {
           f.title,
           f.description,
           f.image,
-          f.partenaires || []
+          f.partenaires || [],
+          f.categoryFormationKeejob,
+          f.sousFormation,
+          f.logo
         ));
         
         this.loading = false;
@@ -191,7 +197,9 @@ export class FormationKeejobComponent implements OnInit {
       description: '',
       image: '',
       logo: '',
-      partenaires: []
+      partenaires: [],
+      categoryFormationKeejob: null  // NOUVEAU
+
     };
     this.selectedPartenaires = [];
     this.selectedImage = null;
@@ -208,7 +216,9 @@ export class FormationKeejobComponent implements OnInit {
       description: formation.Description,
       image: formation.Image,
       logo: formation.Logo,
-      partenaires: []
+      partenaires: [],
+      categoryFormationKeejob: formation.Category || null
+
     };
 
     this.partenaireService.getPartenaireByFormationKeejob(formation.Id).subscribe(
@@ -271,7 +281,10 @@ export class FormationKeejobComponent implements OnInit {
       data.title || data.Title,
       data.description || data.Description,
       data.image || data.Image,
-      data.partenaires || data.Partenaires || []
+      data.partenaires || data.Partenaires || [],
+      data.categoryFormationKeejob,
+      data.sousFormation,
+      data.logo
     );
   }
 
@@ -299,6 +312,7 @@ export class FormationKeejobComponent implements OnInit {
     const fd = new FormData();
     fd.append('title', this.formData.title);
     fd.append('description', this.formData.description);
+    fd.append('categoryFormationKeejob', this.formData.categoryFormationKeejob!);
 
     if (this.selectedImage) {
       fd.append('image', this.selectedImage, this.selectedImage.name);
@@ -633,7 +647,9 @@ openLogicielsModal(sf: any) {
       description: '',
       image: '',
       logo:'',
-      partenaires: []
+      partenaires: [],
+      categoryFormationKeejob: null  // NOUVEAU
+
     };
     this.selectedPartenaires = [];
     this.selectedImage = null;
@@ -801,4 +817,9 @@ finishProcess() {
   onLogicielSelected(list: any[]) {
     this.selectedLogiciels = list;
   }
+
+formatCategory(category: string): string {
+  return category.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+}
+
 }

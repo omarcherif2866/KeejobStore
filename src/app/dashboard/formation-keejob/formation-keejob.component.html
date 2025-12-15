@@ -415,6 +415,25 @@
                 placeholder="Entrez la description"
                 class="form-input"></textarea>
 
+
+  <label>Catégorie de la formation *</label>
+  <select [(ngModel)]="formData.categoryFormationKeejob" class="form-input category-select">
+    <option [ngValue]="null" disabled>-- Sélectionnez une catégorie --</option>
+<option *ngFor="let category of availableFormationsCategories" [ngValue]="category">
+  {{ formatCategory(category) }}
+</option>
+
+  </select>
+  <small class="form-text">Choisissez le type de CV et/ou LM</small>
+
+  <!-- Aperçu de la catégorie sélectionnée -->
+  <div *ngIf="formData.categoryFormationKeejob" class="selected-category-preview">
+    <span class="category-badge-large">
+      {{ formData.categoryFormationKeejob }}
+    </span>
+  </div>
+
+
         <label>Logo *</label>
         <input 
           type="file" 

@@ -61,8 +61,8 @@
         <a href="formation">Formations</a>
 
         <ul class="dropdown-menu cool-menu">
-          <li><a href="tests_psychometriques">Formations Langues</a></li>
-          <li><a href="tests_competences">Formation office</a></li>
+          <li><a [routerLink]="['/formation/category', 'Formations_langues']">Formations Langues</a></li>
+          <li><a [routerLink]="['/formation/category', 'Formations_office']">Formation office</a></li>
         </ul>
       </li>      
       <li class="dropdown">
@@ -79,9 +79,9 @@
         <a href="coaching_emploi">Coaching Emploi</a>
 
         <ul class="dropdown-menu cool-menu">
-          <li><a href="tests_psychometriques">En Ligne </a></li>
-          <li><a href="tests_competences">Présentiel</a></li>
-          <li><a href="tests_competences">Simulation d’entretient</a></li>
+          <li><a [routerLink]="['/coaching_emploi/category', 'En_Ligne']">En Ligne </a></li>
+          <li><a [routerLink]="['/coaching_emploi/category', 'Présentiel']">Présentiel</a></li>
+          <li><a [routerLink]="['/coaching_emploi/category', 'Simulation_dentretint']">Simulation d’entretient</a></li>
 
         </ul>
       </li>
@@ -89,9 +89,9 @@
         <a href="cv_et_lettre_de_mottivation">Correction de CV et lettre de motivation</a>
 
         <ul class="dropdown-menu cool-menu">
-          <li><a href="tests_psychometriques">Correction  et rédaction de CV</a></li>
-          <li><a href="tests_competences">Correction  et rédaction de LM</a></li>
-          <li><a href="tests_competences">Traduction de CV et LM </a></li>
+          <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Correction_et_rédaction_de_CV']">Correction  et rédaction de CV</a></li>
+          <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Correction_et_rédaction_de_LM']">Correction  et rédaction de LM</a></li>
+          <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Traduction_de_CV_et_LM']">Traduction de CV et LM </a></li>
 
         </ul>
       </li>       

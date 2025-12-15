@@ -8,6 +8,9 @@ import { SharedModule } from './pages/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { EvaluationCategoryComponent } from './pages/evaluation-category/evaluation-category.component';
+import { CoachingCategoryComponent } from './pages/coaching-category/coaching-category.component';
+import { CvCategoryComponent } from './pages/cv-category/cv-category.component';
+import { FormationKeejobCategoryComponent } from './pages/formation-keejob-category/formation-keejob-category.component';
 
 
 
@@ -284,6 +287,30 @@ const routes = [
   loadChildren: () =>
     import('./pages/evaluation-category/evaluation-category.module').then(
       (m) => m.EvaluationCategoryModule
+    ),
+},
+
+{
+  path: 'coaching_emploi/category/:category',
+  loadChildren: () =>
+    import('./pages/coaching-category/coaching-category.module').then(
+      (m) => m.CoachingCategoryModule
+    ),
+},
+
+{
+  path: 'cv_et_lettre_de_mottivation/category/:category',
+  loadChildren: () =>
+    import('./pages/cv-category/cv-category.module').then(
+      (m) => m.CvCategoryModule
+    ),
+},
+
+{
+  path: 'formation/category/:category',
+  loadChildren: () =>
+    import('./pages/formation-keejob-category/formation-keejob-category.module').then(
+      (m) => m.FormationKeejobCategoryModule
     ),
 },
   {
