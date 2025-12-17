@@ -31,6 +31,7 @@ export class SousFormationKeejobComponent implements OnInit {
     title: '',
     description: '',
     image: '',
+    logo: '',
     formationKeejobId: null, // ✅ Changé de formationKeejob: [] à formationKeejobId: null
     sousFormationPartenaires: [],
     details: [] as any[], // ✅ Ajout de details
@@ -40,6 +41,7 @@ iconsFiles: File[] = []; // ⬅️ icônes envoyées au backend
 
   editId: any = null;
   selectedImage: File | null = null;
+  selectedLogo?: File;
 
   constructor(
     private partenaireservice: PartenaireService,
@@ -142,6 +144,7 @@ handleAdd() {
     title: '',
     description: '',
     image: '',
+      logo: '',
     formationKeejobId: this.formationId, // ✅ Utiliser directement l'ID
     sousFormationPartenaires: [],
     details: [], // ✅ Réinitialiser details
@@ -161,6 +164,7 @@ handleEdit(sousFormation: SousFormationKeejob) {
     title: sousFormation.Title,
     description: sousFormation.Description,
     image: sousFormation.Image,
+    logo: sousFormation.Logo,
     formationKeejobId: sousFormation.FormationKeejob?.Id || this.formationId, // ✅ Extraire l'ID
     sousFormationPartenaires: sousFormation.Partenaires || [],
     details: sousFormation.Details ? [...sousFormation.Details] : [], // ✅ Copier les détails existants
@@ -220,39 +224,60 @@ handleSubmit() {
   }
 
   const formData = new FormData();
-  formData.append('title', this.formData.title);
-  formData.append('description', this.formData.description);
+  
+  // ✅ Validation: s'assurer que les valeurs sont des strings
+  formData.append('title', String(this.formData.title));
+  formData.append('description', String(this.formData.description));
 
   if (this.formationId) {
-    formData.append('formationKeejobId', this.formationId.toString());
+    formData.append('formationKeejobId', String(this.formationId));
   }
-  
 
-    formData.append('titleLogiciel', this.formData.titleLogiciel);
-  
+  // ✅ Vérifier que titleLogiciel existe et est une string
+  if (this.formData.titleLogiciel) {
+    formData.append('titleLogiciel', String(this.formData.titleLogiciel));
+  }
 
-  if (this.selectedImage) {
+  // ✅ Vérifier que selectedImage est bien un File
+  if (this.selectedImage && this.selectedImage instanceof File) {
     formData.append('image', this.selectedImage, this.selectedImage.name);
   }
 
-  if (this.selectedPartenaires.length > 0) {
+  if (this.selectedLogo) {
+      formData.append('logo', this.selectedLogo, this.selectedLogo.name);
+  }
+
+  // ✅ Vérifier que les partenaires ont des IDs valides
+  if (this.selectedPartenaires && this.selectedPartenaires.length > 0) {
     this.selectedPartenaires.forEach(p => {
-      formData.append("partenairesIds", p.id.toString());
+      if (p && p.id != null) {
+        formData.append("partenairesIds", String(p.id));
+      }
     });
   }
 
-  formData.append('details', JSON.stringify(
-    this.formData.details.map(d => ({
-      titre: d.titre,
-      description: d.description
-      // PAS icon ici car c'est un upload séparé !
-    }))
-  ));
+  // ✅ Validation des details
+  const safeDetails = (this.formData.details || []).map(d => ({
+    titre: String(d.titre || ''),
+    description: String(d.description || '')
+  }));
+  
+  formData.append('details', JSON.stringify(safeDetails));
 
-  // ⬅️ envoi des icônes (dans le bon ordre)
-  this.iconsFiles.forEach(file => {
-    formData.append('icons', file);
-  });
+  // ✅ CRITIQUE: Vérifier que iconsFiles contient bien des Files
+  if (this.iconsFiles && Array.isArray(this.iconsFiles)) {
+    this.iconsFiles.forEach((file, index) => {
+      // Vérifier que c'est vraiment un File
+      if (file && file instanceof File) {
+        formData.append('icons', file, file.name);
+      } else {
+        console.warn(`⚠️ Icon at index ${index} is not a File:`, file);
+        // Ajouter un fichier vide si nécessaire pour maintenir l'ordre
+        const emptyFile = new File([], '', { type: 'application/octet-stream' });
+        formData.append('icons', emptyFile);
+      }
+    });
+  }
 
   const afterSuccess = (response: any) => {
     Swal.fire({
@@ -265,35 +290,29 @@ handleSubmit() {
     this.closeModal();
     this.fetchsousFormationKeejob();
 
-    // ✅ Émettre la sous-formation ajoutée pour passer automatiquement au Step 3
     if (this.modalMode === 'add') {
-      this.sousFormationSelected.emit(response); // <-- IMPORTANT
+      this.sousFormationSelected.emit(response);
     }
   }
+
+  const onError = (error: any) => {
+    console.error('Erreur:', error);
+    Swal.fire({
+      icon: 'error',
+      title: `Erreur lors de ${this.modalMode === 'add' ? 'l\'ajout' : 'la modification'}`,
+      timer: 1500
+    });
+  };
 
   if (this.modalMode === 'add') {
     this.sousFormationKeejobService.addSousFormationKeejob(formData).subscribe(
       afterSuccess,
-      (error) => {
-        console.error('Erreur ajout:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Erreur lors de l\'ajout',
-          timer: 1500
-        });
-      }
+      onError
     );
   } else {
     this.sousFormationKeejobService.putSousFormationKeejob(this.editId, formData).subscribe(
       afterSuccess,
-      (error) => {
-        console.error('Erreur modification:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Erreur lors de la modification',
-          timer: 1500
-        });
-      }
+      onError
     );
   }
 }
@@ -323,6 +342,7 @@ closeModal() {
     title: '',
     description: '',
     image: '',
+    logo:'',
     formationKeejobId: null, // ✅ Changé
     sousFormationPartenaires: [],
     details: [], // ✅ Réinitialiser details
@@ -410,6 +430,7 @@ editSousFormationFromParent(sf: any) {
     title: sf.title || sf.Title,
     description: sf.description || sf.Description,
     image: sf.image || sf.Image,
+    logo: sf.logo || sf.Logo,
     formationKeejobId: sf.formationKeejobId || sf.FormationKeejob?.Id,
     sousFormationPartenaires: [],
     details: sf.details || sf.Details || [],
@@ -464,6 +485,35 @@ onIconSelected(event: any, index: number) {
   }
 }
 
+
+  onLogoSelected(event: any) {
+  const file = event.target.files[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Veuillez sélectionner une image valide',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        return;
+      }
+      
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'L\'image ne doit pas dépasser 5MB',
+          timer: 1500,
+          showConfirmButton: false
+        });
+        return;
+      }
+      
+      this.selectedLogo = file;
+    }
+}
 
 
 }

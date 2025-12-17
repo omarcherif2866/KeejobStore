@@ -74,5 +74,57 @@ getLogiciel(): Observable<Logiciel[]> {
     getLogicielBySousFormationKeejob(sousFormationId: number): Observable<Logiciel[]> {
     return this.http.get<Logiciel[]>(`${this.apiUrl}/sousFormation/${sousFormationId}`);
   }
+
+  assignLogiciel(sousFormationId: number, logicielId: number): Observable<string> {
+    return this.http.post(
+      `${this.apiUrl}/${sousFormationId}/logiciels/${logicielId}`,
+      null,
+      { responseType: 'text' }
+    );
+  }
+
+
+  unassignLogiciel(sousFormationId: number, logicielId: number): Observable<string> {
+    return this.http.delete(
+      `${this.apiUrl}/${sousFormationId}/logiciels/${logicielId}`,
+      { responseType: 'text' }
+    );
+  }
+
+  /**
+   * Assigner plusieurs logiciels à une sous-formation
+   * @param sousFormationId ID de la sous-formation
+   * @param logicielIds Liste des IDs des logiciels
+   */
+  assignMultipleLogiciels(sousFormationId: number, logicielIds: number[]): Observable<string> {
+    return this.http.post(
+      `${this.apiUrl}/${sousFormationId}/logiciels/bulk`,
+      logicielIds,
+      { responseType: 'text' }
+    );
+  }
+
+  /**
+   * Désassigner tous les logiciels d'une sous-formation
+   * @param sousFormationId ID de la sous-formation
+   */
+  unassignAllLogiciels(sousFormationId: number): Observable<string> {
+    return this.http.delete(
+      `${this.apiUrl}/${sousFormationId}/logiciels`,
+      { responseType: 'text' }
+    );
+  }
+
+  /**
+   * Toggle l'assignation d'un logiciel (assigne si non assigné, désassigne si assigné)
+   * @param sousFormationId ID de la sous-formation
+   * @param logicielId ID du logiciel
+   * @param isAssigned État actuel de l'assignation
+   */
+  toggleLogiciel(sousFormationId: number, logicielId: number, isAssigned: boolean): Observable<string> {
+    return isAssigned 
+      ? this.unassignLogiciel(sousFormationId, logicielId)
+      : this.assignLogiciel(sousFormationId, logicielId);
+  }
 }
 

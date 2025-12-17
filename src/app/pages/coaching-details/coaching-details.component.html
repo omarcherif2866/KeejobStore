@@ -134,7 +134,7 @@
       </div>
     </section> 
 
-    <section id="process-section">
+    <section id="process-section" *ngIf="cv.sections[3]?.headline">
       <div class="container">
         <h2 class="section-title-pricing">{{ cv.sections[3]?.headline }}</h2>
         <p class="section-subtitle">{{ cv.sections[3]?.subtitle }}</p>
@@ -145,12 +145,14 @@
     <div class="step-icon">
       <div style="position: relative; width: 168px; height: 168px; margin: 0 auto;">
         <div class="heroo-icon">
-          <span *ngIf="detail.icon" style="font-size: 90px;">{{ detail.icon }}</span>
+          <img [src]="sanitizeImage(detail.icon)" alt="Photo evaluation" class="ev-image" />
         </div>
       </div>
     </div>
 
     <p class="step-text">{{ detail.titre }}</p>
+    <p class="step-text">{{ detail.description }}</p>
+
   </div>
 </div>
 

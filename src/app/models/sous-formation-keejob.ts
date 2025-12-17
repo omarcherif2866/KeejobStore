@@ -16,6 +16,7 @@ export class SousFormationKeejob {
     private sousFormationPartenaires: Partenaire[] = [];
     private formationKeejob: FormationKeejob;
     private image: string;
+    private logo: string | null;
     private titleLogiciel: string
     private sousFormationLogiciel: Logiciel[] = [];
     private details: DetailObject[] = []; // ✅ Ajout de l'attribut details
@@ -25,6 +26,7 @@ export class SousFormationKeejob {
       title: string,
       description: string,
       image: string,
+      logo: string,
       titleLogiciel: string,
       sousFormationPartenaires: Partenaire[] = [],
       sousFormationLogiciel: Logiciel[] = [],
@@ -35,6 +37,7 @@ export class SousFormationKeejob {
       this.title = title;
       this.description = description;
       this.image = image;
+      this.logo = logo;
       this.sousFormationPartenaires = sousFormationPartenaires;
       this.sousFormationLogiciel = sousFormationLogiciel;
       this.formationKeejob = formationKeejob;
@@ -111,4 +114,12 @@ export class SousFormationKeejob {
     public set Details(details: DetailObject[]) {
       this.details = details;
     }
+
+    public get Logo(): string | null {
+    return this.logo;
+  }
+  public set Logo(value: string | null) {
+    this.logo = value;
+  }
+
 }

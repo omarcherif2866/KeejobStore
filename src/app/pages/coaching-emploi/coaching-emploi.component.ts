@@ -18,10 +18,10 @@ export class CoachingEmploiComponent implements OnInit {
     constructor(private coachingService: CoachingService,private router:Router) {}
   
     ngOnInit(): void {
-      this.fetchFormation()
+      this.fetchCoachings()
     }
 
-  fetchFormation() {
+  fetchCoachings() {
     this.loading = true;
 
     this.coachingService.getCoaching().subscribe(
@@ -33,6 +33,7 @@ export class CoachingEmploiComponent implements OnInit {
           sousTitre: f.sousTitre,
           description: f.description,
           image: f.image,
+          logo: f.logo,
           sections: f.sections,
           priceSections: f.priceSections,
           cvPartenaires: f.cvPartenaires

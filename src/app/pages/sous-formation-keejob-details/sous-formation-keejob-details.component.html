@@ -3,7 +3,7 @@
         <div class="container hero-container">
             <div class="hero-left">
                 <div class="hero-brand">
-                <img [src]="sanitizeImage(sousFormation.Image)" 
+                <img [src]="sanitizeImage(sousFormation.Logo)" 
                     [alt]="sousFormation.Title" 
                     class="brand-icon">
                     <h2 class="brand-name">{{ sousFormation.Title }}</h2>
@@ -42,7 +42,7 @@
         </div>
         <div>
           <h3>{{ dt.titre }}</h3>
-          <p>{{ dt.description }}</p>
+          <p >{{ dt.description }}</p>
         </div>
       </div>
 
@@ -57,7 +57,8 @@
     <div class="platforms-wrapper">
       <div class="platforms-content">
           <h2 class="platforms-title">
-            <span class="font-regular">{{ sousFormation.TitleLogiciel }}</span>
+            <p class="hero-description">{{ sousFormation.TitleLogiciel }}</p>
+            <!-- <span class="font-regular">{{ sousFormation.TitleLogiciel }}</span> -->
           </h2>
           <div class="logiciels-grid">
             <div *ngFor="let log of visibleLogiciels" class="logiciel-card">

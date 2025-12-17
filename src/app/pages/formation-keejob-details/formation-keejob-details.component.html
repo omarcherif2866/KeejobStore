@@ -3,7 +3,7 @@
         <div class="container hero-container">
             <div class="hero-left">
                 <div class="hero-brand">
-                <img [src]="sanitizeImage(formation.Image)" 
+                <img [src]="sanitizeImage(formation.Logo)" 
                     [alt]="formation.Title" 
                     class="brand-icon">
                     <h2 class="brand-name">{{ formation.Title }}</h2>
@@ -14,7 +14,7 @@
                     <p class="rating-reviews">Basé sur 17 avis</p>
                 </div>
                 <p class="hero-description">
-                    {{ formation.Title }}                
+                    {{ formation.Description }}                
                 </p>
             </div>
             <div class="hero-right">
@@ -56,7 +56,7 @@
             <div *ngFor="let sf of visibleSousFormations" class="platform-card">
             <div class="platform-header">
                 <div class="platform-logo-wrapper" style="background-color: #e0e7ff;">
-                <img [src]="sanitizeImage(sf.image)" alt="logo" class="platform-logo">
+                <img [src]="sanitizeImage(sf.logo)" alt="logo" class="platform-logo">
                 </div>
                 <h3 class="platform-name"> Formation en <br> {{ sf.title }}</h3>
             </div>

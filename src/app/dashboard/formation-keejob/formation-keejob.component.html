@@ -269,8 +269,49 @@
         [showAllLogiciels]="false"
         [displayMode]="'inline'">
       </app-logiciel>
-    </div>
-    <div class="modal-body scrollable" *ngIf="showLogicielGridInModal" >
+    
+        <!-- ✅ Section 1: Grille de tous les logiciels disponibles -->
+    
+      <h4 style="margin-bottom: 15px; color: #1976d2;">
+        📚 Tous les logiciels disponibles - Cliquez pour assigner
+      </h4>
+      
+      <div class="logiciel-grid-container" *ngIf="!loadingAllLogiciels && allLogiciels?.length">
+        <div class="logiciel-grid">
+          <div *ngFor="let logiciel of allLogiciels" 
+               class="logiciel-card"
+               [class.already-assigned]="isLogicielAssigned(logiciel.id)"
+               (click)="assignLogicielToSousFormation(logiciel)"
+               [title]="isLogicielAssigned(logiciel.id) ? 'Déjà assigné' : 'Cliquer pour assigner'">
+            
+            <div class="logiciel-image">
+              <img [src]="sanitizeImage(logiciel.image)" 
+                   [alt]="logiciel.name"
+                   onerror="this.src='assets/default-software.png'" />
+            </div>
+            
+            <div class="logiciel-info">
+              <p class="logiciel-name">{{ logiciel.name }}</p>
+              <span class="logiciel-status" *ngIf="isLogicielAssigned(logiciel.id)">✓ Assigné</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loader pour tous les logiciels -->
+      <div *ngIf="loadingAllLogiciels" class="loader" style="padding: 20px;">
+        <div class="spinner"></div>
+        <p>Chargement des logiciels disponibles...</p>
+      </div>
+
+      <!-- Message si aucun logiciel disponible -->
+      <div *ngIf="!loadingAllLogiciels && (!allLogiciels || allLogiciels.length === 0)" 
+           class="no-data" 
+           style="padding: 20px; background: #f5f5f5; border-radius: 8px;">
+        <p>Aucun logiciel disponible dans la base de données</p>
+      </div>
+    
+    <div  *ngIf="showLogicielGridInModal" >
       <table class="logiciel-table">
         <thead>
           <tr>
@@ -310,13 +351,12 @@
             </td>
           </tr>
         </tbody>
-      </table>
-
+      </table>      
       <p *ngIf="!logicielMap[currentSousFormation?.id]?.length" class="no-data">
         Aucun logiciel disponible
       </p>
     </div>
-
+    </div>
     <div class="modal-actions">
       <button (click)="closeLogicielModal()" class="btn btn-gray">Fermer</button>
     </div>

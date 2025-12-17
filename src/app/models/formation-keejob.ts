@@ -5,6 +5,8 @@ import { SousFormationKeejob } from "./sous-formation-keejob";
 export enum FormationCategory {
   Formations_langues = 'Formations_langues',
   Formations_office = 'Formations_office',
+  Formations_Design = 'Formations_Design',
+
 }
 
 

@@ -38,6 +38,7 @@ export class SousFormationKeejobDetailsComponent implements OnInit {
         data.title,
         data.description,
         data.image,
+        data.logo,
         data.titleLogiciel,
         data.sousFormationPartenaires,
         data.sousFormationLogiciel,
@@ -64,14 +65,10 @@ export class SousFormationKeejobDetailsComponent implements OnInit {
   }
 
   // ----- SOUS-FORMATIONS -----
-  updatevisibleLogiciels() {
-    const total = this.logiciel.length;
-    this.visibleLogiciels = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (this.currentIndexSous + i) % total;
-      if (total > 0) this.visibleLogiciels.push(this.logiciel[index]);
-    }
-  }
+updatevisibleLogiciels() {
+  this.visibleLogiciels = this.logiciel;
+}
+
 
   updateVisiblePartners() {
     const total = this.allPartners.length;

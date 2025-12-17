@@ -34,8 +34,12 @@
             <img [src]="sanitizeImage(cv.image)" [alt]="cv.name + ' icon'">
           </div>
           <div class="hero-text">
-            <h2>{{ cv.sections[0]?.headline }}</h2>
-            <p>{{ cv.sections[0]?.subtitle }}</p>
+            <p>{{ cv.sections[0]?.headline }}</p>
+            <h2>{{ cv.sections[0]?.subtitle }}</h2>
+            <div class="expertise-right" *ngFor="let detail of cv.sections[0]?.details">
+            <p>{{ detail.description }}</p>
+            </div>
+
           </div>
         </div>
       </div>
@@ -45,8 +49,11 @@
       <div class="container">
         <div class="expertise-grid">
           <div class="expertise-left">
-            <h2>{{ cv.sections[1]?.headline }}</h2>
-            <p>{{ cv.sections[1]?.subtitle }}</p>
+            <p>{{ cv.sections[1]?.headline }}</p>
+            <h2>{{ cv.sections[1]?.subtitle }}</h2>
+            <div class="expertise-right" *ngFor="let detail of cv.sections[1]?.details">
+            <p>{{ detail.description }}</p>
+            </div>
           </div>
           <div class="expertise-right">
             <h3>{{ cv.sections[2]?.headline }}</h3>
@@ -125,7 +132,7 @@
     <div class="step-icon">
       <div style="position: relative; width: 168px; height: 168px; margin: 0 auto;">
         <div class="heroo-icon">
-          <span *ngIf="detail.icon" style="font-size: 90px;">{{ detail.icon }}</span>
+          <img [src]="sanitizeImage(detail.icon)" [alt]="cv.name + ' icon'">
         </div>
       </div>
     </div>

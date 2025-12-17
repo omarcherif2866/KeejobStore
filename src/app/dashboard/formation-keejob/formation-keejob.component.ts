@@ -38,6 +38,7 @@ export class FormationKeejobComponent implements OnInit {
   showSousFormationModal = false;
   showLogicielModal = false;
   selectedLogicielsInModal: any[] = [];
+  logiciels: any[] = [];
 
   modalMode: 'add' | 'edit' = 'add';
 
@@ -78,7 +79,8 @@ export class FormationKeejobComponent implements OnInit {
   logicielMap: { [sfId: number]: Logiciel[] } = {};
   formationCategoryEnum = FormationCategory;
   availableFormationsCategories = Object.values(FormationCategory);
-
+  allLogiciels: any[] = []; // Tous les logiciels disponibles
+  loadingAllLogiciels: boolean = false;
   constructor(
     private partenaireservice: PartenaireService, 
     private formationsKeejobervice: FormationKeejobService, 
@@ -99,6 +101,7 @@ export class FormationKeejobComponent implements OnInit {
     console.log('🚀 Initialisation - currentStep:', this.currentStep);
     this.fetchformationsKeejob();
     this.fetchPartenaires();
+    this.loadAllLogiciels()
   }
 
   // ==================== RÉCUPÉRATION DES DONNÉES ====================
@@ -729,6 +732,8 @@ onSousFormationSelected(sousFormation: any) {
  
 }
 
+
+
   onLogoSelected(event: any) {
   const file = event.target.files[0];
     if (file) {
@@ -820,6 +825,185 @@ finishProcess() {
 
 formatCategory(category: string): string {
   return category.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+}
+
+loadAllLogiciels(): void {
+  this.loadingAllLogiciels = true;
+  
+  this.logicielService.getLogiciel().subscribe({
+    next: (response) => {
+      console.log('📚 Tous les logiciels chargés:', response);
+      this.allLogiciels = response;
+      this.loadingAllLogiciels = false;
+    },
+    error: (error) => {
+      console.error('❌ Erreur lors du chargement des logiciels:', error);
+      this.loadingAllLogiciels = false;
+      // Afficher un message d'erreur à l'utilisateur
+    }
+  });
+}
+
+// Méthode pour vérifier si un logiciel est déjà assigné
+isLogicielAssigned(logicielId: number): boolean {
+  if (!this.currentSousFormation?.id || !this.logicielMap[this.currentSousFormation.id]) {
+    return false;
+  }
+  
+  return this.logicielMap[this.currentSousFormation.id].some(
+    (log: any) => log.id === logicielId
+  );
+}
+
+// Méthode pour assigner un logiciel à la sous-formation
+assignLogicielToSousFormation(logiciel: any): void {
+  // Si déjà assigné, ne rien faire
+  if (this.isLogicielAssigned(logiciel.id)) {
+    console.log('⚠️ Logiciel déjà assigné');
+    this.showWarningMessage(`Le logiciel "${logiciel.name}" est déjà assigné à cette sous-formation`);
+    return;
+  }
+
+  const sousFormationId = this.currentSousFormation?.id;
+  
+  if (!sousFormationId) {
+    console.error('❌ Aucune sous-formation sélectionnée');
+    this.showErrorMessage('Aucune sous-formation sélectionnée');
+    return;
+  }
+
+  console.log(`🔗 Assignation du logiciel ${logiciel.name} (ID: ${logiciel.id}) à la sous-formation ${sousFormationId}`);
+
+  // Afficher un indicateur de chargement
+  this.loading = true;
+
+  // Appel API pour créer la relation many-to-many
+  this.logicielService.assignLogiciel(sousFormationId, logiciel.id).subscribe({
+    next: (response) => {
+      console.log('✅ Logiciel assigné avec succès:', response);
+      
+      // Mettre à jour la liste locale
+      if (!this.logicielMap[sousFormationId]) {
+        this.logicielMap[sousFormationId] = [];
+      }
+      
+      // Vérifier si le logiciel n'est pas déjà dans la liste locale
+      const exists = this.logicielMap[sousFormationId].some((log: any) => log.id === logiciel.id);
+      if (!exists) {
+        this.logicielMap[sousFormationId].push(logiciel);
+      }
+      
+      // Afficher un message de succès
+      this.showSuccessMessage(`Logiciel "${logiciel.name}" assigné avec succès !`);
+      
+      this.loading = false;
+    },
+    error: (error) => {
+      console.error('❌ Erreur lors de l\'assignation:', error);
+      
+      // Gérer les différents types d'erreurs
+      let errorMessage = 'Erreur lors de l\'assignation du logiciel';
+      
+      if (error.status === 409) {
+        errorMessage = 'Ce logiciel est déjà assigné à cette sous-formation';
+      } else if (error.status === 404) {
+        errorMessage = 'Sous-formation ou logiciel introuvable';
+      } else if (error.error && typeof error.error === 'string') {
+        errorMessage = error.error;
+      }
+      
+      this.showErrorMessage(errorMessage);
+      this.loading = false;
+    }
+  });
+}
+
+// Méthode pour désassigner un logiciel (retirer la relation)
+unassignLogiciel(logicielId: number, logicielName?: string): void {
+  const sousFormationId = this.currentSousFormation?.id;
+  
+  if (!sousFormationId) {
+    console.error('❌ Aucune sous-formation sélectionnée');
+    this.showErrorMessage('Aucune sous-formation sélectionnée');
+    return;
+  }
+
+  const displayName = logicielName || `ID: ${logicielId}`;
+  
+  if (confirm(`Voulez-vous vraiment retirer le logiciel "${displayName}" de cette sous-formation ?`)) {
+    console.log(`🔓 Désassignation du logiciel ${logicielId} de la sous-formation ${sousFormationId}`);
+
+    // Afficher un indicateur de chargement
+    this.loading = true;
+
+    // Appel API pour supprimer la relation
+    this.logicielService.unassignLogiciel(sousFormationId, logicielId).subscribe({
+      next: (response) => {
+        console.log('✅ Logiciel désassigné avec succès:', response);
+        
+        // Mettre à jour la liste locale
+        if (this.logicielMap[sousFormationId]) {
+          this.logicielMap[sousFormationId] = this.logicielMap[sousFormationId].filter(
+            (log: any) => log.id !== logicielId
+          );
+        }
+        
+        // Afficher un message de succès
+        this.showSuccessMessage(`Logiciel "${displayName}" retiré avec succès !`);
+        
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('❌ Erreur lors de la désassignation:', error);
+        
+        // Gérer les différents types d'erreurs
+        let errorMessage = 'Erreur lors du retrait du logiciel';
+        
+        if (error.status === 404) {
+          errorMessage = 'Le logiciel n\'est pas assigné à cette sous-formation ou est introuvable';
+        } else if (error.error && typeof error.error === 'string') {
+          errorMessage = error.error;
+        }
+        
+        this.showErrorMessage(errorMessage);
+        this.loading = false;
+      }
+    });
+  }
+}
+
+// Méthodes utilitaires pour afficher les messages (à adapter selon votre système de notification)
+private showSuccessMessage(message: string): void {
+  // Option 1 : Angular Material Snackbar
+  // this.snackBar.open(message, 'Fermer', { duration: 3000, panelClass: ['success-snackbar'] });
+  
+  // Option 2 : Toast personnalisé
+  // this.toastService.success(message);
+  
+  // Option 3 : Simple alert (temporaire)
+  alert(message);
+}
+
+private showErrorMessage(message: string): void {
+  // Option 1 : Angular Material Snackbar
+  // this.snackBar.open(message, 'Fermer', { duration: 5000, panelClass: ['error-snackbar'] });
+  
+  // Option 2 : Toast personnalisé
+  // this.toastService.error(message);
+  
+  // Option 3 : Simple alert (temporaire)
+  alert(message);
+}
+
+private showWarningMessage(message: string): void {
+  // Option 1 : Angular Material Snackbar
+  // this.snackBar.open(message, 'Fermer', { duration: 4000, panelClass: ['warning-snackbar'] });
+  
+  // Option 2 : Toast personnalisé
+  // this.toastService.warning(message);
+  
+  // Option 3 : Simple alert (temporaire)
+  alert(message);
 }
 
 }

@@ -753,7 +753,7 @@ onIconSelected(event: any, detail: Details) {
     }
     
     // Validation de la taille (max 2MB pour les icônes)
-    if (file.size > 2 * 1024 * 1024) {
+    if (file.size > 200 * 1024 * 1024) {
       Swal.fire({
         icon: 'error',
         title: 'Erreur',

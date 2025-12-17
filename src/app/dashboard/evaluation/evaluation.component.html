@@ -992,6 +992,11 @@
       <div *ngIf="catalogues.length === 0" class="no-catalogues">
         <p>Aucun catalogue ajouté. Cliquez sur "+ Ajouter un catalogue" pour commencer.</p>
       </div>
+      <div class="section-header">
+        <button type="button" (click)="addCatalogue()" class="btn btn-blue">
+          + Ajouter un catalogue
+        </button>
+      </div>
     </div>
 
     <!-- Résumé final de l'évaluation -->
@@ -1021,11 +1026,7 @@
       </div>
     </div>
   </div>
-      <div class="section-header">
-      <button type="button" (click)="addCatalogue()" class="btn btn-blue">
-        + Ajouter un catalogue
-      </button>
-    </div>
+
 </div>
     </div>
 

@@ -15,7 +15,7 @@
             <div class="hero-left">
         <div class="e-testing-badge">
           <div class="e-testing-icon-wrapper">
-            <img [src]="sanitizeImage(evaluation.image)" [alt]="evaluation.name + ' icon'">
+            <img [src]="sanitizeImage(evaluation.logo)" [alt]="evaluation.name + ' icon'" class="brand-icon">
           </div>
            <h2 class="brand-name">{{ evaluation.name }}</h2>
         </div>
@@ -119,7 +119,10 @@
       </div>
       <div class="language-tests-grid">
         <div class="language-card" *ngFor="let detail of groupedDetails[category]">
-          <span class="icon">{{ detail.icon }}</span>
+            <img 
+              [src]="sanitizeImage(detail.icon)" 
+              [alt]="evaluation.name + ' icon'" 
+            />
           <p>{{ detail.titre }}</p>
           <p *ngIf="detail.description">{{ detail.description }}</p>
           <a href="#" class="btn-start">Commencer</a>
