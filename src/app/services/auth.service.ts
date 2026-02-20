@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   // -------------------- LOGIN --------------------
-  login(loginData: { username: string; password: string }): Observable<any> {
+  login(loginData: { email: string; password: string }): Observable<any> {
     return this.httpClient.post<any>(`${this.apiUrl}/login`, loginData).pipe(
       tap(response => {
         localStorage.setItem(this.localStorageKey, JSON.stringify(response));
@@ -59,6 +59,7 @@ logout(): void {
 
   // -------------------- REGISTER --------------------
   addUser(user: any): Observable<User> {
+      console.log('Sending to backend:', user);
     return this.httpClient.post<User>(`${this.apiUrl}/register`, user);
   }
 

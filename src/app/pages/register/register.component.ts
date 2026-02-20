@@ -15,11 +15,6 @@ export class RegisterComponent implements OnInit {
   
 
   constructor(private userservice: AuthService) {
-    // Définir le style de fond directement dans le constructeur
-    // document.body.style.backgroundImage = 'url(../../assets/images/gymblack.jpg)';
-    // document.body.style.backgroundSize = 'cover';
-    // document.body.style.height = '100vh';
-    // document.body.style.margin = '0';
    
   }
 

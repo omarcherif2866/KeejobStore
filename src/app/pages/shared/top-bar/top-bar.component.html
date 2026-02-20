@@ -31,94 +31,107 @@
     </div>
   </div>
 
-  <nav class="navbar">
-    <div class="container">
+<nav class="navbar">
+  <div class="container">
+
+    <!-- Header mobile : logo + burger -->
+    <div class="navbar-top">
       <div class="logo">
-          <a href="#">
-            <img src="../../../assets/img_image_306.png" alt="" class="logoK">
-          </a>
+        <a href="#">
+          <img src="../../../assets/img_image_306.png" alt="" class="logoK">
+        </a>
       </div>
-    <ul class="nav-links">
-      <li class="dropdown">
-        <a href="evaluation">Evaluation</a>
 
-        <ul class="dropdown-menu cool-menu">
-          <li>
-            <a [routerLink]="['/evaluation/category', 'Les_tests_psychométriques']">
-              Les tests psychométriques
-            </a>
-          </li>
+      <div class="burger" (click)="toggleMenu()" [class.open]="menuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
 
-          <li>
-            <a [routerLink]="['/evaluation/category', 'Les_tests_de_compétences']">
-              Les tests de compétences
-            </a>
-          </li>
-        </ul>
-      </li>
+    <!-- Tout le contenu dans le menu burger -->
+    <div class="nav-wrapper" [class.open]="menuOpen">
 
-      <li class="dropdown">
-        <a href="formation">Formations</a>
+      <!-- Liens nav -->
+      <ul class="nav-links">
 
-        <ul class="dropdown-menu cool-menu">
-          <li><a [routerLink]="['/formation/category', 'Formations_langues']">Formations Langues</a></li>
-          <li><a [routerLink]="['/formation/category', 'Formations_office']">Formation office</a></li>
-        </ul>
-      </li>      
-      <li class="dropdown">
-        <a href="certifications">Certifications</a>
+        <li class="dropdown">
+          <a href="evaluation" (click)="toggleDropdownMenu('evaluation', $event)">
+            Evaluation <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="activeDropdown === 'evaluation'"></i>
+          </a>
+          <ul class="cool-menu" [class.open-sub]="activeDropdown === 'evaluation'">
+            <li><a [routerLink]="['/evaluation/category', 'Les_tests_psychométriques']">Les tests psychométriques</a></li>
+            <li><a [routerLink]="['/evaluation/category', 'Les_tests_de_compétences']">Les tests de compétences</a></li>
+          </ul>
+        </li>
 
-        <ul class="dropdown-menu cool-menu">
-          <li><a href="tests_psychometriques">Desktop</a></li>
-          <li><a href="tests_competences">Graphique</a></li>
-          <li><a href="tests_competences">Code</a></li>
+        <li class="dropdown">
+          <a href="formation" (click)="toggleDropdownMenu('formation', $event)">
+            Formations <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="activeDropdown === 'formation'"></i>
+          </a>
+          <ul class="cool-menu" [class.open-sub]="activeDropdown === 'formation'">
+            <li><a [routerLink]="['/formation/category', 'Formations_langues']">Formations Langues</a></li>
+            <li><a [routerLink]="['/formation/category', 'Formations_office']">Formation office</a></li>
+            <li><a [routerLink]="['/formation/category', 'Formations_Design']">Formation design</a></li>
+          </ul>
+        </li>
 
-        </ul>
-      </li> 
-      <li class="dropdown">
-        <a href="coaching_emploi">Coaching Emploi</a>
+        <li class="dropdown">
+          <a href="certifications" (click)="toggleDropdownMenu('certifications', $event)">
+            Certifications <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="activeDropdown === 'certifications'"></i>
+          </a>
+          <ul class="cool-menu" [class.open-sub]="activeDropdown === 'certifications'">
+            <li><a href="tests_psychometriques">Desktop</a></li>
+            <li><a href="tests_competences">Graphique</a></li>
+            <li><a href="tests_competences">Code</a></li>
+          </ul>
+        </li>
 
-        <ul class="dropdown-menu cool-menu">
-          <li><a [routerLink]="['/coaching_emploi/category', 'En_Ligne']">En Ligne </a></li>
-          <li><a [routerLink]="['/coaching_emploi/category', 'Présentiel']">Présentiel</a></li>
-          <li><a [routerLink]="['/coaching_emploi/category', 'Simulation_dentretint']">Simulation d’entretient</a></li>
+        <li class="dropdown">
+          <a href="coaching_emploi" (click)="toggleDropdownMenu('coaching', $event)">
+            Coaching Emploi <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="activeDropdown === 'coaching'"></i>
+          </a>
+          <ul class="cool-menu" [class.open-sub]="activeDropdown === 'coaching'">
+            <li><a [routerLink]="['/coaching_emploi/category', 'En_Ligne']">En Ligne</a></li>
+            <li><a [routerLink]="['/coaching_emploi/category', 'Présentiel']">Présentiel</a></li>
+            <li><a [routerLink]="['/coaching_emploi/category', 'Simulation_dentretint']">Simulation d'entretien</a></li>
+          </ul>
+        </li>
 
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="cv_et_lettre_de_mottivation">Correction de CV et lettre de motivation</a>
+        <li class="dropdown">
+          <a href="cv_et_lettre_de_mottivation" (click)="toggleDropdownMenu('cv', $event)">
+            CV et LM <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="activeDropdown === 'cv'"></i>
+          </a>
+          <ul class="cool-menu" [class.open-sub]="activeDropdown === 'cv'">
+            <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Correction_et_rédaction_de_CV']">Correction et rédaction de CV</a></li>
+            <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Correction_et_rédaction_de_LM']">Correction et rédaction de LM</a></li>
+            <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Traduction_de_CV_et_LM']">Traduction de CV et LM</a></li>
+          </ul>
+        </li>
 
-        <ul class="dropdown-menu cool-menu">
-          <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Correction_et_rédaction_de_CV']">Correction  et rédaction de CV</a></li>
-          <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Correction_et_rédaction_de_LM']">Correction  et rédaction de LM</a></li>
-          <li><a [routerLink]="['/cv_et_lettre_de_mottivation/category', 'Traduction_de_CV_et_LM']">Traduction de CV et LM </a></li>
+        <li class="dropdown">
+          <a href="partenaires" (click)="toggleDropdownMenu('partenaires', $event)">
+            Partenaires <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="activeDropdown === 'partenaires'"></i>
+          </a>
+          <ul class="cool-menu" [class.open-sub]="activeDropdown === 'partenaires'">
+            <li><a href="tests_psychometriques">Fiche</a></li>
+            <li><a href="tests_competences">Store</a></li>
+          </ul>
+        </li>
 
-        </ul>
-      </li>       
-      <li class="dropdown">
-        <a href="partenaires">Partenaires</a>
+        <li class="dropdown">
+          <a href="international" (click)="toggleDropdownMenu('international', $event)">
+            International <i class="fas fa-chevron-down dropdown-arrow" [class.rotated]="activeDropdown === 'international'"></i>
+          </a>
+          <ul class="cool-menu" [class.open-sub]="activeDropdown === 'international'">
+            <li><a href="tests_psychometriques">S'informer</a></li>
+            <li><a href="tests_competences">Préparer et valider mon projet</a></li>
+          </ul>
+        </li>
 
-        <ul class="dropdown-menu cool-menu">
-          <li><a href="tests_psychometriques">Fiche</a></li>
-          <li><a href="tests_competences">Store</a></li>
-        </ul>
-      </li>  
-      <li class="dropdown">
-        <a href="international">International</a>
+      </ul>
 
-        <ul class="dropdown-menu cool-menu">
-          <li><a href="tests_psychometriques">S’informer</a></li>
-          <li><a href="tests_competences">Préparer et valider mon projet</a></li>
-        </ul>
-      </li>  
-      <!-- <li><a href="formation">Formations</a></li>
-      <li><a href="certifications">Certifications</a></li>
-      <li><a href="coaching_emploi">Coaching Emploi</a></li>
-      <li><a href="cv_et_lettre_de_mottivation">Correction de CV et lettre de motivation</a></li>
-      <li><a href="partenaires">Partenaires</a></li>
-      <li><a href="international">International</a></li> -->
-    </ul>
-
+      <!-- Search + boutons — aussi dans le burger sur mobile -->
       <div class="nav-actions">
         <div class="search-box" [class.active]="searchActive">
           <i class="fas fa-search" (click)="toggleSearch()"></i>
@@ -126,30 +139,27 @@
         </div>
 
         <div class="user-menu">
-          <!-- Si connecté -->
           <div *ngIf="isLoggedIn; else loggedOut" class="button-group">
-            <button class="btn btn-primary" (click)="toggleDropdown()">
+            <button class="btn btn-primary" (click)="toggleDropdownMenu('user', $event)">
               <i class="fas fa-user-alt"></i> {{ username }}
               <i class="fas fa-caret-down"></i>
             </button>
-            <button class="btn btn-cancel" (click)="logout()">se deconnecter</button>
-
+            <button class="btn btn-cancel" (click)="logout()">Se déconnecter</button>
           </div>
-
-          <!-- Si déconnecté -->
-        <ng-template #loggedOut>
-          <div class="button-group">
-            <button class="btn btn-primary" routerLink="/login">Se connecter</button>
-            <button class="btn btn-primary" routerLink="/register">S'inscrire</button>
-          </div>
-        </ng-template>
-
+          <ng-template #loggedOut>
+            <div class="button-group">
+              <button class="btn btn-primary" routerLink="/login">Se connecter</button>
+              <button class="btn btn-primary" routerLink="/register">S'inscrire</button>
+            </div>
+          </ng-template>
         </div>
-
-
       </div>
+
     </div>
-  </nav>
+    <!-- fin nav-wrapper -->
+
+  </div>
+</nav>
 
 
 

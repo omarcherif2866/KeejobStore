@@ -14,6 +14,9 @@ searchActive = false;
   isLoggedIn: boolean = false;
   username: string = '';
   showDropdown: boolean = false;
+menuOpen = false;
+activeDropdown: string | null = null
+
     constructor(private authService: AuthService,private router:Router, private cdr: ChangeDetectorRef
     ) { }
 
@@ -40,6 +43,18 @@ ngOnInit(): void {
 
     this.cdr.detectChanges();
   });
+}
+
+
+toggleMenu() {
+  this.menuOpen = !this.menuOpen;
+  this.activeDropdown = null;
+}
+
+toggleDropdownMenu(name: string, event: Event) {
+  event.preventDefault();
+  event.stopPropagation();
+  this.activeDropdown = this.activeDropdown === name ? null : name;
 }
 
   toggleDropdown() {
